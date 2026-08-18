@@ -16,6 +16,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
   return {
     metadataBase: new URL(origin),
+    themeColor: "#f2f4f8",
     title: "JimDesigns | Webdesign, development & Shopify",
     description: "JimDesigns ontwerpt en bouwt heldere websites en Shopify-webshops voor lokale ondernemers en kleine bedrijven.",
     icons: { icon: "/images/jimdesigns-logo-mark.png" },

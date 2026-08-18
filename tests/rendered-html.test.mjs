@@ -21,7 +21,7 @@ test("server-renders the JimDesigns website", async () => {
   const html = await response.text();
   assert.match(html, /<html lang="nl">/i);
   assert.match(html, /Meer dan een template\./);
-  assert.match(html, /jimdesigns-hero-v2\.jpg/);
+  assert.match(html, /jimdesigns-hero-higgsfield-v2\.jpg/);
   assert.match(html, /Kennismaken/);
   assert.match(html, /JimDesigns \| Webdesign, development &amp; Shopify/);
   assert.doesNotMatch(html, /Berfume|berfume-home/i);

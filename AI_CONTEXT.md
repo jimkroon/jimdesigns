@@ -51,6 +51,7 @@ De site moet clean en overzichtelijk zijn, maar wel voldoende visuals en een cre
 - Typografie: strak, modern en een beetje chique.
 - De precieze fonts en interfacecomponenten zijn nog niet gekozen.
 - Websitefotografie wordt speciaal voor JimDesigns gemaakt in een koele witte, zilveren, inktzwarte en kobaltblauwe materiaaltaal.
+- Handen mogen zichtbaar zijn in de fotografie. Gebruik daarbij jonge, geloofwaardige handen die bij Jim als 15-jarige passen; vermijd een misleidende volwassen persona.
 - Gebruik op de eigen JimDesigns-site geen foto’s of screenshots van de voormalige klant Berfume. Verzin ter vervanging geen fictieve klantcase.
 
 ## Wat te vermijden
@@ -111,7 +112,7 @@ De gebruiker wil uiteindelijk een echt goede website, niet alleen een snel templ
 - Mogelijke onderdelen van de case: probleem, doelgroep, aanpak, ontwerpkeuzes, functies, resultaat en screenshots. Gebruik alleen aantoonbare feiten.
 - Er zijn nog geen goede professionele foto’s van de oprichter.
 - Voor "Over mij" kan voorlopig worden gewerkt met sterke tekst, het werkproces, detailbeelden van het werk of een passende subtiele illustratieve oplossing.
-- De oprichter is 14 jaar. Houd teksten eerlijk en professioneel; laat betrouwbaarheid vooral blijken uit proces, communicatie, vakwerk en duidelijke afspraken.
+- De oprichter is 15 jaar. Houd teksten eerlijk en professioneel; laat betrouwbaarheid vooral blijken uit proces, communicatie, vakwerk en duidelijke afspraken.
 
 ## Technische voorkeur
 
@@ -139,9 +140,10 @@ Gebruik alleen de skills die daadwerkelijk bij de taak passen; stapel overlappen
 ## Huidige projectstatus
 
 - De eerste volledige redesign is in React/TypeScript geïmplementeerd op de bestaande vinext/Sites-stack.
-- De actuele richting gebruikt Manrope, een lichte koelwitte basis, diep inkt, één kobaltblauw accent en een zachte radius-schaal.
+- De actuele richting gebruikt Manrope, een lichte koelwitte basis, diep inkt, één kobaltblauw accent en een scherpe, vrijwel radiusloze vormtaal.
+- De art direction is uitgesproken editoriaal en Zwitsers: grote typografische schaal, asymmetrische overlap, koele materiaalbeelden en afwisselende sectiecomposities.
 - De homepage bevat diensten, werkwijze, Over Jim en contact als ankersecties.
-- Originele JimDesigns-fotografie voor hero, proces en Over Jim is gegenereerd zonder personen, klantmerken of leesbare nep-interface.
+- Originele JimDesigns-fotografie voor hero, proces en Over Jim is met Higgsfield gegenereerd zonder klantmerken of leesbare nep-interface. Hero en proces tonen uitsluitend één paar jonge handen; het studiobeeld toont geen persoon.
 - Berfume is niet zichtbaar in de actuele site of social-preview.
 - Professionele portretfotografie ontbreekt; de Over Jim-sectie gebruikt daarom eerlijk proces- en materiaalbeeld.
 - De site is technisch gebouwd en moet bij relevante wijzigingen opnieuw worden gevalideerd en gepubliceerd.
