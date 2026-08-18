@@ -120,6 +120,22 @@ De gebruiker wil uiteindelijk een echt goede website, niet alleen een snel templ
 - Exact framework, stylingmethode, CMS, hosting, analytics, formulieren en SEO-implementatie zijn nog niet besloten.
 - Shopify behoort tot het dienstenaanbod, maar de eigen JimDesigns-site hoeft niet per se Shopify te gebruiken.
 
+## Beschikbare webdesign-skills
+
+De volgende persoonlijke Codex-skills zijn wereldwijd geïnstalleerd en kunnen bij passende ontwerp- en frontendtaken worden ingezet:
+
+- Taste Skill v2 (`design-taste-frontend`) voor briefing, art direction en anti-slopcontrole;
+- `frontend-design` voor onderscheidende, doelgerichte frontendontwerpen;
+- `impeccable` voor ontwerpen, audits, typografie, layout, polish en responsive kwaliteit;
+- `redesign-existing-projects` voor het verbeteren van bestaande websites;
+- `imagegen-frontend-web` voor sectiespecifieke visuele webdesignreferenties;
+- Emil Kowalski's `emil-design-eng`, `review-animations` en `apple-design` voor interfacecraft en motion;
+- `prototype` voor meerdere duidelijk verschillende UI-varianten;
+- `pick-ui-library` voor een passende en betrouwbare frontendbibliotheek;
+- Vercels `web-design-guidelines` voor UI-, UX- en toegankelijkheidsreviews.
+
+Gebruik alleen de skills die daadwerkelijk bij de taak passen; stapel overlappende ontwerpregels niet automatisch.
+
 ## Huidige projectstatus
 
 - De eerste volledige redesign is in React/TypeScript geïmplementeerd op de bestaande vinext/Sites-stack.
