@@ -52,7 +52,7 @@ De site moet clean en overzichtelijk zijn, maar wel voldoende visuals en een cre
 - De precieze fonts en interfacecomponenten zijn nog niet gekozen.
 - Websitefotografie wordt speciaal voor JimDesigns gemaakt in een koele witte, zilveren, inktzwarte en kobaltblauwe materiaaltaal.
 - Handen mogen zichtbaar zijn in de fotografie. Gebruik daarbij jonge, geloofwaardige handen die bij Jim als 15-jarige passen; vermijd een misleidende volwassen persona.
-- Gebruik op de eigen JimDesigns-site geen foto’s of screenshots van de voormalige klant Berfume. Verzin ter vervanging geen fictieve klantcase.
+- De echte Berfume-webshop mag op de JimDesigns-site als portfolio-case worden getoond. Gebruik daarvoor echte sitescreenshots en zorgvuldig afgeleide presentaties, zonder resultaten of projectdetails te verzinnen.
 
 ## Wat te vermijden
 
@@ -139,21 +139,27 @@ Gebruik alleen de skills die daadwerkelijk bij de taak passen; stapel overlappen
 
 ## Huidige projectstatus
 
-- De eerste volledige redesign is in React/TypeScript geïmplementeerd op de bestaande vinext/Sites-stack.
-- De actuele richting gebruikt Manrope, een lichte koelwitte basis, diep inkt, één kobaltblauw accent en een scherpe, vrijwel radiusloze vormtaal.
-- De art direction is uitgesproken editoriaal en Zwitsers: grote typografische schaal, asymmetrische overlap, koele materiaalbeelden en afwisselende sectiecomposities.
-- De homepage bevat diensten, werkwijze, Over Jim en contact als ankersecties.
-- Originele JimDesigns-fotografie voor hero, proces en Over Jim is met Higgsfield gegenereerd zonder klantmerken of leesbare nep-interface. Hero en proces tonen uitsluitend één paar jonge handen; het studiobeeld toont geen persoon.
-- Berfume is niet zichtbaar in de actuele site of social-preview.
+- De actuele frontend-redesign is in React/TypeScript geïmplementeerd op de bestaande vinext/Sites-stack.
+- De richting gebruikt Manrope, een lichte koelwitte basis, diep inkt, één functioneel kobaltblauw accent en een scherpe radiusloze vormtaal.
+- De art direction is editoriaal en asymmetrisch: grote maar beheerste typografische schaal, koele materiaalbeelden, overlappende vlakken en afwisselende sectiecomposities.
+- De homepage opent met de fotografische hero “Websites met karakter” en bevat daarna een compacte bewijsbalk, diensten, ontwerp-plus-bouw, werkwijze, Over Jim en contact.
+- Het actuele hero-beeld is met ingebouwde ImageGen gemaakt; het proces- en studiobeeld komen uit de eerdere JimDesigns-beeldset. De beelden bevatten geen klantmerken of leesbare nep-interface en bouwen geen misleidende volwassen persona.
+- De herkenbare materiaaltaal bestaat uit koel wit, zilver, inktzwart en kobaltblauw. Kobalt wordt functioneel ingezet voor CTA's, focus en de belangrijkste materiaalvlakken.
+- Scrollbeweging is beperkt tot de hero-intro en één kobaltblauw materiaalmoment; overige secties blijven rustig en statisch. `prefers-reduced-motion` wordt ondersteund.
+- Berfume is de zichtbare echte portfolio-case. De portfolio gebruikt een volledig geladen screenshot van berfume.nl en een Higgsfield-presentatie van die screenshot op een MacBook.
 - Professionele portretfotografie ontbreekt; de Over Jim-sectie gebruikt daarom eerlijk proces- en materiaalbeeld.
-- De site is technisch gebouwd en moet bij relevante wijzigingen opnieuw worden gevalideerd en gepubliceerd.
+- `PRODUCT.md`, `DESIGN.md` en `.impeccable/QUALITY_BAR.md` bewaken voortaan respectievelijk productwaarheid, het visuele systeem en de kwaliteitslat.
+- De site is lokaal technisch gebouwd en gevalideerd; publiceren is een aparte volgende stap.
+- Het logo is als scherpe, transparante SVG vastgelegd en wordt in de header, footer en favicon gebruikt.
+- Er is een aparte portfolio-pagina op `/portfolio`. Deze toont Berfume.nl als één eerlijke, herkenbare webshopcase; het Higgsfield-beeld bevat de echte site op een MacBook en linkt rechtstreeks naar berfume.nl.
+- De footer is uitgebouwd tot een donker afsluitend merkvlak met een groot SVG-monogram, vaste contactactie, navigatie en rechtstreeks e-mailadres.
+- Het vaste contactadres is `info@jimdesigns.nl`.
+- De footer bevat links naar Algemene voorwaarden, Privacybeleid en Cookiebeleid. Definitieve juridische teksten moeten vóór publicatie worden gecontroleerd en aangevuld op basis van de uiteindelijke bedrijfsgegevens en techniek.
 
 ## Open beslissingen
 
-- Definitief kleurenpalet en exacte blauwe accentkleur.
-- Fontcombinatie en typografische schaal.
-- Stijl van knoppen, kaarten, iconen en illustraties.
-- Fotografie- en visualrichting.
+- Of het huidige kobaltblauw en Manrope na praktijkfeedback definitief blijven.
+- Verdere uitbreiding van de fotografie- en visualset.
 - Referentiewebsites.
 - Definitieve sitemap en homepagevolgorde.
 - Primaire call-to-action en gewenste contactmethode.
