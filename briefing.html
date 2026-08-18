@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Projectbriefing voor de nieuwe website en merkuitstraling van JimDesigns.">
+  <title>JimDesigns — Projectbriefing</title>
+  <style>
+    :root {
+      --ink: #172033;
+      --muted: #64748b;
+      --line: #dce5f0;
+      --soft: #f5f8fc;
+      --blue: #2563eb;
+      --blue-soft: #eaf1ff;
+      --white: #ffffff;
+      --max: 1120px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--soft);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.65;
+    }
+
+    header {
+      padding: 80px 24px 64px;
+      color: var(--white);
+      background: linear-gradient(135deg, #172033 0%, #1e3a67 70%, #2563eb 130%);
+    }
+
+    .wrap { width: min(100%, var(--max)); margin: 0 auto; }
+
+    .eyebrow {
+      margin: 0 0 12px;
+      color: #bdd2ff;
+      font-size: .8rem;
+      font-weight: 750;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+
+    h1 { margin: 0; font-size: clamp(2.5rem, 7vw, 5rem); line-height: 1; letter-spacing: -.055em; }
+    .intro { max-width: 700px; margin: 24px 0 0; color: #dce8ff; font-size: 1.12rem; }
+
+    main { padding: 42px 24px 80px; }
+
+    .summary {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    .summary div, section {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: var(--white);
+      box-shadow: 0 12px 34px rgba(23, 32, 51, .05);
+    }
+
+    .summary div { padding: 18px; }
+    .summary strong { display: block; margin-bottom: 4px; color: var(--blue); font-size: .78rem; letter-spacing: .08em; text-transform: uppercase; }
+    .summary span { font-weight: 650; }
+
+    .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+    section { padding: clamp(24px, 4vw, 38px); }
+    section.wide { grid-column: 1 / -1; }
+    h2 { margin: 0 0 18px; font-size: 1.35rem; letter-spacing: -.025em; }
+    h3 { margin: 24px 0 8px; font-size: 1rem; }
+    p { margin: 0 0 14px; }
+    ul { margin: 8px 0 0; padding-left: 1.2rem; }
+    li + li { margin-top: 7px; }
+    .tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .tag { padding: 7px 11px; border-radius: 999px; color: #174397; background: var(--blue-soft); font-size: .9rem; font-weight: 650; }
+    .note { padding: 16px 18px; border-left: 4px solid var(--blue); border-radius: 0 12px 12px 0; background: var(--blue-soft); }
+    .muted { color: var(--muted); }
+    footer { padding: 26px 24px 40px; color: var(--muted); text-align: center; font-size: .9rem; }
+
+    @media (max-width: 760px) {
+      header { padding-top: 56px; }
+      .summary, .grid { grid-template-columns: 1fr; }
+      section.wide { grid-column: auto; }
+    }
+
+    @media print {
+      body { background: white; }
+      header { padding: 40px 0; background: white; color: var(--ink); }
+      .intro, .eyebrow { color: var(--muted); }
+      main { padding: 28px 0; }
+      section, .summary div { box-shadow: none; break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <p class="eyebrow">Merk- en websitebriefing</p>
+      <h1>JimDesigns</h1>
+      <p class="intro">De uitgangspunten voor een lichte, rustige en professionele website die persoonlijk freelancecontact combineert met de uitstraling van een premium designstudio.</p>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="summary" aria-label="Kernsamenvatting">
+      <div><strong>Aanbod</strong><span>Design, bouw, Shopify en SEO</span></div>
+      <div><strong>Doelgroep</strong><span>Lokale bedrijven en webshops</span></div>
+      <div><strong>Stijl</strong><span>Licht, clean en visueel</span></div>
+      <div><strong>Techniek</strong><span>React + TypeScript</span></div>
+    </div>
+
+    <div class="grid">
+      <section>
+        <h2>Bedrijf en diensten</h2>
+        <p>JimDesigns ontwerpt én bouwt complete websites. Het aanbod bestaat uit:</p>
+        <ul>
+          <li>webdesign;</li>
+          <li>ontwikkeling van normale bedrijfswebsites;</li>
+          <li>Shopify-webshops;</li>
+          <li>SEO.</li>
+        </ul>
+        <h3>Onderscheidend vermogen</h3>
+        <p>Betaalbaar werken, snelle communicatie en persoonlijk contact.</p>
+      </section>
+
+      <section>
+        <h2>Doelgroep</h2>
+        <p>De focus ligt op lokale ondernemers en kleine bedrijven. JimDesigns wil breed inzetbaar zijn, bijvoorbeeld voor:</p>
+        <ul>
+          <li>loodgieters en andere vakbedrijven;</li>
+          <li>autowasbedrijven;</li>
+          <li>webshops;</li>
+          <li>andere lokale dienstverleners.</li>
+        </ul>
+        <p class="muted">Een recent project is een webshop voor parfum.</p>
+      </section>
+
+      <section>
+        <h2>Merkuitstraling</h2>
+        <div class="tags" aria-label="Merkwaarden">
+          <span class="tag">Betrouwbaar</span>
+          <span class="tag">Modern</span>
+          <span class="tag">Professioneel</span>
+          <span class="tag">Rustig</span>
+          <span class="tag">Premium</span>
+        </div>
+        <p style="margin-top: 18px">De website mag voelen als een combinatie van een persoonlijke freelancewebsite en een premium designstudio. De basis moet beheerst en geloofwaardig zijn, met een creatieve touch die de site een eigen karakter geeft.</p>
+      </section>
+
+      <section>
+        <h2>Visuele richting</h2>
+        <ul>
+          <li>Een lichte website met veel witruimte.</li>
+          <li>Clean en rustig, maar niet leeg of onpersoonlijk.</li>
+          <li>Meer visuals, zonder de overzichtelijkheid te verliezen.</li>
+          <li>Blauw is een mogelijke accentkleur.</li>
+          <li>Niet veel zwart gebruiken.</li>
+          <li>Beige zeer beperkt toepassen: de site mag niet aanvoelen als een generieke AI-template.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Typografie en interface</h2>
+        <p>De typografie moet strak, modern en licht chique zijn. De precieze lettertypes, knopstijl, kaartvormen en verdere UI-details zijn nog niet gekozen.</p>
+        <p class="note">Gewenste balans: professioneel en verfijnd, maar toegankelijk genoeg voor lokale ondernemers.</p>
+      </section>
+
+      <section>
+        <h2>Pagina’s en content</h2>
+        <p>De eerste versie moet in elk geval deze onderdelen hebben:</p>
+        <ul>
+          <li>Home;</li>
+          <li>Diensten;</li>
+          <li>Over mij;</li>
+          <li>Contact;</li>
+          <li>een project- of portfolio-onderdeel, passend bij de beperkte hoeveelheid bestaand werk.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Technische voorkeur</h2>
+        <p>De uiteindelijke website moet als maatwerk in code worden gebouwd, bij voorkeur met <strong>React</strong> en <strong>TypeScript</strong>. De keuze voor het exacte framework, hosting, CMS en formulieren staat nog open.</p>
+      </section>
+
+      <section>
+        <h2>Huidige status en beperkingen</h2>
+        <ul>
+          <li>JimDesigns staat nog aan het begin van de eigen merk- en websitestructuur.</li>
+          <li>Er is momenteel één project dat sterk genoeg voelt om prominent te tonen.</li>
+          <li>Er zijn nog geen goede professionele portretfoto’s beschikbaar.</li>
+          <li>De oprichter is 14 jaar; de website moet professioneel vertrouwen opbouwen zonder een verzonnen of onnatuurlijke presentatie.</li>
+          <li>Er zijn nog geen concrete referentiewebsites gekozen.</li>
+        </ul>
+      </section>
+
+      <section class="wide">
+        <h2>Open beslissingen en logische vervolgstappen</h2>
+        <ol>
+          <li>Maak twee of drie concrete moodboardrichtingen met lichte kleurpaletten en een beheerste blauwe optie.</li>
+          <li>Kies een fontcombinatie en bepaal de stijl van knoppen, kaarten, iconen en fotografie.</li>
+          <li>Selecteer enkele passende voorbeeldwebsites als visuele referentie.</li>
+          <li>Bepaal hoe het ene sterke project als uitgebreide case kan worden gepresenteerd.</li>
+          <li>Kies een geloofwaardige oplossing voor de Over mij-pagina zonder professionele portretfoto, bijvoorbeeld een persoonlijke tekst, werkproces, detailfoto’s of een subtiele illustratie.</li>
+          <li>Werk daarna de sitemap, teksten en wireframes uit voordat de React/TypeScript-bouw start.</li>
+        </ol>
+      </section>
+    </div>
+  </main>
+
+  <footer>JimDesigns projectbriefing — samengesteld op basis van de aangeleverde antwoorden.</footer>
+</body>
+</html>
