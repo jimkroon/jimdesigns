@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow"><meta name="description" content="Een fictieve haarstudio voor knippen, kleuren en haaradvies.">
+  <title>COUPE | Haarstudio</title>
+  <link rel="stylesheet" href="../shared/practical.css"><link rel="stylesheet" href="style.css">
+  <script src="../shared/practical.js" defer></script><link rel="stylesheet" href="../shared/motion.css"><script src="../shared/motion.js" defer></script>
+</head>
+<body data-motion="coupe">
+<!-- THESIS: A plausible COUPE business homepage, revised from Jim's feedback: natural Dutch copy and a layout specific to this business.
+OWN-WORLD: The site's own photographic subject, palette and type; no decorative initials, exaggerated repeated headings or filler sections.
+STORY: Understand the service, inspect useful content, choose the relevant next step.
+FIRST VIEWPORT: A concrete offer, legible action and relevant photography at ordinary website scale.
+FORM: User-authorized expansion to six HTML concepts. Existing brands refined; four distinct new businesses authored as fictional demonstrations.
+FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance -->
+<a class="skip" href="#inhoud">Naar de inhoud</a>
+<header class="header wrap">
+  <a class="logo" href="#" aria-label="COUPE, naar boven">COUPE</a>
+  <nav class="nav" id="site-nav" data-nav aria-label="Hoofdnavigatie"><a href="#behandelingen">Behandelingen</a><a href="#salon">De salon</a><a class="mobile-only" href="#afspraak">Afspraak bespreken</a></nav>
+  <a class="button" href="#afspraak">Afspraak bespreken <span class="icon" aria-hidden="true"></span></a>
+  <button class="menu-button" data-menu-button aria-controls="site-nav" aria-expanded="false">Menu</button>
+</header>
+<main id="inhoud">
+
+<section class="salon-hero wrap"><div class="photo cinema" data-cinema><div class="film-frame"><video id="coupe-film" data-src="assets/hero-video.mp4" poster="assets/hero-poster.jpg" muted loop playsinline preload="none" aria-label="Sfeerfilm van coupe"></video></div><button class="film-control" data-video-toggle="coupe-film" data-paused="true" aria-controls="coupe-film" type="button">Speel film</button></div><div class="salon-hero-copy"><h1>Tijd voor een<br>nieuwe coupe.</h1><p>Even overleggen, dan de schaar erin. Je bent welkom voor een knipbeurt, een nieuwe kleur of advies over je haar.</p><a class="button" href="#behandelingen">Bekijk behandelingen <span class="icon" aria-hidden="true"></span></a><a class="link" href="#afspraak">Een afspraak bespreken <span class="icon" aria-hidden="true"></span></a></div></section>
+<section class="section wrap salon-services" id="behandelingen"><div><h2>Wat wil je laten doen?</h2><p>Kies een behandeling om er meer over te lezen.</p><div class="filters" data-filter-group="behandeling-lijst" role="group" aria-label="Behandeling kiezen"><button class="filter" data-filter="knippen" aria-pressed="true" type="button">Knippen</button><button class="filter" data-filter="kleur" aria-pressed="false" type="button">Kleuren</button><button class="filter" data-filter="advies" aria-pressed="false" type="button">Advies</button></div><p class="sr-only" role="status" data-filter-status>1 keuze zichtbaar</p></div><div class="treatment-list" id="behandeling-lijst"><article data-category="knippen"><h3>Een coupe die je zelf kunt bijhouden.</h3><p>We kijken naar je haar, de vorm en hoe je het zelf draagt. Je kunt een voorbeeld meenemen of samen bespreken wat bij je past.</p><a class="link" href="#afspraak" data-pick="Knippen">Knipbeurt bespreken <span class="icon" aria-hidden="true"></span></a></article><article data-category="kleur" hidden><h3>Een andere kleur, of je eigen kleur opfrissen.</h3><p>Van een subtiel verschil tot een grotere verandering. We bespreken eerst wat er met je haar mogelijk is en welk onderhoud erbij hoort.</p><a class="link" href="#afspraak" data-pick="Kleuren">Kleurbehandeling bespreken <span class="icon" aria-hidden="true"></span></a></article><article data-category="advies" hidden><h3>Twijfel je nog?</h3><p>Neem voorbeelden mee die je mooi vindt. We bekijken je haar en leggen uit welke keuzes passen bij de lengte en structuur.</p><a class="link" href="#afspraak" data-pick="Eerst advies">Advies bespreken <span class="icon" aria-hidden="true"></span></a></article></div></section>
+<section class="salon-interior" id="salon"><div class="photo "><img src="assets/detail.jpg" alt="Een lichte salon met spiegels en kappersstoelen" width="1600" height="1067" loading=lazy></div><div class="interior-caption wrap"><h2>Je moet hier op je gemak zitten.</h2><p>Een afspraak begint met even bijpraten en bespreken wat je wilt. Zo weten we allebei waar we aan beginnen.</p></div></section>
+<section class="section wrap section-rule contact" id="afspraak"><div><h2>Een afspraak bespreken.</h2><p class="lead">Kies de behandeling en vertel wat je wilt laten doen. Als je een grote verandering overweegt, is vooraf overleggen handig.</p><p class="salon-extra">Neem gerust een foto mee van de coupe of kleur die je mooi vindt.</p></div><form class="form" data-demo-form>
+  <div class="form-row"><div class="field"><label for="coupe-naam">Naam</label><input id="coupe-naam" name="naam" autocomplete="name" required maxlength="100"></div><div class="field"><label for="coupe-email">E-mailadres</label><input id="coupe-email" name="e-mail" type="email" autocomplete="email" required maxlength="200"></div></div>
+  <div class="field"><label for="coupe-keuze">Welke behandeling?</label><select id="coupe-keuze" name="keuze"><option>Knippen</option><option>Kleuren</option><option>Knippen en kleuren</option><option>Eerst advies</option></select></div>
+  <div class="field"><label for="coupe-bericht">Vertel iets meer</label><textarea id="coupe-bericht" name="bericht" maxlength="2000" placeholder="Je vraag of wensen"></textarea></div>
+  <p class="demo-note">Dit is een portfolio-demo. Je kunt je aanvraag bekijken; er wordt niets verstuurd of gereserveerd.</p>
+  <button class="button" type="submit">Bekijk aanvraag <span class="icon" aria-hidden="true"></span></button>
+  <div class="form-result" role="status" tabindex="-1" hidden></div>
+</form></section>
+
+</main>
+<footer class="footer wrap">
+  <div class="footer-top"><a class="logo" href="#">COUPE</a><div class="footer-links"><a href="#behandelingen">Behandelingen</a><a href="#salon">De salon</a></div></div>
+  <div class="footer-bottom"><p>Fictief portfolio-ontwerp door JimDesigns. De foto’s zijn illustratief stockmateriaal.</p><a href="../credits.html">Beeldcredits</a><a href="../index.html">Alle zes ontwerpen</a></div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,6 @@
+Scope: Luwte fictional business homepage, part of a six-site portfolio. Visitor mode: Persuade.
+Latest user authority: too AI-like, especially layout and wording; make more. Earlier generated screenshot geometry is historical, not binding in this revision.
+Purpose: explain the business, provide useful service/product information and expose a sensible next action. Concrete, natural Dutch replaces decorative statements. Current index.html/style.css and shared/practical.css are the implemented authority.
+Own visual world: see the site's root CSS tokens and actual rendered evidence in .impeccable/review/v2. All controls are semantic HTML, native forms/dialogs/disclosures as relevant, with responsive layout at767px.
+Demo truth: all companies are fictional. Requests only render a local summary, no send/order/reservation. No real client/staff/project/price claims. Photographs are illustrative with recorded provenance.
+Evidence: .impeccable/review/v2/luwte-desktop.png and luwte-mobile.png, plus hero/content captures. Original directions are refined according to explicit human feedback.

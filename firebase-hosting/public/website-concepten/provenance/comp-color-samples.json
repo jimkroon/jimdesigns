@@ -1,0 +1,11 @@
+{
+  "luwte": {
+    "paper": "#efede7",
+    "rail": "#666d49"
+  },
+  "atelier-faye": {
+    "paper": "#f5f2ed",
+    "ink": "#0e2a9d"
+  },
+  "method": "Paper and rail: interior patch average. Faye ink: modal saturated blue pixel in the title region."
+}

@@ -1,0 +1,65 @@
+{
+  "retrieved": "2026-10-28",
+  "method": "Actual source MP4 downloads via curl GET with Mozilla/5.0 User-Agent; source pages browsed and free Pexels license verified.",
+  "usage": "Illustrative stock video for fictional portfolio companies. No actual staff, client work, property ownership or endorsement is implied.",
+  "verification": "ffprobe confirms genuine video streams, output durations, H264 encoding, dimensions and no audio. Contact sheets viewed at 2-second intervals show actual camera/hand/bicycle motion, not still-photo animation.",
+  "assets": [
+    {
+      "site": "luwte",
+      "asset": "luwte/assets/hero-video.mp4",
+      "poster": "luwte/assets/hero-video-poster.jpg",
+      "title": "A Modern Living Room",
+      "creator": "Max Vakhtbovych",
+      "source": "https://www.pexels.com/video/a-modern-living-room-7533207/",
+      "downloadURL": "https://videos.pexels.com/video-files/7533207/7533207-uhd_3840_2160_30fps.mp4",
+      "license": "Pexels License",
+      "licenseURL": "https://www.pexels.com/license/",
+      "description": "Slow genuine camera movement across a bright contemporary living room with white sofa and dark stone fireplace.",
+      "processing": "Start 0.4 seconds, duration 9 seconds; downscale to 1280x720, 25fps, H.264 CRF25 maxrate2400k, mute, yuv420p, faststart.",
+      "duration": 9,
+      "dimensions": [
+        1280,
+        720
+      ],
+      "bytes": 390878
+    },
+    {
+      "site": "atelier-faye",
+      "asset": "atelier-faye/assets/hero-video.mp4",
+      "poster": "atelier-faye/assets/hero-video-poster.jpg",
+      "title": "Person Arranging a Bouquet of Flowers",
+      "creator": "Amina Filkins",
+      "source": "https://www.pexels.com/video/person-arranging-a-bouquet-of-flowers-5404708/",
+      "downloadURL": "https://videos.pexels.com/video-files/5404708/5404708-uhd_3840_2160_25fps.mp4",
+      "license": "Pexels License",
+      "licenseURL": "https://www.pexels.com/license/",
+      "description": "Real overhead floral craft footage: hands wrap a pink-and-white bouquet on a wooden table.",
+      "processing": "Start 0.4 seconds, remaining duration 5.56 seconds; downscale to 1280x720, 25fps, H.264 CRF25 maxrate2400k, mute, yuv420p, faststart.",
+      "duration": 5.56,
+      "dimensions": [
+        1280,
+        720
+      ],
+      "bytes": 807146
+    },
+    {
+      "site": "noord",
+      "asset": "noord/assets/hero-video.mp4",
+      "poster": "noord/assets/hero-video-poster.jpg",
+      "title": "Man Fixing His Bicycle",
+      "creator": "Kaboompics.com",
+      "source": "https://www.pexels.com/video/man-fixing-his-bicycle-6333025/",
+      "downloadURL": "https://videos.pexels.com/video-files/6333025/6333025-uhd_4096_2160_25fps.mp4",
+      "license": "Pexels License",
+      "licenseURL": "https://www.pexels.com/license/",
+      "description": "Real indoor bicycle adjustment: a person checks and adjusts a red bicycle's handlebars in a home workshop setting.",
+      "processing": "Start 0.4 seconds, duration 9 seconds; downscale to 1280x676, 25fps, H.264 CRF25 maxrate2400k, mute, yuv420p, faststart.",
+      "duration": 9,
+      "dimensions": [
+        1280,
+        676
+      ],
+      "bytes": 1104931
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow"><meta name="description" content="Een fictieve buurtbakkerij met brood, croissants, kaneelbroodjes en koffie.">
+  <title>KORST | Brood, koffie en iets lekkers</title>
+  <link rel="stylesheet" href="../shared/practical.css"><link rel="stylesheet" href="style.css">
+  <script src="../shared/practical.js" defer></script><link rel="stylesheet" href="../shared/motion.css"><script src="../shared/motion.js" defer></script>
+</head>
+<body data-motion="korst">
+<!-- THESIS: A plausible KORST business homepage, revised from Jim's feedback: natural Dutch copy and a layout specific to this business.
+OWN-WORLD: The site's own photographic subject, palette and type; no decorative initials, exaggerated repeated headings or filler sections.
+STORY: Understand the service, inspect useful content, choose the relevant next step.
+FIRST VIEWPORT: A concrete offer, legible action and relevant photography at ordinary website scale.
+FORM: User-authorized expansion to six HTML concepts. Existing brands refined; four distinct new businesses authored as fictional demonstrations.
+FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance -->
+<a class="skip" href="#inhoud">Naar de inhoud</a>
+<header class="header wrap">
+  <a class="logo" href="#" aria-label="KORST, naar boven">KORST</a>
+  <nav class="nav" id="site-nav" data-nav aria-label="Hoofdnavigatie"><a href="#assortiment">Assortiment</a><a href="#bakkerij">De bakkerij</a><a class="mobile-only" href="#bestellen">Brood bestellen</a></nav>
+  <a class="button" href="#bestellen">Brood bestellen <span class="icon" aria-hidden="true"></span></a>
+  <button class="menu-button" data-menu-button aria-controls="site-nav" aria-expanded="false">Menu</button>
+</header>
+<main id="inhoud">
+
+<section class="bakery-title wrap"><h1>Goed brood.<br>En iets lekkers voor erbij.</h1><p>Zuurdesem, een croissant of koffie voor onderweg. Bij KORST vind je iets voor iedere trek.</p><a class="link" href="#assortiment">Bekijk het assortiment <span class="icon" aria-hidden="true"></span></a></section>
+<div class="counter-photo"><div class="photo cinema" data-cinema><div class="film-frame"><video id="korst-film" data-src="assets/hero-video.mp4" poster="assets/hero-poster.jpg" muted loop playsinline preload="none" aria-label="Sfeerfilm van korst"></video></div><button class="film-control" data-video-toggle="korst-film" data-paused="true" aria-controls="korst-film" type="button">Speel film</button></div></div>
+<section class="section wrap bread-menu" id="assortiment"><div><h2>Wat neem je mee?</h2><p>Van een heel brood voor thuis tot iets voor bij de koffie.</p><div class="filters" data-filter-group="brood-lijst" role="group" aria-label="Assortiment filteren"><button class="filter" data-filter="all" aria-pressed="true" type="button">Alles</button><button class="filter" data-filter="brood" aria-pressed="false" type="button">Brood</button><button class="filter" data-filter="zoet" aria-pressed="false" type="button">Zoet</button></div><p class="sr-only" role="status" data-filter-status>4 keuzes zichtbaar</p></div><div class="bread-list" id="brood-lijst"><article data-category="brood"><h3>Zuurdesem</h3><p>Een stevige korst en een luchtige binnenkant. Lekker met alleen wat boter.</p></article><article data-category="brood"><h3>Volkorenbrood</h3><p>Voor de lunch, de broodtrommel of gewoon een dikke snee tussendoor.</p></article><article data-category="zoet"><h3>Croissants</h3><p>Bladerig, goudbruin en het liefst met een kop koffie erbij.</p></article><article data-category="zoet"><h3>Kaneelbroodjes</h3><p>Zacht deeg met kaneel. Om mee te nemen of meteen op te eten.</p></article></div></section>
+<section class="baker-section section" id="bakkerij"><div class="wrap split"><div class="photo "><img src="assets/detail.jpg" alt="Een bakker die deeg op een werkbank bereidt" width="1600" height="1067" loading=lazy></div><div class="text-block"><h2>Het begint vroeg<br>in de bakkerij.</h2><p>Deeg maken, laten rusten en bakken. Daar gaat tijd in zitten. Je proeft het terug in de korst en de structuur van het brood.</p><p>We houden het graag eenvoudig. Goed brood, een korte keuze en mensen die je graag helpen kiezen.</p></div></div></section>
+<section class="section wrap contact" id="bestellen"><div><h2>Een brood apart leggen?</h2><p class="lead">Kies wat je wilt meenemen en zet je vraag erbij. Handig als je voor een lunch of een groep wilt bestellen.</p></div><form class="form" data-demo-form>
+  <div class="form-row"><div class="field"><label for="korst-naam">Naam</label><input id="korst-naam" name="naam" autocomplete="name" required maxlength="100"></div><div class="field"><label for="korst-email">E-mailadres</label><input id="korst-email" name="e-mail" type="email" autocomplete="email" required maxlength="200"></div></div>
+  <div class="field"><label for="korst-keuze">Wat wil je meenemen?</label><select id="korst-keuze" name="keuze"><option>Zuurdesem</option><option>Volkorenbrood</option><option>Croissants</option><option>Kaneelbroodjes</option><option>Een grotere bestelling</option></select></div>
+  <div class="field"><label for="korst-bericht">Vertel iets meer</label><textarea id="korst-bericht" name="bericht" maxlength="2000" placeholder="Je vraag of wensen"></textarea></div>
+  <p class="demo-note">Dit is een portfolio-demo. Je kunt je aanvraag bekijken; er wordt niets verstuurd of gereserveerd.</p>
+  <button class="button" type="submit">Bekijk bestelling <span class="icon" aria-hidden="true"></span></button>
+  <div class="form-result" role="status" tabindex="-1" hidden></div>
+</form></section>
+
+</main>
+<footer class="footer wrap">
+  <div class="footer-top"><a class="logo" href="#">KORST</a><div class="footer-links"><a href="#assortiment">Assortiment</a><a href="#bakkerij">De bakkerij</a></div></div>
+  <div class="footer-bottom"><p>Fictief portfolio-ontwerp door JimDesigns. De foto’s zijn illustratief stockmateriaal.</p><a href="../credits.html">Beeldcredits</a><a href="../index.html">Alle zes ontwerpen</a></div>
+</footer>
+
+</body>
+</html>

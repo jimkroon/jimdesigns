@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow"><meta name="description" content="Fictieve bloemenstudio voor boeketten en bloemen voor speciale gelegenheden.">
+  <title>Atelier Faye | Boeketten en bloemen</title>
+  <link rel="stylesheet" href="../shared/practical.css"><link rel="stylesheet" href="style.css">
+  <script src="../shared/practical.js" defer></script><link rel="stylesheet" href="../shared/motion.css"><script src="../shared/motion.js" defer></script>
+</head>
+<body data-motion="atelier-faye">
+<!-- THESIS: A plausible Atelier Faye business homepage, revised from Jim's feedback: natural Dutch copy and a layout specific to this business.
+OWN-WORLD: The site's own photographic subject, palette and type; no decorative initials, exaggerated repeated headings or filler sections.
+STORY: Understand the service, inspect useful content, choose the relevant next step.
+FIRST VIEWPORT: A concrete offer, legible action and relevant photography at ordinary website scale.
+FORM: User-authorized expansion to six HTML concepts. Existing brands refined; four distinct new businesses authored as fictional demonstrations.
+FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance -->
+<a class="skip" href="#inhoud">Naar de inhoud</a>
+<header class="header wrap">
+  <a class="logo" href="#" aria-label="Atelier Faye, naar boven">Atelier Faye</a>
+  <nav class="nav" id="site-nav" data-nav aria-label="Hoofdnavigatie"><a href="#boeketten">Boeketten</a><a href="#bruiloften">Bruiloften</a><a href="#atelier">Het atelier</a><a class="mobile-only" href="#boeketten">Kies een boeket</a></nav>
+  <a class="button" href="#boeketten">Kies een boeket <span class="icon" aria-hidden="true"></span></a>
+  <button class="menu-button" data-menu-button aria-controls="site-nav" aria-expanded="false">Menu</button>
+</header>
+<main id="inhoud">
+
+<section class="hero wrap"><div class="hero-copy"><h1>Boeketten van Faye.</h1><p class="lead">Voor je eigen tafel, een verjaardag of iemand die wel wat bloemen kan gebruiken. Kies een boeket of bespreek een eigen idee.</p><a class="button" href="#boeketten">Kies een boeket <span class="icon" aria-hidden="true"></span></a><a class="hero-secondary" href="#bruiloften">Bloemen voor een bruiloft</a></div><div class="photo hero-photo cinema" data-cinema><div class="film-frame"><video id="atelier-faye-film" data-src="assets/hero-video.mp4" poster="assets/hero-video-poster.jpg" muted loop playsinline preload="none" aria-label="Sfeerfilm van atelier-faye"></video></div><button class="film-control" data-video-toggle="atelier-faye-film" data-paused="true" aria-controls="atelier-faye-film" type="button">Speel film</button></div></section>
+<section class="section wrap bouquets" id="boeketten"><div class="section-head"><h2>Onze boeketten</h2><p>Een losse vorm, verschillende kleuren en bloemen die elkaar aanvullen. Welke spreekt je aan?</p></div><div class="filters" data-filter-group="boeket-lijst" role="group" aria-label="Boeketten filteren"><button class="filter" data-filter="all" aria-pressed="true" type="button">Alle boeketten</button><button class="filter" data-filter="warm" aria-pressed="false" type="button">Oranje &amp; lila</button><button class="filter" data-filter="soft" aria-pressed="false" type="button">Lila &amp; abrikoos</button></div><p class="sr-only" role="status" data-filter-status>2 keuzes zichtbaar</p><div class="bouquet-grid" id="boeket-lijst"><article data-category="warm"><button class="item-button" type="button" data-open="boeket-keuze" data-selection="Oranje &amp; lila" aria-haspopup="dialog"><div class="photo "><img src="assets/hero.jpg" alt="Een kleurrijk boeket met oranje dahlia’s en gele accenten" width="1600" height="1067" loading=lazy></div><span class="item-caption"><span><h3>Oranje &amp; lila</h3><p>Uitbundig boeket met dahlia’s en bloesemtakken.</p></span><span class="icon" aria-hidden="true"></span></span></button></article><article data-category="soft"><button class="item-button" type="button" data-open="boeket-keuze" data-selection="Lila &amp; abrikoos" aria-haspopup="dialog"><div class="photo "><img src="assets/bouquet-season.jpg" alt="Luchtig boeket met abrikooskleurige rozen en lila bloemen" width="1600" height="1067" loading=lazy></div><span class="item-caption"><span><h3>Lila &amp; abrikoos</h3><p>Rozen, losse stelen en zachte kleuren.</p></span><span class="icon" aria-hidden="true"></span></span></button></article></div></section>
+<section class="wedding section" id="bruiloften"><div class="wrap wedding-inner"><h2>Bloemen voor jullie bruiloft</h2><div><p>Het bruidsboeket, bloemen op tafel of een groot stuk bij de ceremonie. Neem beelden mee van de locatie en de kleuren die je mooi vindt. Dan kijken we samen wat bij de dag past.</p><a class="link" href="#contact">Bespreek je bloemen <span class="icon" aria-hidden="true"></span></a></div></div></section>
+<section class="section wrap atelier" id="atelier"><div class="photo "><img src="assets/atelier.jpg" alt="Handen die een boeket samenstellen aan een werktafel" width="1600" height="1067" loading=lazy></div><div class="atelier-description"><h2>Gemaakt in het atelier.</h2><p>We schikken elk boeket met de hand. Soms werkt een tak net wat mooier als je hem zijn eigen kant op laat gaan. Daar zit voor ons het plezier in.</p></div></section>
+<section class="section wrap section-rule care"><h2>Zo houd je bloemen langer mooi.</h2><div class="care-grid"><p><strong>Een schone vaas.</strong><br>Gebruik vers water en haal bladeren weg die onder water komen.</p><p><strong>Snijd de stelen schuin af.</strong><br>Gebruik een scherp mes of een goede bloemenschaar.</p><p><strong>Geef ze een rustige plek.</strong><br>Zet je boeket uit de felle zon en niet naast de verwarming.</p></div></section>
+<section class="section wrap section-rule contact" id="contact"><div><h2>Een vraag of een eigen idee?</h2><p class="lead">Vertel voor welke gelegenheid je bloemen zoekt en welke kleuren je mooi vindt.</p></div><form class="form" data-demo-form>
+  <div class="form-row"><div class="field"><label for="faye-naam">Naam</label><input id="faye-naam" name="naam" autocomplete="name" required maxlength="100"></div><div class="field"><label for="faye-email">E-mailadres</label><input id="faye-email" name="e-mail" type="email" autocomplete="email" required maxlength="200"></div></div>
+  <div class="field"><label for="faye-keuze">Waar kunnen we je mee helpen?</label><select id="faye-keuze" name="keuze"><option>Een boeket</option><option>Bloemen voor een bruiloft</option><option>Bloemen voor een gelegenheid</option><option>Een andere vraag</option></select></div>
+  <div class="field"><label for="faye-bericht">Vertel iets meer</label><textarea id="faye-bericht" name="bericht" maxlength="2000" placeholder="Je vraag of wensen"></textarea></div>
+  <p class="demo-note">Dit is een portfolio-demo. Je kunt je aanvraag bekijken; er wordt niets verstuurd of gereserveerd.</p>
+  <button class="button" type="submit">Bekijk aanvraag <span class="icon" aria-hidden="true"></span></button>
+  <div class="form-result" role="status" tabindex="-1" hidden></div>
+</form></section>
+
+</main>
+<footer class="footer wrap">
+  <div class="footer-top"><a class="logo" href="#">Atelier Faye</a><div class="footer-links"><a href="#boeketten">Boeketten</a><a href="#bruiloften">Bruiloften</a><a href="#atelier">Het atelier</a></div></div>
+  <div class="footer-bottom"><p>Fictief portfolio-ontwerp door JimDesigns. De foto’s en films zijn illustratief.</p><a href="../credits.html">Beeldcredits</a><a href="../index.html">Alle zes ontwerpen</a></div>
+</footer>
+<dialog id="boeket-keuze" aria-labelledby="boeket-keuze-title"><button class="dialog-close" data-close type="button">Sluiten</button><div class="dialog-content"><h2 id="boeket-keuze-title">Kies je boeket</h2><p>Geef aan welk boeket je wilt en voor welke gelegenheid. Je kunt de keuze hieronder bekijken.</p><form class="form" data-demo-form>
+  <div class="form-row"><div class="field"><label for="boeket-naam">Naam</label><input id="boeket-naam" name="naam" autocomplete="name" required maxlength="100"></div><div class="field"><label for="boeket-email">E-mailadres</label><input id="boeket-email" name="e-mail" type="email" autocomplete="email" required maxlength="200"></div></div>
+  <div class="field"><label for="boeket-keuze-select">Welk boeket?</label><select id="boeket-keuze-select" name="keuze"><option>Oranje & lila</option><option>Lila & abrikoos</option></select></div>
+  <div class="field"><label for="boeket-bericht">Vertel iets meer</label><textarea id="boeket-bericht" name="bericht" maxlength="2000" placeholder="Je vraag of wensen"></textarea></div>
+  <p class="demo-note">Dit is een portfolio-demo. Je kunt je aanvraag bekijken; er wordt niets verstuurd of gereserveerd.</p>
+  <button class="button" type="submit">Bekijk keuze <span class="icon" aria-hidden="true"></span></button>
+  <div class="form-result" role="status" tabindex="-1" hidden></div>
+</form></div></dialog>
+</body>
+</html>

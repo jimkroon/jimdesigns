@@ -1,0 +1,41 @@
+[
+  {
+    "asset": "mos/assets/hero-video.mp4",
+    "poster": "mos/assets/hero-poster.jpg",
+    "title": "Footage of a Garden",
+    "creator": "George Morina",
+    "source": "https://www.pexels.com/video/footage-of-a-garden-5201445/",
+    "downloadURL": "https://videos.pexels.com/video-files/5201445/5201445-uhd_3840_2160_30fps.mp4",
+    "license": "Pexels License",
+    "licenseURL": "https://www.pexels.com/license/",
+    "duration": 9.0,
+    "bytes": 2279330,
+    "processing": "9seconds,silent,1024pxwide,H26424fps,CRF28,faststart"
+  },
+  {
+    "asset": "korst/assets/hero-video.mp4",
+    "poster": "korst/assets/hero-poster.jpg",
+    "title": "Women Making Bread",
+    "creator": "K",
+    "source": "https://www.pexels.com/video/women-making-bread-7405935/",
+    "downloadURL": "https://videos.pexels.com/video-files/7405935/7405935-uhd_3840_2160_24fps.mp4",
+    "license": "Pexels License",
+    "licenseURL": "https://www.pexels.com/license/",
+    "duration": 9.0,
+    "bytes": 1142979,
+    "processing": "First9seconds (or source duration if shorter), silent,1280pxwide,H.26424fps,faststart"
+  },
+  {
+    "asset": "coupe/assets/hero-video.mp4",
+    "poster": "coupe/assets/hero-poster.jpg",
+    "title": "A Hairdresser Cutting Her Customer\u2019s Hair",
+    "creator": "Kampus Production",
+    "source": "https://www.pexels.com/video/a-hairdresser-cutting-her-customer-s-hair-8830114/",
+    "downloadURL": "https://videos.pexels.com/video-files/8830114/8830114-uhd_3840_2160_25fps.mp4",
+    "license": "Pexels License",
+    "licenseURL": "https://www.pexels.com/license/",
+    "duration": 7.416667,
+    "bytes": 754536,
+    "processing": "First9seconds (or source duration if shorter), silent,1280pxwide,H.26424fps,faststart"
+  }
+]

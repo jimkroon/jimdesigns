@@ -1,0 +1,170 @@
+{
+  "retrieved": "2026-10-28",
+  "usage": "Illustrative stock photography for fictional portfolio companies. No real staff, project ownership or endorsement is implied.",
+  "assets": [
+    {
+      "asset": "korst/assets/hero.jpg",
+      "credit": "Никита Шелайкин",
+      "source": "https://www.pexels.com/photo/variety-of-fresh-breads-in-bakery-display-31661560/",
+      "photoURL": "https://images.pexels.com/photos/31661560/pexels-photo-31661560.jpeg?w=1600",
+      "license": "Pexels License",
+      "licenseURL": "https://www.pexels.com/license/",
+      "title": "Variety of Fresh Breads in Bakery Display",
+      "processing": "Landscape crop of the center bread shelves; no retouch",
+      "crop": [
+        0,
+        450,
+        1600,
+        1517
+      ],
+      "downloadedDimensions": [
+        1600,
+        2133
+      ],
+      "dimensions": [
+        1600,
+        1067
+      ],
+      "bytes": 421447
+    },
+    {
+      "asset": "korst/assets/detail.jpg",
+      "credit": "Vaibhav Jadhav",
+      "source": "https://www.pexels.com/photo/man-preparing-dough-for-bread-3218467/",
+      "photoURL": "https://images.pexels.com/photos/3218467/pexels-photo-3218467.jpeg?w=1600",
+      "license": "Pexels License",
+      "licenseURL": "https://www.pexels.com/license/",
+      "title": "Man Preparing Dough For Bread",
+      "processing": "JPEG re-encoding only; no retouch",
+      "downloadedDimensions": [
+        1600,
+        1067
+      ],
+      "dimensions": [
+        1600,
+        1067
+      ],
+      "bytes": 201018
+    },
+    {
+      "asset": "noord/assets/hero.jpg",
+      "credit": "Anton Savinov",
+      "source": "https://unsplash.com/photos/a-close-up-of-a-person-fixing-a-bike-tire-NvsZM1t8J00",
+      "photoURL": "https://images.unsplash.com/photo-1671790673593-194e2164128b?auto=format&fit=crop&w=1600&q=85",
+      "license": "Unsplash License (free photo, not Unsplash+)",
+      "licenseURL": "https://unsplash.com/license",
+      "title": "A close up of a person fixing a bike tire",
+      "processing": "JPEG re-encoding only; no retouch",
+      "downloadedDimensions": [
+        1600,
+        900
+      ],
+      "dimensions": [
+        1600,
+        900
+      ],
+      "bytes": 214393
+    },
+    {
+      "asset": "noord/assets/detail.jpg",
+      "credit": "Henrique Rocha",
+      "source": "https://www.pexels.com/photo/man-repairing-a-bicycle-11242855/",
+      "photoURL": "https://images.pexels.com/photos/11242855/pexels-photo-11242855.jpeg?w=1600",
+      "license": "Pexels License",
+      "licenseURL": "https://www.pexels.com/license/",
+      "title": "Man Repairing a Bicycle",
+      "processing": "Landscape crop focused on hands and wheel; no retouch",
+      "crop": [
+        0,
+        1400,
+        1600,
+        2467
+      ],
+      "downloadedDimensions": [
+        1600,
+        2848
+      ],
+      "dimensions": [
+        1600,
+        1067
+      ],
+      "bytes": 240897
+    },
+    {
+      "asset": "mos/assets/hero.jpg",
+      "credit": "Rene Terp",
+      "source": "https://www.pexels.com/photo/path-in-beautiful-green-garden-5157868/",
+      "photoURL": "https://images.pexels.com/photos/5157868/pexels-photo-5157868.jpeg?w=1600",
+      "license": "Pexels License",
+      "licenseURL": "https://www.pexels.com/license/",
+      "title": "Path in Beautiful Green Garden",
+      "processing": "JPEG re-encoding only; no retouch",
+      "downloadedDimensions": [
+        1600,
+        1067
+      ],
+      "dimensions": [
+        1600,
+        1067
+      ],
+      "bytes": 461918
+    },
+    {
+      "asset": "mos/assets/detail.jpg",
+      "credit": "Max Vakhtbovych",
+      "source": "https://www.pexels.com/photo/house-backyard-with-lawn-green-grass-7546775/",
+      "photoURL": "https://images.pexels.com/photos/7546775/pexels-photo-7546775.jpeg?w=1600",
+      "license": "Pexels License",
+      "licenseURL": "https://www.pexels.com/license/",
+      "title": "House Backyard with Lawn Green Grass",
+      "processing": "JPEG re-encoding only; no retouch",
+      "downloadedDimensions": [
+        1600,
+        1087
+      ],
+      "dimensions": [
+        1600,
+        1087
+      ],
+      "bytes": 343206
+    },
+    {
+      "asset": "coupe/assets/hero.jpg",
+      "credit": "Engin Akyurt",
+      "source": "https://www.pexels.com/photo/person-cutting-hair-3356170/",
+      "photoURL": "https://images.pexels.com/photos/3356170/pexels-photo-3356170.jpeg?w=1600",
+      "license": "Pexels License",
+      "licenseURL": "https://www.pexels.com/license/",
+      "title": "Person Cutting Hair",
+      "processing": "JPEG re-encoding only; no retouch",
+      "downloadedDimensions": [
+        1600,
+        1067
+      ],
+      "dimensions": [
+        1600,
+        1067
+      ],
+      "bytes": 137305
+    },
+    {
+      "asset": "coupe/assets/detail.jpg",
+      "credit": "Max Vakhtbovych",
+      "source": "https://www.pexels.com/photo/photo-of-the-interior-of-a-salon-7750098/",
+      "photoURL": "https://images.pexels.com/photos/7750098/pexels-photo-7750098.jpeg?w=1600",
+      "license": "Pexels License",
+      "licenseURL": "https://www.pexels.com/license/",
+      "title": "Photo of the Interior of a Salon",
+      "processing": "JPEG re-encoding only; no retouch",
+      "downloadedDimensions": [
+        1600,
+        1096
+      ],
+      "dimensions": [
+        1600,
+        1096
+      ],
+      "bytes": 263257
+    }
+  ]
+}

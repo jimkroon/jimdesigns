@@ -1,0 +1,1 @@
+Screenshot of the actual local mos/index.html with video poster and reduced-motion setting,960x720,2026-10-28. Version3 includes genuine stock video and authored motion.

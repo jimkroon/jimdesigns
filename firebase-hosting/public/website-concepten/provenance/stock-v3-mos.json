@@ -1,0 +1,36 @@
+{
+  "retrieved": "2026-10-28",
+  "usage": "Illustrative genuine stock photography for fictional MOS garden design portfolio. These photos are not evidence of MOS projects. courtyard.jpg is a descriptive asset filename; its actual photo is an intimate garden path through dense naturalistic planting.",
+  "assets": [
+    {
+      "asset": "mos/assets/courtyard.jpg",
+      "title": "Gravel path through a garden with tall grasses",
+      "credit": "Anna Gelibterman",
+      "source": "https://unsplash.com/photos/gravel-path-through-a-garden-with-tall-grasses-XFizz9F5ViQ",
+      "photoURL": "https://images.unsplash.com/photo-1764776709909-d3bb1167aace?auto=format&fit=crop&w=1800&q=88",
+      "license": "Unsplash License (free photo, not Unsplash+)",
+      "licenseURL": "https://unsplash.com/license",
+      "processing": "JPEG re-encoding only; no crop or retouch",
+      "dimensions": [
+        1800,
+        1200
+      ],
+      "bytes": 632770
+    },
+    {
+      "asset": "mos/assets/planting.jpg",
+      "title": "Close-Up of Ornamental Grass in Sunlight",
+      "credit": "Jeffry Surianto",
+      "source": "https://www.pexels.com/photo/close-up-of-ornamental-grass-in-sunlight-36122217/",
+      "photoURL": "https://images.pexels.com/photos/36122217/pexels-photo-36122217.jpeg?w=1800",
+      "license": "Pexels License",
+      "licenseURL": "https://www.pexels.com/license/",
+      "processing": "JPEG re-encoding only; no crop or retouch",
+      "dimensions": [
+        1800,
+        1200
+      ],
+      "bytes": 657853
+    }
+  ]
+}

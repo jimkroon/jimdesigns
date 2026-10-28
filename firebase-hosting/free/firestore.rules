@@ -1,0 +1,119 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function owner() {
+      return request.auth != null && request.auth.uid == 'jimdesigns-owner'
+        && request.time.toMillis() - request.auth.token.auth_time * 1000 < 28800000;
+    }
+    function admin() {
+      let session = get(/databases/$(database)/documents/sessions/$(request.auth.uid + '-' + string(request.auth.token.auth_time))).data;
+      return owner() && session.auth_time == request.auth.token.auth_time
+        && request.time - session.last_seen < duration.value(30, 'm');
+    }
+    function text(value, min, max) { return value is string && value.size() >= min && value.size() <= max; }
+    function calendarDate(value) {
+      let parts = value.split('-');
+      let year = int(parts[0]);
+      let month = int(parts[1]);
+      let day = int(parts[2]);
+      let leap = year % 4 == 0 && (year % 100 != 0 || year % 400 == 0);
+      let days = month == 2 ? (leap ? 29 : 28) : (month in [4,6,9,11] ? 30 : 31);
+      return year >= 2000 && year <= 2100 && month >= 1 && month <= 12 && day >= 1 && day <= days;
+    }
+    function party(value, seller) {
+      return value is map && text(value.name, 1, 80) && text(value.company, 0, 80)
+        && text(value.address, 0, 100) && text(value.city, 0, 80)
+        && ((!seller && value.keys().hasOnly(['id','name','company','address','city']))
+          || (seller && value.keys().hasOnly(['name','company','address','city','iban']) && value.iban.matches('^[A-Z]{2}[0-9]{2}[A-Z0-9]{11,30}$')));
+    }
+    match /sessions/{id} {
+      allow get: if owner() && id == request.auth.uid + '-' + string(request.auth.token.auth_time);
+      allow create, update: if owner() && id == request.auth.uid + '-' + string(request.auth.token.auth_time)
+        && request.resource.data.keys().hasOnly(['auth_time','last_seen'])
+        && request.resource.data.auth_time == request.auth.token.auth_time
+        && request.resource.data.last_seen == request.time
+        && (!exists(/databases/$(database)/documents/sessions/$(id))
+          || resource.data.auth_time != request.auth.token.auth_time
+          || request.time - resource.data.last_seen < duration.value(30, 'm'));
+    }
+    match /settings/seller {
+      allow read: if admin();
+      allow update: if admin() && party(request.resource.data, true);
+    }
+    match /settings/sequence {
+      allow read: if admin();
+      allow update: if admin()
+        && request.resource.data.keys().hasOnly(['next_number','latest_date'])
+        && request.resource.data.next_number == resource.data.next_number + 1
+        && request.resource.data.latest_date == getAfter(/databases/$(database)/documents/invoices/$(string(resource.data.next_number))).data.date
+        && getAfter(/databases/$(database)/documents/invoices/$(string(resource.data.next_number))).data.number == resource.data.next_number;
+    }
+    match /settings/customers {
+      allow read: if admin();
+      allow update: if admin() && request.resource.data.keys().hasOnly(['next_id'])
+        && request.resource.data.next_id == resource.data.next_id + 1
+        && getAfter(/databases/$(database)/documents/customers/$(string(resource.data.next_id))).data.id == resource.data.next_id;
+    }
+    match /customers/{id} {
+      allow read: if admin();
+      allow create: if admin() && party(request.resource.data, false)
+        && request.resource.data.id is int && request.resource.data.id == int(id)
+        && request.resource.data.id == get(/databases/$(database)/documents/settings/customers).data.next_id
+        && getAfter(/databases/$(database)/documents/settings/customers).data.next_id == request.resource.data.id + 1;
+      allow update: if admin() && party(request.resource.data, false) && request.resource.data.id == resource.data.id;
+    }
+    match /invoices/{number} {
+      allow read: if admin();
+      allow create: if admin()
+        && request.resource.data.keys().hasOnly(['number','customer_id','customer','seller','description','amount_cents','date','request_key','created_at','original_file'])
+        && request.resource.data.number is int && request.resource.data.number == int(number)
+        && request.resource.data.number == get(/databases/$(database)/documents/settings/sequence).data.next_number
+        && request.resource.data.customer_id is int
+        && request.resource.data.customer == get(/databases/$(database)/documents/customers/$(string(request.resource.data.customer_id))).data
+        && request.resource.data.seller == get(/databases/$(database)/documents/settings/seller).data
+        && text(request.resource.data.description, 1, 180)
+        && request.resource.data.amount_cents is int && request.resource.data.amount_cents > 0 && request.resource.data.amount_cents <= 99999999
+        && request.resource.data.date.matches('^[0-9]{4}-[0-9]{2}-[0-9]{2}$')
+        && calendarDate(request.resource.data.date)
+        && request.resource.data.date >= get(/databases/$(database)/documents/settings/sequence).data.latest_date
+        && request.resource.data.request_key.matches('^[a-f0-9]{32}$')
+        && request.resource.data.created_at == request.time && request.resource.data.original_file == null
+        && getAfter(/databases/$(database)/documents/settings/sequence).data.next_number == request.resource.data.number + 1
+        && getAfter(/databases/$(database)/documents/settings/sequence).data.latest_date == request.resource.data.date
+        && !exists(/databases/$(database)/documents/requests/$(request.resource.data.request_key))
+        && getAfter(/databases/$(database)/documents/requests/$(request.resource.data.request_key)).data.number == request.resource.data.number;
+    }
+    match /requests/{id} {
+      allow get: if admin();
+      allow create: if admin() && request.resource.data.keys().hasOnly(['number'])
+        && getAfter(/databases/$(database)/documents/invoices/$(string(request.resource.data.number))).data.request_key == id;
+    }
+    match /files/{id} { allow read: if admin(); }
+    function visitor() { return request.auth != null && request.auth.token.firebase.sign_in_provider == 'anonymous'; }
+    match /contact_requests/{id} {
+      allow read: if admin();
+      allow create: if visitor()
+        && request.resource.data.keys().hasOnly(['uid','name','email','website','message','created_at','status'])
+        && request.resource.data.uid == request.auth.uid && request.resource.data.status == 'new'
+        && text(request.resource.data.name, 2, 100)
+        && text(request.resource.data.email, 3, 254) && request.resource.data.email.matches('^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$')
+        && text(request.resource.data.website, 0, 500) && (request.resource.data.website == '' || request.resource.data.website.matches('^https?://.+'))
+        && text(request.resource.data.message, 10, 5000) && request.resource.data.created_at == request.time
+        && getAfter(/databases/$(database)/documents/contact_limits/$(request.auth.uid)).data.last_seen == request.time
+        && getAfter(/databases/$(database)/documents/contact_limits/$(request.auth.uid)).data.request_id == id;
+      allow update: if admin() && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status'])
+        && request.resource.data.status in ['new','read','replied'];
+    }
+    match /contact_limits/{uid} {
+      allow get: if request.auth != null && request.auth.uid == uid;
+      allow create, update: if visitor() && request.auth.uid == uid
+        && request.resource.data.keys().hasOnly(['last_seen','request_id'])
+        && request.resource.data.last_seen == request.time
+        && request.resource.data.request_id.matches('^[a-f0-9]{32}$')
+        && (!exists(/databases/$(database)/documents/contact_limits/$(uid)) || request.time - resource.data.last_seen >= duration.value(1,'m'))
+        && getAfter(/databases/$(database)/documents/contact_requests/$(request.resource.data.request_id)).data.uid == uid
+        && getAfter(/databases/$(database)/documents/contact_requests/$(request.resource.data.request_id)).data.created_at == request.time;
+    }
+    match /{document=**} { allow read, write: if false; }
+  }
+}

@@ -1,0 +1,10 @@
+Scope: Atelier Faye fictional flower-studio homepage. Visitor mode: Persuade.
+Audience: visitors exploring a colourful independent flower studio; portfolio viewers evaluating Jim's design.
+Job: explore bouquet styles, see the atelier, compose and save a local flower plan.
+Visual authority: shared/references/atelier-faye.png. Approved by the user selecting concept 4 for HTML implementation. Palette source samples: provenance/comp-color-samples.json.
+First viewport: chalk-white ground, cobalt Didone display title at large scale on left, arched bouquet photo on right with deliberate type overlap, compact navigation, blue rectangular primary CTA below title. Font concession: local Bodoni Moda plus Manrope UI; core text and controls remain semantic.
+Component inventory: HTML wordmark/navigation; huge HTML heading; CSS arch clipping a clean generated photo; rectangular primary CTA; round outlined secondary header CTA and filter chips; staggered two-bouquet collection; lavender wedding section; arched atelier photograph; native flower-care disclosures; native bouquet-selection dialog with labelled choices and local text download.
+A generated transparent PNG blossom cutout extends above the desktop arch, matching the approved comp. All display consumers use the hero optical-size setting (opsz 20).
+All three photos: generated with full embedded prompts and provenance/asset-manifest.json. No diagram or flat colour substitutes for photography.
+Mobile: title, CTA, then arched photo in a stacked reading order; bouquet, atelier and dialog become single column. Signature interaction: bouquet filters update visible choices and selection opens the native customised flower-plan dialog. Motion: one restrained intro reveal and photo hover feedback; reduced-motion fallback.
+Unresolved: no real stock, prices, company contact, florist claims, checkout or server submission. This is a fictional portfolio concept; no publication authorized.

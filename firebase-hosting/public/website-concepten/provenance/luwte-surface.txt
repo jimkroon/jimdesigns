@@ -1,0 +1,9 @@
+Scope: Luwte fictional architecture homepage. Visitor mode: Persuade.
+Audience: prospective home owners exploring architectural possibilities; portfolio viewers evaluating Jim's design.
+Job: explore concept homes, understand the approach, save a local project brief.
+Visual authority: shared/references/luwte.png. Approved by the user selecting concept 2 for HTML implementation. Palette source samples: provenance/comp-color-samples.json.
+First viewport: thin olive page rail, 80px paper header, courtyard photograph, large low-left two-line ivory serif title, paper caption/CTA at lower right. Preserve the reference's scale, photography and understated navigation. Typography concession: closest locally hosted Didot display plus Manrope UI; all text stays semantic.
+Component inventory: wordmark HTML; navigation and links HTML; hero photograph generated JPEG; olive rail CSS; title HTML; caption/action paper panel CSS plus HTML; two staggered clickable project photos with native detail dialog; native process disclosures; wide interior photo; labelled project brief form; contextual fictional-demo disclosure.
+All three images: generated with full embedded prompts and provenance/asset-manifest.json.
+Mobile: smaller rail, single-column content, menu disclosure, readable title and paper CTA. Signature interaction: project image opens focused native detail dialog; local project brief download gives explicit feedback. Motion: one restrained reveal on the introduction, subtle photo hover only, reduced-motion fallback.
+Unresolved: real business information, real projects, contact endpoint and public release are outside this fictional concept's scope. No publication authorized.

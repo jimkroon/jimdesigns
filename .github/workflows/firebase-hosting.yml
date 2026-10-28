@@ -1,0 +1,42 @@
+name: Publish JimDesigns to Firebase
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'firebase-hosting/**'
+      - '.github/workflows/firebase-hosting.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+  id-token: write
+concurrency:
+  group: firebase-hosting-live
+  cancel-in-progress: false
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: firebase-hosting/free/package-lock.json
+      - name: Install browser build dependencies
+        run: npm ci --prefix firebase-hosting/free
+      - name: Build Firebase contact and dashboard bundles
+        run: npm run build --prefix firebase-hosting/free
+      - name: Validate the public release
+        run: python3 firebase-hosting/verify_release.py
+      - name: Install the pinned Firebase CLI
+        run: npm install --global firebase-tools@15.34.1
+      - name: Authenticate with short-lived Google credentials
+        uses: google-github-actions/auth@v3
+        with:
+          project_id: jimdesigns
+          workload_identity_provider: projects/419392398834/locations/global/workloadIdentityPools/jimdesigns-github/providers/github
+          service_account: github-hosting@jimdesigns.iam.gserviceaccount.com
+      - name: Publish Hosting only
+        working-directory: firebase-hosting
+        run: firebase deploy --only hosting --project jimdesigns --non-interactive

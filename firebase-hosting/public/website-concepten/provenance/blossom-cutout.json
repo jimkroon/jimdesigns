@@ -1,0 +1,8 @@
+{
+  "asset": "atelier-faye/assets/blossom.png",
+  "source": "/Users/jim/.codex/generated_images/01a1842a-1cc3-7023-867e-23b624c3ff0b/exec-f42bcbe9-59dc-443b-afb6-e62a97e0c18e.png",
+  "reference": "atelier-faye/assets/hero.jpg",
+  "prompt": "Use case: background-extraction. Edit target: the attached Atelier Faye bouquet photograph. Create a genuinely transparent PNG cutout containing ONLY the slender uppermost cherry blossom twig with its white/pale pink flowers and buds from the photograph. This is the upper thin brown twig reaching diagonally upward toward the upper left, above the orange dahlia. Remove ALL background, vase, tabletop, other flowers, foliage, text and shadows from other objects. Preserve the photographed white blossoms' delicate translucent edges and thin brown branch, believable natural detail and same warm daylight. Deliver a long, thin, airy branch segment leaning from lower right to upper left, with blossoms concentrated toward the top and a clean bare brown stem tail at the lower right for compositing into the existing bouquet. Native real transparent alpha surrounding the isolated branch, NO white or checkerboard baked background, NO UI. The cutout should be centered within a portrait transparent canvas and fit entirely with a little transparent padding, with no clipping. This will sit just above an arched website photograph as a subtle natural overflow. Match the referenced branch's photographic appearance; do not invent an illustration.\n",
+  "transparent": true,
+  "purpose": "Desktop-only photographic blossom branch escaping the arch, as in approved comp"
+}

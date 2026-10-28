@@ -1,0 +1,24 @@
+import fs from 'node:fs/promises';
+import {createHash} from 'node:crypto';
+import {initializeTestEnvironment} from '@firebase/rules-unit-testing';
+import {doc,setDoc,writeBatch,Timestamp} from 'firebase/firestore';
+import {invoicePdf} from '../src/pdf.mjs';
+const project='demo-jimdesigns';
+const environment=await initializeTestEnvironment({projectId:project,firestore:{host:'127.0.0.1',port:8383,rules:await fs.readFile(new URL('../firestore.rules',import.meta.url),'utf8')}});
+await environment.clearFirestore();
+await fetch('http://127.0.0.1:9099/emulator/v1/projects/'+project+'/accounts',{method:'DELETE'});
+const response=await fetch('http://127.0.0.1:9099/identitytoolkit.googleapis.com/v1/projects/'+project+'/accounts',{method:'POST',headers:{Authorization:'Bearer owner','Content-Type':'application/json'},body:JSON.stringify({localId:'jimdesigns-owner',email:'test@example.invalid',password:'Synthetische testzin 2026',emailVerified:true})});
+if(!response.ok)throw new Error(await response.text());
+const customer={id:1,name:'TEST — Demo klant',company:'Synthetisch voorbeeld',address:'Teststraat 1',city:'1234 AB Teststad'};
+const seller={name:'TEST — Demo afzender',company:'Synthetisch voorbeeld',address:'Teststraat 2',city:'1234 AB Teststad',iban:'NL91ABNA0417164300'};
+const invoice={number:4,customer_id:1,customer,seller,description:'Synthetische testnota',amount_cents:30000,date:'2026-10-01',request_key:'import-test-004',created_at:Timestamp.now(),original_file:'nota-004.pdf'};
+const pdf=await invoicePdf(invoice);
+await environment.withSecurityRulesDisabled(async context=>{
+  const db=context.firestore(),batch=writeBatch(db);
+  batch.set(doc(db,'customers','1'),customer);batch.set(doc(db,'settings','seller'),seller);batch.set(doc(db,'settings','customers'),{next_id:2});
+  batch.set(doc(db,'settings','sequence'),{next_number:5,latest_date:'2026-10-01'});batch.set(doc(db,'invoices','4'),invoice);batch.set(doc(db,'requests','import-test-004'),{number:4});
+  batch.set(doc(db,'files','nota-004.pdf'),{base64:Buffer.from(pdf).toString('base64'),sha256:createHash('sha256').update(pdf).digest('hex')});
+  batch.set(doc(db,'contact_requests','f'.repeat(32)),{uid:'example-visitor',name:'TEST — Voorbeeldaanvraag',email:'test@example.invalid',website:'https://example.invalid',message:'Dit is een synthetische aanvraag voor de lokale migratiecontrole.',created_at:Timestamp.now(),status:'new'});
+  await batch.commit();
+});
+await environment.cleanup();console.log('Synthetic browser fixture ready on demo-jimdesigns.');

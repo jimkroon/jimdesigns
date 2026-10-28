@@ -1,0 +1,34 @@
+:root{--paper:#fbfaf7;--ink:#223c87;--accent:#24428f;--button-text:#fff;--muted:#5c6280;--surface:#efedf3;--line:#c7c9d6}
+.logo{font:400 33px/1 Bodoni,Georgia,serif;font-variation-settings:'opsz' 20;letter-spacing:-.04em}
+h1,h2{font:400 46px/1.12 Bodoni,Georgia,serif;font-variation-settings:'opsz' 20;letter-spacing:-.025em}
+.hero{display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:70px;padding-top:27px;padding-bottom:50px}
+.hero h1{font-size:clamp(46px,4.1vw,60px)}
+.hero-copy p{margin-top:24px;max-width:38ch;font-size:15px}
+.hero-copy .button{margin-top:27px}
+.hero-secondary{font-size:12px;display:block;width:max-content;margin-top:21px}
+.hero-photo{height:540px;border-radius:47% 47% 0 0 / 30% 30% 0 0}
+.hero-photo img{object-position:center bottom}
+.bouquets{padding-top:40px}
+.bouquet-grid{display:grid;grid-template-columns:1fr 1fr;gap:35px}
+.bouquet-grid .photo{height:440px;background:#e8e4eb}
+.bouquet-grid .photo img{object-fit:contain}
+.bouquet-grid .item-caption h3{font-size:23px;font-weight:600}
+.bouquet-grid.filtered{grid-template-columns:minmax(0,590px)}
+.wedding{background:#eeebf2;padding-block:53px}
+.wedding-inner{display:grid;grid-template-columns:1fr 1.15fr;gap:85px;align-items:start}
+.wedding h2{max-width:13ch}
+.wedding p{font-size:14px;max-width:55ch}
+.wedding .link{margin-top:18px}
+.atelier>.photo{height:410px}
+.atelier>.photo img{object-position:center 55%}
+.atelier-description{display:grid;grid-template-columns:1fr 1fr;gap:65px;align-items:start;margin-top:30px}
+.atelier-description h2{font-size:38px}
+.atelier-description p{font-size:14px;max-width:52ch}
+.care h2{font-size:36px}
+.care-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:38px;margin-top:28px}
+.care-grid p{font-size:13px;line-height:1.8}
+.care-grid strong{font-weight:600}
+.contact h2{font-size:42px}
+@media(max-width:767px){.logo{font-size:29px}.hero{grid-template-columns:1fr;gap:31px;padding-top:22px;padding-bottom:25px}.hero h1{font-size:43px}.hero-copy p{max-width:45ch}.hero-photo{height:380px;width:90%;margin-left:auto}.hero-secondary{margin-top:17px}.bouquets{padding-top:38px}.bouquets h2{font-size:36px}.bouquet-grid{grid-template-columns:1fr;gap:32px}.bouquet-grid .photo{height:370px}.wedding-inner{grid-template-columns:1fr;gap:23px}.wedding h2{font-size:36px;max-width:none}.atelier>.photo{height:330px}.atelier-description{grid-template-columns:1fr;gap:20px}.atelier-description h2{font-size:34px}.care h2{font-size:33px}.care-grid{grid-template-columns:1fr;gap:20px;margin-top:24px}.care-grid p{max-width:45ch}.contact h2{font-size:36px}}
+
+.hero{grid-template-columns:1fr 1fr;gap:45px;padding-block:45px 65px;position:relative;min-height:730px}.hero h1{font-size:clamp(65px,6.5vw,97px);line-height:1.06;letter-spacing:-.035em}.hero-copy{position:relative;z-index:2}.hero-photo{height:610px}.hero .cinema video{object-position:55% center}.bouquet-grid .photo{height:520px}.wedding{padding-block:75px}.wedding h2{font-size:54px}.atelier>.photo{height:520px}@media(max-width:767px){.hero{grid-template-columns:1fr;min-height:0;padding-block:28px 45px;gap:35px}.hero h1{font-size:clamp(49px,12.5vw,72px)}.hero-photo{height:450px;width:92%}.bouquet-grid .photo{height:400px}.wedding h2{font-size:38px}.atelier>.photo{height:360px}}

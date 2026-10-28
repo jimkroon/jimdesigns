@@ -1,0 +1,22 @@
+.cinema{position:relative;overflow:hidden;isolation:isolate;background:var(--surface)}
+.cinema .film-frame{position:absolute;inset:0;overflow:hidden;will-change:transform}
+.cinema video{display:block;width:100%;height:100%;object-fit:cover;object-position:center;max-width:none}
+.film-control{position:absolute;right:17px;bottom:17px;z-index:12;display:inline-flex;align-items:center;gap:10px;min-height:38px;padding:9px 13px;border:1px solid rgb(255 255 255 / .65);border-radius:0;background:rgb(15 22 18 / .78);color:#fff;font:400 11px/1.5 Manrope,sans-serif;cursor:pointer;backdrop-filter:blur(8px)}
+.film-control:hover{background:rgb(15 22 18 / .96)}
+.film-control:focus-visible{outline:2px solid #fff;outline-offset:4px}
+.film-control::before{content:'';width:10px;height:12px;display:block;background:currentColor;clip-path:polygon(0 0,35% 0,35% 100%,0 100%,0 0,65% 0,100% 0,100% 100%,65% 100%,65% 0)}
+.film-control[data-paused=true]::before{clip-path:polygon(0 0,100% 50%,0 100%)}
+.hero-image.cinema{position:absolute;inset:0;width:100%;height:100%;z-index:-2}
+.hero>.film-control{right:28px;bottom:26px}
+.hero::after{pointer-events:none}
+.project-stage{touch-action:pan-y}
+.project-stage figure>img{cursor:grab}
+.project-stage figure>img:active{cursor:grabbing}
+@view-transition{navigation:auto}
+::view-transition-old(root){animation:page-out .22s cubic-bezier(.23,1,.32,1) both}
+::view-transition-new(root){animation:page-in .45s cubic-bezier(.23,1,.32,1) both}
+@keyframes page-out{to{opacity:0;transform:translateY(-8px)}}
+@keyframes page-in{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:translateY(0)}}
+@media(hover:hover) and (pointer:fine){.button .icon,.mos-action .icon,.mos-inline .icon,.link .icon{transition:transform .25s cubic-bezier(.23,1,.32,1)}.button:hover .icon,.mos-action:hover .icon,.mos-inline:hover .icon,.link:hover .icon{transform:translate(3px,-3px)}}
+@media(max-width:767px){.film-control{right:12px;bottom:12px;font-size:10px;min-height:38px}.hero>.film-control{right:20px;bottom:18px}}
+@media(prefers-reduced-motion:reduce){.film-frame{will-change:auto!important;transform:none!important}::view-transition-old(root),::view-transition-new(root){animation:none!important}}

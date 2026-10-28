@@ -1,0 +1,366 @@
+[
+  {
+    "asset": "luwte/assets/hero.jpg",
+    "source": "/Users/jim/.codex/generated_images/01a1842f-f8c5-7690-ac9a-57280d064615/exec-db9829b3-5d3a-4c98-9a34-eb840952681f.png",
+    "dimensions": [
+      1672,
+      941
+    ],
+    "bytes": 574420,
+    "mode": "built-in image_gen",
+    "prompt": "Use case: precise-object-edit. Input image is a fictional architecture website reference. Produce ONLY the clean architectural photograph shown in that reference, expanded to fill the entire horizontal 16:9 canvas at high resolution. Remove ALL website typography, logo, navigation, ivory caption rectangle, olive left strip, buttons, numbers, and UI; reconstruct plausible uninterrupted underlying garden and courtyard wherever those existed. Preserve the exact courtyard home identity and camera scene: contemporary single-storey Dutch home in warm red brick, large warm oak window and door frames, timber-glazed openings, shaded interior with paper pendant, gravel courtyard, tall mature tree and planting at left, ivy green shrubs, tan stone low wall at right. Keep the reference's late afternoon golden sunlight with leafy shadow patterns, strongly horizontal architecture, warm natural architectural editorial photography. Camera at eye height, wide-angle with straight verticals. The lower-left foliage should remain naturally shadowed to offer a safe area for later real HTML text. Photorealistic materials and realistic construction; no surreal shapes, people, cars, furniture changes, text, logos, watermarks, UI, rounded corners or frame. The photograph must occupy every pixel of the output.",
+    "reference": "/Users/jim/Documents/Websites/Jimdesigns/output/portfolio-concepten-2026-10-28/02-luwte-architectuur.png"
+  },
+  {
+    "asset": "luwte/assets/project-interior.jpg",
+    "source": "/Users/jim/.codex/generated_images/01a1842f-f8c5-7690-ac9a-57280d064615/exec-217b23de-1f03-4125-aebd-67ec32f71919.png",
+    "dimensions": [
+      1448,
+      1086
+    ],
+    "bytes": 459590,
+    "mode": "built-in image_gen",
+    "prompt": "Use case: photorealistic-natural. Clean editorial architectural interior photograph, horizontal 4:3, for fictional Dutch architecture studio Luwte. An intimately framed living and dining space in a contemporary warm red-brick courtyard house: oak dining table with two understated oak chairs at left, travertine floor, sculptural paper pendant light, built-in oak storage, beige linen sofa partly visible right. Large floor-to-ceiling oak framed glass doors open onto a quiet planted gravel courtyard and a warm red brick wall. Low afternoon sunlight sweeps across the floor and real subtle oak grain; dappled tree shadows and olive foliage outside. Materials ivory plaster, muted oak, warm terracotta brick, olive green plants. Quiet sophisticated natural composition, architect magazine photography, honest physical texture, restrained styling, absolutely no text, labels, logos, UI, people, surreal geometry, busy clutter or watermarks. Shoot from the room's shaded corner toward the garden so a strong architectural opening is the hero.",
+    "reference": null
+  },
+  {
+    "asset": "luwte/assets/project-garden.jpg",
+    "source": "/Users/jim/.codex/generated_images/01a1842f-f8c5-7690-ac9a-57280d064615/exec-04fbe107-5b37-443a-b852-b5afea62dd9c.png",
+    "dimensions": [
+      1448,
+      1086
+    ],
+    "bytes": 487790,
+    "mode": "built-in image_gen",
+    "prompt": "Use case: photorealistic-natural. A premium clean architectural editorial photograph, horizontal 4:3, of a different fictional Dutch residential garden project for architecture studio Luwte. Eye-height three-quarter view from lush meadow-like garden through grasses to a simple contemporary warm brick garden pavilion addition with a long oak-framed glass facade and an ivory plaster livingroom inside. One modest warm oak bench at the terrace, rough red-brown brick, planting beds with grasses, a small multi-stem tree, early evening soft sunlight. Strong legible horizontal lines, refined and believable construction, no extravagant mansion, no pool, no palm trees. Palette muted olive, dusty brick, natural oak, offwhite. Photograph is calm and tactile, professional architecture magazine composition with generous breathing room. Whole frame is photo only; no text, UI, watermark, border, labels, people, cars or logos.",
+    "reference": null
+  },
+  {
+    "asset": "atelier-faye/assets/hero.jpg",
+    "source": "/Users/jim/.codex/generated_images/01a1842f-f8c5-7690-ac9a-57280d064615/exec-da4690e3-d82d-4f6d-ac33-33c4d5265f66.png",
+    "dimensions": [
+      1122,
+      1402
+    ],
+    "bytes": 429533,
+    "mode": "built-in image_gen",
+    "prompt": "Use case: precise-object-edit. Input image is a fictional florist website reference. Produce ONLY the flower still-life photograph from the reference, recreated cleanly at high-resolution portrait 4:5 aspect ratio. Remove every trace of website typography, navigation, buttons, labels and UI. Remove the arch-shaped crop: the result must be a rectangular edge-to-edge uninterrupted studio photograph, filled on every pixel. Preserve the bouquet's identity and visual world: sculptural generous loose asymmetrical arrangement in a glossy deep cobalt blue ceramic pitcher, large vibrant orange dahlias, pale lilac sweet peas, yellow mimosa, delicate green stems and branches of tiny pale cherry blossoms reaching high above the flowers. The pitcher rests on a pale lavender tabletop with a couple of fallen petals; warm offwhite lightly textured plaster wall behind, natural soft daylight and beautifully real soft shadows. Compose the vase lower center, bouquet occupying middle 70%, blossom branches reach into upper third but not cut off, leave a little clear space all around. Authentic floral editorial photography, real botanical variety, no synthetic plastic flowers, no surreal stems, no text, UI, logos, watermark, frame or arch mask. The full clean photo will later receive a CSS mask in HTML.",
+    "reference": "/Users/jim/Documents/Websites/Jimdesigns/output/portfolio-concepten-2026-10-28/04-atelier-faye-bloemen.png"
+  },
+  {
+    "asset": "atelier-faye/assets/bouquet-season.jpg",
+    "source": "/Users/jim/.codex/generated_images/01a1842f-f8c5-7690-ac9a-57280d064615/exec-f4443039-dc87-46cb-969b-3454f7caf5df.png",
+    "dimensions": [
+      1122,
+      1402
+    ],
+    "bytes": 352947,
+    "mode": "built-in image_gen",
+    "prompt": "Use case: photorealistic-natural. Premium editorial florist product still life for fictional flower studio Atelier Faye, portrait 4:5 photograph. A loose hand-tied sculptural seasonal bouquet of orange dahlias, pale lilac sweet peas, soft apricot garden roses, yellow mimosa, delicate green leaves and a few wispy flowering branches, with visibly natural varied stems. Bouquet stands in a small warm white ceramic vessel on a lavender studio tabletop in front of a lavender plaster wall, arranged with intentionally asymmetrical airy stem heights and negative space. Rich real flowers, slightly imperfect petals and exquisite botanical detail, soft natural morning light coming from left and a natural gentle shadow right. Color palette cobalt/lavender brand context, saturated natural orange flowers, pale ivory. Authentic sophisticated floral magazine photography, clean composition with whole bouquet and vessel visible, no packaging, no text, no hand, no logos, no watermark, no UI, no border or mask.",
+    "reference": null
+  },
+  {
+    "asset": "atelier-faye/assets/atelier.jpg",
+    "source": "/Users/jim/.codex/generated_images/01a1842f-f8c5-7690-ac9a-57280d064615/exec-b84b0e2b-36b9-4126-b171-26ec7bd8708c.png",
+    "dimensions": [
+      1448,
+      1086
+    ],
+    "bytes": 394961,
+    "mode": "built-in image_gen",
+    "prompt": "Use case: photorealistic-natural. Horizontal 4:3 editorial documentary photograph inside a tiny independent Dutch flower atelier. Close waist-height view of a florist's hands naturally tying a loose seasonal bouquet of orange dahlias, lilac sweet peas and airy greenery with soft ivory ribbon on a pale natural wooden worktable. Only forearms and torso in an understated blue cotton workshirt, no face. Scattered real cut stems, a pair of small florist shears, folded lavender paper; deep cobalt ceramic pitcher and a couple of buckets of loose flowers softly out of focus in the back. Offwhite plaster wall, beautiful soft side daylight, warm tactile shadows, informal and believable human craft rather than posed stock photography. Editorial flower magazine styling, colors lavender/cobalt/cream with warm orange blossoms. Preserve realistic hands and real botanical forms, no text, fake signage, logos, watermark, UI, frame, collage or crowded props.",
+    "reference": null
+  },
+  {
+    "asset": "korst/assets/detail.jpg",
+    "credit": "Vaibhav Jadhav",
+    "source": "https://www.pexels.com/photo/man-preparing-dough-for-bread-3218467/",
+    "photoURL": "https://images.pexels.com/photos/3218467/pexels-photo-3218467.jpeg?w=1600",
+    "license": "Pexels License",
+    "licenseURL": "https://www.pexels.com/license/",
+    "title": "Man Preparing Dough For Bread",
+    "processing": "JPEG re-encoding only; no retouch",
+    "downloadedDimensions": [
+      1600,
+      1067
+    ],
+    "dimensions": [
+      1600,
+      1067
+    ],
+    "bytes": 201018
+  },
+  {
+    "asset": "noord/assets/detail.jpg",
+    "credit": "Henrique Rocha",
+    "source": "https://www.pexels.com/photo/man-repairing-a-bicycle-11242855/",
+    "photoURL": "https://images.pexels.com/photos/11242855/pexels-photo-11242855.jpeg?w=1600",
+    "license": "Pexels License",
+    "licenseURL": "https://www.pexels.com/license/",
+    "title": "Man Repairing a Bicycle",
+    "processing": "Landscape crop focused on hands and wheel; no retouch",
+    "crop": [
+      0,
+      1400,
+      1600,
+      2467
+    ],
+    "downloadedDimensions": [
+      1600,
+      2848
+    ],
+    "dimensions": [
+      1600,
+      1067
+    ],
+    "bytes": 240897
+  },
+  {
+    "asset": "mos/assets/hero.jpg",
+    "credit": "Rene Terp",
+    "source": "https://www.pexels.com/photo/path-in-beautiful-green-garden-5157868/",
+    "photoURL": "https://images.pexels.com/photos/5157868/pexels-photo-5157868.jpeg?w=1600",
+    "license": "Pexels License",
+    "licenseURL": "https://www.pexels.com/license/",
+    "title": "Path in Beautiful Green Garden",
+    "processing": "JPEG re-encoding only; no retouch",
+    "downloadedDimensions": [
+      1600,
+      1067
+    ],
+    "dimensions": [
+      1600,
+      1067
+    ],
+    "bytes": 461918
+  },
+  {
+    "asset": "coupe/assets/detail.jpg",
+    "credit": "Max Vakhtbovych",
+    "source": "https://www.pexels.com/photo/photo-of-the-interior-of-a-salon-7750098/",
+    "photoURL": "https://images.pexels.com/photos/7750098/pexels-photo-7750098.jpeg?w=1600",
+    "license": "Pexels License",
+    "licenseURL": "https://www.pexels.com/license/",
+    "title": "Photo of the Interior of a Salon",
+    "processing": "JPEG re-encoding only; no retouch",
+    "downloadedDimensions": [
+      1600,
+      1096
+    ],
+    "dimensions": [
+      1600,
+      1096
+    ],
+    "bytes": 263257
+  },
+  {
+    "asset": "shared/previews/luwte.png",
+    "origin": "Browser screenshot of this package's own luwte/index.html at 960x720, captured locally on 2026-10-28. This is a live HTML rendering, not a generated mockup.",
+    "dimensions": [
+      960,
+      720
+    ]
+  },
+  {
+    "asset": "shared/previews/atelier-faye.png",
+    "origin": "Browser screenshot of this package's own atelier-faye/index.html at 960x720, captured locally on 2026-10-28. This is a live HTML rendering, not a generated mockup.",
+    "dimensions": [
+      960,
+      720
+    ]
+  },
+  {
+    "asset": "shared/previews/korst.png",
+    "origin": "Browser screenshot of this package's own korst/index.html at 960x720, captured locally on 2026-10-28. This is a live HTML rendering, not a generated mockup.",
+    "dimensions": [
+      960,
+      720
+    ]
+  },
+  {
+    "asset": "shared/previews/noord.png",
+    "origin": "Browser screenshot of this package's own noord/index.html at 960x720, captured locally on 2026-10-28. This is a live HTML rendering, not a generated mockup.",
+    "dimensions": [
+      960,
+      720
+    ]
+  },
+  {
+    "asset": "shared/previews/mos.png",
+    "origin": "Browser screenshot of this package's own mos/index.html at 960x720, captured locally on 2026-10-28. This is a live HTML rendering, not a generated mockup.",
+    "dimensions": [
+      960,
+      720
+    ]
+  },
+  {
+    "asset": "shared/previews/coupe.png",
+    "origin": "Browser screenshot of this package's own coupe/index.html at 960x720, captured locally on 2026-10-28. This is a live HTML rendering, not a generated mockup.",
+    "dimensions": [
+      960,
+      720
+    ]
+  },
+  {
+    "asset": "mos/assets/courtyard.jpg",
+    "title": "Gravel path through a garden with tall grasses",
+    "credit": "Anna Gelibterman",
+    "source": "https://unsplash.com/photos/gravel-path-through-a-garden-with-tall-grasses-XFizz9F5ViQ",
+    "photoURL": "https://images.unsplash.com/photo-1764776709909-d3bb1167aace?auto=format&fit=crop&w=1800&q=88",
+    "license": "Unsplash License (free photo, not Unsplash+)",
+    "licenseURL": "https://unsplash.com/license",
+    "processing": "JPEG re-encoding only; no crop or retouch",
+    "dimensions": [
+      1800,
+      1200
+    ],
+    "bytes": 632770
+  },
+  {
+    "asset": "mos/assets/planting.jpg",
+    "title": "Close-Up of Ornamental Grass in Sunlight",
+    "credit": "Jeffry Surianto",
+    "source": "https://www.pexels.com/photo/close-up-of-ornamental-grass-in-sunlight-36122217/",
+    "photoURL": "https://images.pexels.com/photos/36122217/pexels-photo-36122217.jpeg?w=1800",
+    "license": "Pexels License",
+    "licenseURL": "https://www.pexels.com/license/",
+    "processing": "JPEG re-encoding only; no crop or retouch",
+    "dimensions": [
+      1800,
+      1200
+    ],
+    "bytes": 657853
+  },
+  {
+    "site": "luwte",
+    "asset": "luwte/assets/hero-video.mp4",
+    "poster": "luwte/assets/hero-video-poster.jpg",
+    "title": "A Modern Living Room",
+    "creator": "Max Vakhtbovych",
+    "source": "https://www.pexels.com/video/a-modern-living-room-7533207/",
+    "downloadURL": "https://videos.pexels.com/video-files/7533207/7533207-uhd_3840_2160_30fps.mp4",
+    "license": "Pexels License",
+    "licenseURL": "https://www.pexels.com/license/",
+    "description": "Slow genuine camera movement across a bright contemporary living room with white sofa and dark stone fireplace.",
+    "processing": "Start 0.4 seconds, duration 9 seconds; downscale to 1280x720, 25fps, H.264 CRF25 maxrate2400k, mute, yuv420p, faststart.",
+    "duration": 9,
+    "dimensions": [
+      1280,
+      720
+    ],
+    "bytes": 390878
+  },
+  {
+    "site": "atelier-faye",
+    "asset": "atelier-faye/assets/hero-video.mp4",
+    "poster": "atelier-faye/assets/hero-video-poster.jpg",
+    "title": "Person Arranging a Bouquet of Flowers",
+    "creator": "Amina Filkins",
+    "source": "https://www.pexels.com/video/person-arranging-a-bouquet-of-flowers-5404708/",
+    "downloadURL": "https://videos.pexels.com/video-files/5404708/5404708-uhd_3840_2160_25fps.mp4",
+    "license": "Pexels License",
+    "licenseURL": "https://www.pexels.com/license/",
+    "description": "Real overhead floral craft footage: hands wrap a pink-and-white bouquet on a wooden table.",
+    "processing": "Start 0.4 seconds, remaining duration 5.56 seconds; downscale to 1280x720, 25fps, H.264 CRF25 maxrate2400k, mute, yuv420p, faststart.",
+    "duration": 5.56,
+    "dimensions": [
+      1280,
+      720
+    ],
+    "bytes": 807146
+  },
+  {
+    "site": "noord",
+    "asset": "noord/assets/hero-video.mp4",
+    "poster": "noord/assets/hero-video-poster.jpg",
+    "title": "Man Fixing His Bicycle",
+    "creator": "Kaboompics.com",
+    "source": "https://www.pexels.com/video/man-fixing-his-bicycle-6333025/",
+    "downloadURL": "https://videos.pexels.com/video-files/6333025/6333025-uhd_4096_2160_25fps.mp4",
+    "license": "Pexels License",
+    "licenseURL": "https://www.pexels.com/license/",
+    "description": "Real indoor bicycle adjustment: a person checks and adjusts a red bicycle's handlebars in a home workshop setting.",
+    "processing": "Start 0.4 seconds, duration 9 seconds; downscale to 1280x676, 25fps, H.264 CRF25 maxrate2400k, mute, yuv420p, faststart.",
+    "duration": 9,
+    "dimensions": [
+      1280,
+      676
+    ],
+    "bytes": 1104931
+  },
+  {
+    "asset": "mos/assets/hero-video.mp4",
+    "poster": "mos/assets/hero-poster.jpg",
+    "title": "Footage of a Garden",
+    "creator": "George Morina",
+    "source": "https://www.pexels.com/video/footage-of-a-garden-5201445/",
+    "downloadURL": "https://videos.pexels.com/video-files/5201445/5201445-uhd_3840_2160_30fps.mp4",
+    "license": "Pexels License",
+    "licenseURL": "https://www.pexels.com/license/",
+    "duration": 9.0,
+    "bytes": 2279330,
+    "processing": "9seconds,silent,1024pxwide,H26424fps,CRF28,faststart"
+  },
+  {
+    "asset": "korst/assets/hero-video.mp4",
+    "poster": "korst/assets/hero-poster.jpg",
+    "title": "Women Making Bread",
+    "creator": "K",
+    "source": "https://www.pexels.com/video/women-making-bread-7405935/",
+    "downloadURL": "https://videos.pexels.com/video-files/7405935/7405935-uhd_3840_2160_24fps.mp4",
+    "license": "Pexels License",
+    "licenseURL": "https://www.pexels.com/license/",
+    "duration": 9.0,
+    "bytes": 1142979,
+    "processing": "First9seconds (or source duration if shorter), silent,1280pxwide,H.26424fps,faststart"
+  },
+  {
+    "asset": "coupe/assets/hero-video.mp4",
+    "poster": "coupe/assets/hero-poster.jpg",
+    "title": "A Hairdresser Cutting Her Customer\u2019s Hair",
+    "creator": "Kampus Production",
+    "source": "https://www.pexels.com/video/a-hairdresser-cutting-her-customer-s-hair-8830114/",
+    "downloadURL": "https://videos.pexels.com/video-files/8830114/8830114-uhd_3840_2160_25fps.mp4",
+    "license": "Pexels License",
+    "licenseURL": "https://www.pexels.com/license/",
+    "duration": 7.416667,
+    "bytes": 754536,
+    "processing": "First9seconds (or source duration if shorter), silent,1280pxwide,H.26424fps,faststart"
+  },
+  {
+    "asset": "luwte/assets/hero-video-poster.jpg",
+    "origin": "Poster frame from https://www.pexels.com/video/a-modern-living-room-7533207/",
+    "license": "Pexels License",
+    "licenseURL": "https://www.pexels.com/license/"
+  },
+  {
+    "asset": "atelier-faye/assets/hero-video-poster.jpg",
+    "origin": "Poster frame from https://www.pexels.com/video/person-arranging-a-bouquet-of-flowers-5404708/",
+    "license": "Pexels License",
+    "licenseURL": "https://www.pexels.com/license/"
+  },
+  {
+    "asset": "noord/assets/hero-video-poster.jpg",
+    "origin": "Poster frame from https://www.pexels.com/video/man-fixing-his-bicycle-6333025/",
+    "license": "Pexels License",
+    "licenseURL": "https://www.pexels.com/license/"
+  },
+  {
+    "asset": "mos/assets/hero-poster.jpg",
+    "origin": "Poster frame from https://www.pexels.com/video/footage-of-a-garden-5201445/",
+    "license": "Pexels License",
+    "licenseURL": "https://www.pexels.com/license/"
+  },
+  {
+    "asset": "korst/assets/hero-poster.jpg",
+    "origin": "Poster frame from https://www.pexels.com/video/women-making-bread-7405935/",
+    "license": "Pexels License",
+    "licenseURL": "https://www.pexels.com/license/"
+  },
+  {
+    "asset": "coupe/assets/hero-poster.jpg",
+    "origin": "Poster frame from https://www.pexels.com/video/a-hairdresser-cutting-her-customer-s-hair-8830114/",
+    "license": "Pexels License",
+    "licenseURL": "https://www.pexels.com/license/"
+  }
+]

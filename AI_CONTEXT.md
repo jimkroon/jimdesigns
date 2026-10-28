@@ -194,3 +194,7 @@ Gebruik alleen de skills die daadwerkelijk bij de taak passen; stapel overlappen
 - Lees dit document volledig aan het begin van iedere nieuwe taak in dit project.
 - Werk het bij wanneer Jim nieuwe blijvende informatie deelt, een keuze bevestigt of een bestaand uitgangspunt verandert.
 - Bewaar hier alleen context die nuttig is voor toekomstige taken; tijdelijke gespreksdetails hoeven niet te worden vastgelegd.
+
+## Actuele hosting en publicatie, 29 oktober 2026
+
+Jim heeft de site en het dashboard naar Firebase Spark omgezet en GitHub-publicatie gevraagd. De huidige statische site en Firebase-browsercode staan in `firebase-hosting/`; de oorspronkelijke app op de root is historisch. De live workflow bouwt `firebase-hosting/free` en publiceert uitsluitend Hosting. Klantgegevens en nota’s blijven buiten Git. Websiteprijzen: vanaf €750 zakelijk, €1.250 themawebshop, €2.000 custom en Premium richtprijs €3.000. Het portfolio bevat zes expliciet fictieve websiteconcepten naast de bestaande e-mailontwerpen.

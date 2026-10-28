@@ -1,0 +1,29 @@
+{
+  "firestore": {"rules": "free/firestore.rules"},
+  "emulators": {"firestore": {"port": 8383}, "auth": {"port": 9099}, "ui": {"enabled": false}, "singleProjectMode": true},
+  "hosting": {
+    "public": "public",
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**", "**/*.php", "**/*.sqlite*", "**/*.db", "**/*.cjs", "**/*.py"],
+    "redirects": [
+      {"source": "/berfume-studio", "destination": "https://studio.jimdesigns.nl/berfume-studio/", "type": 302},
+      {"source": "/berfume-studio/:path*", "destination": "https://studio.jimdesigns.nl/berfume-studio/:path", "type": 302},
+      {"source": "/index.html", "destination": "/", "type": 301},
+      {"source": "/notas/index.php", "destination": "/notas/", "type": 301}
+    ],
+    "headers": [
+      {"source": "**", "headers": [{"key": "X-Content-Type-Options", "value": "nosniff"}, {"key": "Referrer-Policy", "value": "strict-origin-when-cross-origin"}]},
+      {"source": "**/*.html", "headers": [{"key": "Cache-Control", "value": "no-cache"}]},
+      {"source": "/", "headers": [{"key": "Cache-Control", "value": "no-cache"}]},
+      {"source": "**/*.{css,js}", "headers": [{"key": "Cache-Control", "value": "public, max-age=3600"}]},
+      {"source": "**/*.{webp,jpg,jpeg,png,svg,woff2,ttf}", "headers": [{"key": "Cache-Control", "value": "public, max-age=604800"}]},
+      {"source": "/emails/**", "headers": [{"key": "X-Robots-Tag", "value": "noindex, follow"}]}
+      ,{"source": "/notas/**", "headers": [
+        {"key": "Cache-Control", "value": "no-store"},
+        {"key": "X-Robots-Tag", "value": "noindex, nofollow, noarchive"},
+        {"key": "Referrer-Policy", "value": "no-referrer"},
+        {"key": "X-Frame-Options", "value": "DENY"},
+        {"key": "Content-Security-Policy", "value": "default-src 'self'; script-src 'self' https://www.google.com https://www.gstatic.com; connect-src 'self' https://*.googleapis.com https://www.google.com; frame-src https://www.google.com https://recaptcha.google.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; frame-ancestors 'none'; base-uri 'none'; form-action 'self'; object-src 'none'"}
+      ]}
+    ]
+  }
+}
