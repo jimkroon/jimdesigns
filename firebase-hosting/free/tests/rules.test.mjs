@@ -5,7 +5,7 @@ import {initializeTestEnvironment,assertFails,assertSucceeds} from '@firebase/ru
 import {doc,setDoc,getDoc,getDocs,collection,updateDoc,deleteDoc,writeBatch,serverTimestamp,Timestamp,setLogLevel} from 'firebase/firestore';
 setLogLevel('silent');
 import {createInvoice,saveCustomer,exportBackup} from '../src/repository.mjs';
-import {OWNER} from '../src/core.mjs';
+import {OWNER,invoiceInput} from '../src/core.mjs';
 let environment,db;const authTime=Math.floor(Date.now()/1000);const person={id:1,name:'Synthetische klant',company:'Test BV',address:'Teststraat 1',city:'1234 AB Teststad'};const seller={name:'Synthetische afzender',company:'',address:'Teststraat 2',city:'1234 AB Teststad',iban:'NL91ABNA0417164300'};
 before(async()=>{environment=await initializeTestEnvironment({projectId:'demo-jimdesigns',firestore:{host:'127.0.0.1',port:8383,rules:await fs.readFile(new URL('../firestore.rules',import.meta.url),'utf8')}});});
 after(async()=>{await environment?.cleanup();});
@@ -38,6 +38,22 @@ test('Invoices require their atomic sequence, request key and current snapshots'
 test('Concurrent repeated and distinct submissions do not duplicate invoice numbers',async()=>{
   const duplicate=await Promise.all([createInvoice(db,input('a')),createInvoice(db,input('a'))]);assert.deepEqual(duplicate.map(i=>i.number),[5,5]);
   const distinct=await Promise.all([createInvoice(db,input('b')),createInvoice(db,input('c'))]);assert.deepEqual(distinct.map(i=>i.number).sort(),[6,7]);
+});
+test('Discounts persist and allow full discounts without changing the original subtotal',async()=>{
+  const first=await createInvoice(db,{...input('a'),amount:'420',discount_percent:'10'});
+  assert.equal(first.amount_cents,37800);assert.equal(first.discount_cents,4200);
+  const stored=(await getDoc(doc(db,'invoices','5'))).data();assert.equal(stored.subtotal_cents,42000);assert.equal(stored.discount_basis_points,1000);
+  assert.equal((await createInvoice(db,{...input('b'),amount:'250',discount_percent:'10'})).amount_cents,22500);
+  assert.equal((await createInvoice(db,{...input('c'),discount_percent:'100'})).amount_cents,0);
+});
+test('Rules reject tampered discount math, partial fields and invalid boundaries',async()=>{
+  const rawWrite=patch=>{
+    const invoice={...invoiceInput({...input('a'),amount:'420',discount_percent:'10'}),number:5,customer:person,seller,created_at:serverTimestamp(),original_file:null,...patch};
+    for(const key of Object.keys(invoice))if(invoice[key]===undefined)delete invoice[key];
+    const batch=writeBatch(db);batch.set(doc(db,'invoices','5'),invoice);batch.set(doc(db,'requests',invoice.request_key),{number:5});batch.set(doc(db,'settings','sequence'),{next_number:6,latest_date:invoice.date});return batch.commit();
+  };
+  for(const patch of [{discount_cents:4199},{amount_cents:1},{discount_basis_points:-1},{discount_basis_points:10001},{subtotal_cents:0},{subtotal_cents:100000000},{discount_basis_points:10.5},{discount_cents:undefined},{subtotal_cents:undefined,discount_cents:undefined,discount_basis_points:undefined,amount_cents:0}])await assertFails(rawWrite(patch));
+  await assertSucceeds(rawWrite({subtotal_cents:undefined,discount_cents:undefined,discount_basis_points:undefined,amount_cents:42000}));
 });
 test('Customer edits leave invoice snapshots intact and new IDs are atomic',async()=>{
   await createInvoice(db,input('a'));await saveCustomer(db,{...person,name:'Gewijzigde klant'},1);

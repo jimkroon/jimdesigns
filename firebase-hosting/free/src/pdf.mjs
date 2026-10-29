@@ -1,6 +1,7 @@
 import {PDFDocument,StandardFonts,rgb} from 'pdf-lib';
-import {money,numberLabel,dateLabel} from './core.mjs';
+import {money,numberLabel,dateLabel,invoiceTotals,percentLabel} from './core.mjs';
 export async function invoicePdf(invoice) {
+  const totals=invoiceTotals(invoice);
   const document=await PDFDocument.create();const page=document.addPage([595.28,841.89]);
   const font=await document.embedFont(StandardFonts.Helvetica);const bold=await document.embedFont(StandardFonts.HelveticaBold);
   const text=(x,top,value,size=11,color=rgb(.14,.14,.14),strong=false)=>page.drawText(value,{x,y:841.89-top,size,font:strong?bold:font,color});
@@ -26,9 +27,16 @@ export async function invoicePdf(invoice) {
   text(50,324,'Datum',9,rgb(.45,.45,.45));text(50,344,dateLabel(invoice.date));
   page.drawRectangle({x:50,y:422,width:495.28,height:35,color:rgb(.95,.95,.94)});
   text(63,407,'Omschrijving',10);right(532,407,'Bedrag',10);
-  const bottom=wrapped(63,446,invoice.description,345);right(532,446,money(invoice.amount_cents));
-  const rowBottom=Math.max(506,bottom+12);rule(rowBottom);text(330,rowBottom+34,'Te betalen',13);right(532,rowBottom+34,money(invoice.amount_cents),13);
-  const paymentTop=Math.max(634,rowBottom+102);text(50,paymentTop,'Betaling',12);text(50,paymentTop+28,'Maak '+money(invoice.amount_cents)+' over naar:');
+  const bottom=wrapped(63,446,invoice.description,345);right(532,446,money(totals.subtotal_cents));
+  const rowBottom=Math.max(506,bottom+12);rule(rowBottom);
+  let totalTop=rowBottom+34;
+  if(totals.discount_basis_points>0){
+    text(330,rowBottom+24,'Subtotaal',10);right(532,rowBottom+24,money(totals.subtotal_cents),10);
+    text(330,rowBottom+44,'Korting ('+percentLabel(totals.discount_basis_points)+')',10);right(532,rowBottom+44,'- '+money(totals.discount_cents),10);
+    rule(rowBottom+58);totalTop=rowBottom+82;
+  }
+  text(330,totalTop,'Te betalen',13);right(532,totalTop,money(totals.amount_cents),13);
+  const paymentTop=Math.max(634,totalTop+68);text(50,paymentTop,'Betaling',12);text(50,paymentTop+28,totals.amount_cents===0?'Er hoeft geen bedrag te worden overgemaakt.':'Maak '+money(totals.amount_cents)+' over naar:');
   text(50,paymentTop+54,invoice.seller.iban.match(/.{1,4}/g).join(' '),12);wrapped(50,paymentTop+76,'Ten name van '+invoice.seller.name,480);
   text(50,paymentTop+116,'Vermeld bij de betaling: nota '+label+'.');
   document.setTitle('JimDesigns - Nota '+label);document.setCreator('JimDesigns Notas');return document.save();

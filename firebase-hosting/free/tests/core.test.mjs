@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {PDFDocument} from 'pdf-lib';
-import {amountCents,validDate,party,invoiceInput} from '../src/core.mjs';
+import {amountCents,validDate,party,invoiceInput,discountBasisPoints,discountedAmount,invoiceTotals} from '../src/core.mjs';
 import {invoicePdf} from '../src/pdf.mjs';
 test('Dutch amounts remain integer cents with all supported separators',()=>{
   for(const [value,cents] of [['300',30000],['300,50',30050],['300.5',30050],['1.234,56',123456],['0,01',1],['999.999,99',99999999]])assert.equal(amountCents(value),cents);
@@ -14,8 +14,18 @@ test('Dates, character support and IBAN checks preserve document constraints',()
   assert.equal(party({name:'Test',iban:'nl91 abna 0417 1643 00'},true).iban,'NL91ABNA0417164300');
   assert.throws(()=>invoiceInput({request_key:'x',customer_id:'1',amount:'5',date:'2026-10-28',description:'Test'}));
 });
+test('Discount percentages are bounded and calculated in integer cents',()=>{
+  for(const [raw,expected] of [['',0],['0',0],['10',1000],['10,50',1050],['10.5%',1050],['100 %',10000]])assert.equal(discountBasisPoints(raw),expected);
+  for(const raw of ['-1','100,01','101','1e2','10.001','NaN','10%%'])assert.throws(()=>discountBasisPoints(raw));
+  assert.deepEqual(discountedAmount('420','10'),{subtotal_cents:42000,discount_basis_points:1000,discount_cents:4200,amount_cents:37800});
+  assert.equal(discountedAmount('250','10').amount_cents,22500);
+  assert.equal(discountedAmount('0.05','10').discount_cents,1);
+  assert.equal(discountedAmount('0.04','10').discount_cents,0);
+  assert.equal(discountedAmount('999.999,99','100').amount_cents,0);
+  assert.deepEqual(invoiceTotals({amount_cents:12345}),{subtotal_cents:12345,discount_basis_points:0,discount_cents:0,amount_cents:12345});
+});
 test('Exported invoice is a valid single-page A4 PDF with long supported data',async()=>{
   const seller=party({name:'Voorbeeldbedrijf '+ 'W'.repeat(50),company:'','address':'Teststraat 1','city':'1234 AB Teststad',iban:'NL91ABNA0417164300'},true);
-  const bytes=await invoicePdf({number:5,seller,customer:{...seller,name:'Één testklant'},date:'2026-10-28',description:'W'.repeat(180),amount_cents:30050});
+  const bytes=await invoicePdf({number:5,seller,customer:{...seller,name:'Één testklant'},date:'2026-10-28',description:'W'.repeat(180),...discountedAmount('420','10')});
   const pdf=await PDFDocument.load(bytes);assert.equal(pdf.getPageCount(),1);assert.equal(pdf.getTitle(),'JimDesigns - Nota 005');assert.equal(pdf.getPages()[0].getWidth(),595.28);
 });

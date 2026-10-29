@@ -26,6 +26,17 @@ service cloud.firestore {
         && ((!seller && value.keys().hasOnly(['id','name','company','address','city']))
           || (seller && value.keys().hasOnly(['name','company','address','city','iban']) && value.iban.matches('^[A-Z]{2}[0-9]{2}[A-Z0-9]{11,30}$')));
     }
+    function invoiceAmounts(data) {
+      let fields = ['subtotal_cents','discount_basis_points','discount_cents'];
+      return data.amount_cents is int && data.amount_cents >= 0 && data.amount_cents <= 99999999
+        && ((!data.keys().hasAny(fields) && data.amount_cents > 0)
+          || (data.keys().hasAll(fields)
+            && data.subtotal_cents is int && data.subtotal_cents > 0 && data.subtotal_cents <= 99999999
+            && data.discount_basis_points is int && data.discount_basis_points >= 0 && data.discount_basis_points <= 10000
+            && data.discount_cents is int
+            && data.discount_cents == int((data.subtotal_cents * data.discount_basis_points + 5000) / 10000)
+            && data.amount_cents == data.subtotal_cents - data.discount_cents));
+    }
     match /sessions/{id} {
       allow get: if owner() && id == request.auth.uid + '-' + string(request.auth.token.auth_time);
       allow create, update: if owner() && id == request.auth.uid + '-' + string(request.auth.token.auth_time)
@@ -65,14 +76,14 @@ service cloud.firestore {
     match /invoices/{number} {
       allow read: if admin();
       allow create: if admin()
-        && request.resource.data.keys().hasOnly(['number','customer_id','customer','seller','description','amount_cents','date','request_key','created_at','original_file'])
+        && request.resource.data.keys().hasOnly(['number','customer_id','customer','seller','description','amount_cents','subtotal_cents','discount_basis_points','discount_cents','date','request_key','created_at','original_file'])
         && request.resource.data.number is int && request.resource.data.number == int(number)
         && request.resource.data.number == get(/databases/$(database)/documents/settings/sequence).data.next_number
         && request.resource.data.customer_id is int
         && request.resource.data.customer == get(/databases/$(database)/documents/customers/$(string(request.resource.data.customer_id))).data
         && request.resource.data.seller == get(/databases/$(database)/documents/settings/seller).data
         && text(request.resource.data.description, 1, 180)
-        && request.resource.data.amount_cents is int && request.resource.data.amount_cents > 0 && request.resource.data.amount_cents <= 99999999
+        && invoiceAmounts(request.resource.data)
         && request.resource.data.date.matches('^[0-9]{4}-[0-9]{2}-[0-9]{2}$')
         && calendarDate(request.resource.data.date)
         && request.resource.data.date >= get(/databases/$(database)/documents/settings/sequence).data.latest_date
