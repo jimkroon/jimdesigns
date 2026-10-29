@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320" role="img" aria-labelledby="title"><title id="title">JimDesigns</title><rect width="320" height="320" fill="#fff"/><g transform="translate(17.5 27.5)">  <defs>
+    <mask id="monogram-cutout">
+      <rect width="285" height="265" fill="#000"/>
+      <circle cx="104" cy="44" r="19" fill="#fff"/>
+      <path d="M89 81h31v109c0 44-25 70-67 70-16 0-29-4-37-11l16-25c5 4 12 6 20 6 24 0 37-14 37-43V81Z" fill="#fff"/>
+      <circle cx="183" cy="179" r="78" fill="#fff"/>
+      <rect x="229" y="27" width="28" height="154" fill="#fff"/>
+      <circle cx="183" cy="179" r="48" fill="#000"/>
+    </mask>
+  </defs>
+  <rect width="285" height="265" fill="#101218" mask="url(#monogram-cutout)"/>
+</g></svg>

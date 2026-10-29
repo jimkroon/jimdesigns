@@ -15,7 +15,7 @@ await fs.copyFile(path.join(root,'src/admin.css'),path.join(out,'notas/firebase.
 await fs.copyFile(path.join(root,'src/contact-loader.js'),path.join(out,'contact.js'));
 if(development){
   const base=path.resolve(root,'../public');
-  for(const item of ['assets','index.html','site.js','site.css','seo.css'])await fs.cp(path.join(base,item),path.join(out,item),{recursive:true});
+  for(const item of ['assets','index.html','site.js','site.css','seo.css','favicon.ico'])await fs.cp(path.join(base,item),path.join(out,item),{recursive:true});
   await fs.copyFile(path.join(base,'notas/style.css'),path.join(out,'notas/style.css'));
 }
 const contactHash=createHash('sha256').update(await fs.readFile(path.join(out,'firebase/contact.js'))).digest('hex').slice(0,12);

@@ -1,5 +1,6 @@
 import {PDFDocument,StandardFonts,rgb} from 'pdf-lib';
 import {money,numberLabel,dateLabel,invoiceTotals,percentLabel} from './core.mjs';
+import {invoiceBrand} from './invoice-brand.mjs';
 export async function invoicePdf(invoice) {
   const totals=invoiceTotals(invoice);
   const document=await PDFDocument.create();const page=document.addPage([595.28,841.89]);
@@ -15,7 +16,11 @@ export async function invoicePdf(invoice) {
   const right=(edge,top,value,size=11)=>text(edge-width(value,size),top,value,size);
   const rule=top=>page.drawLine({start:{x:50,y:841.89-top},end:{x:545.28,y:841.89-top},thickness:.5,color:rgb(.8,.8,.78)});
   const label=numberLabel(invoice.number);
-  text(50,69,'NOTA',30);right(520,61,label);
+  const logo=await document.embedPng(invoiceBrand.logoDataUri);
+  const logoWidth=40,logoHeight=logoWidth*invoiceBrand.logoHeight/invoiceBrand.logoWidth;
+  page.drawImage(logo,{x:50,y:841.89-44-logoHeight,width:logoWidth,height:logoHeight});
+  text(101,68,invoiceBrand.name,18);
+  right(545.28,61,'NOTA',18);right(545.28,82,label,10);
   let subtitle=invoice.description;
   if(width(subtitle,12)>465){while(width(subtitle+'…',12)>465)subtitle=subtitle.slice(0,-1);subtitle+='…';}
   text(50,109,subtitle,12);rule(145);
