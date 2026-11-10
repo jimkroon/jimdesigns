@@ -99,3 +99,17 @@ test('CSV records the exact commission percentage, base and selected component I
  const csv=core.revenueCsv(report,rows,core.calculateRevenueCut(rows,'17','custom',['campaign:c']));
  assert.match(csv,/"Jouw cut \(%\)";"17,00"/);assert.match(csv,/"Cut berekend over";"1430,96"/);assert.match(csv,/"Onderdelen voor cut";"campaign:c"/);assert.match(csv,/"Jouw cut";"243,26"/);
 });
+
+test('invoice minimum raises a smaller commission to €250 and preserves larger commissions',()=>{
+ for(const [cut,amount,minimumApplied] of [[0,25000,true],[1,25000,true],[24326,25000,true],[24999,25000,true],[25000,25000,false],[25001,25001,false],[41875,41875,false]])assert.deepEqual(core.revenueInvoiceAmount(cut),{amountCents:amount,minimumApplied});
+ assert.deepEqual(core.revenueInvoiceAmount(24326,0),{amountCents:24326,minimumApplied:false});
+ for(const value of [NaN,Infinity,25000.5,100000000])assert.throws(()=>core.revenueInvoiceAmount(value));
+});
+
+test('cut-to-invoice drafts retain period and minimum explanation and reject foreign currency',()=>{
+ const report={start:'2026-10-15',end:'2026-11-10',metadata:{currency:'EUR'}};
+ const rows=[{id:'c',type:'campaign',name:'Campagne',cents:143096,orders:22}];const cut=core.calculateRevenueCut(rows,'17');
+ const draft=core.prepareRevenueInvoice(report,cut);assert.equal(draft.amountCents,25000);assert.equal(draft.cutCents,24326);assert.equal(draft.minimumApplied,true);assert.match(draft.description,/15-10-2026 t\/m 10-11-2026/);assert.match(draft.description,/minimumvergoeding €250,00/);
+ const high=core.prepareRevenueInvoice(report,core.calculateRevenueCut([{...rows[0],cents:246326}],'17'));assert.equal(high.amountCents,41875);assert.equal(high.minimumApplied,false);assert.ok(!high.description.includes('minimumvergoeding'));
+ assert.throws(()=>core.prepareRevenueInvoice({...report,metadata:{currency:'USD'}},cut),/euro/);
+});

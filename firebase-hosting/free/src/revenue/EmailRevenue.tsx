@@ -1,15 +1,15 @@
 import {useEffect, useRef, useState} from 'react';
-import {calculateRevenueCut, aggregateRevenue, mergeRevenue, nextRevenueDate, revenueCsv, revenueTimeframes, revenueTotal, selectRevenue, validateRevenueRange} from './core';
-import type {CutScope, RevenueCut, RevenueMetadata, RevenueReport, RevenueResult, RevenueRow} from './core';
+import {prepareRevenueInvoice, calculateRevenueCut, aggregateRevenue, mergeRevenue, nextRevenueDate, revenueCsv, revenueTimeframes, revenueTotal, selectRevenue, validateRevenueRange} from './core';
+import type {RevenueInvoiceDraft, CutScope, RevenueCut, RevenueMetadata, RevenueReport, RevenueResult, RevenueRow} from './core';
 import styles from './EmailRevenue.module.css';
 
-type Props = {connected: boolean; autoLoad?: boolean; endpoint?: string; authorize?: () => Promise<Record<string, string>>};
+type Props = {onPrepareInvoice?: (draft: RevenueInvoiceDraft) => void; connected: boolean; autoLoad?: boolean; endpoint?: string; authorize?: () => Promise<Record<string, string>>};
 type ApiReply = {metadata?: RevenueMetadata; results?: RevenueResult[]; next?: string; fetchedAt?: string; requestDelayMs?: number; error?: string; retryAfter?: number};
 function currentDate() { return new Intl.DateTimeFormat('en-CA', {timeZone: 'Europe/Amsterdam', year: 'numeric', month: '2-digit', day: '2-digit'}).format(new Date()); }
 function initialDates() { const last = nextRevenueDate(currentDate().slice(0, 7) + '-01', -1); return {start: last.slice(0, 7) + '-01', end: last}; }
 function labelDate(value: string) { return new Intl.DateTimeFormat('nl-NL', {day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC'}).format(new Date(value + 'T12:00:00Z')); }
 function DownloadIcon() { return <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true"><path d="M10 2v10m-4-4 4 4 4-4M3 13v4h14v-4" /></svg>; }
-export default function EmailRevenue({connected, autoLoad = false, endpoint = '', authorize = async () => ({})}: Props) {
+export default function EmailRevenue({onPrepareInvoice, connected, autoLoad = false, endpoint = '', authorize = async () => ({})}: Props) {
   const [dates, setDates] = useState(initialDates);
   const [activePeriod, setActivePeriod] = useState('last-month');
   const [metadata, setMetadata] = useState<RevenueMetadata | null>(null);
@@ -88,6 +88,8 @@ export default function EmailRevenue({connected, autoLoad = false, endpoint = ''
   const money = (cents: number) => new Intl.NumberFormat('nl-NL', {style: 'currency', currency: report?.metadata.currency || metadata?.currency || 'EUR'}).format(cents / 100);
   let cut: RevenueCut | undefined, cutError = '';
   try {cut = calculateRevenueCut(selected, cutPercentage, cutScope, cutIds);} catch (error) {cutError = error instanceof Error ? error.message : 'Controleer je percentage.';}
+  let invoiceDraft: RevenueInvoiceDraft | undefined, invoiceError = '';
+  if (report && cut) {try {invoiceDraft = prepareRevenueInvoice(report, cut);} catch (error) {invoiceError = error instanceof Error ? error.message : 'Controleer je selectie.';}}
   const visible = (report?.rows || []).filter(r => r.name.toLocaleLowerCase('nl-NL').includes(query.toLocaleLowerCase('nl-NL'))).sort((a, b) => sort === 'name' ? a.name.localeCompare(b.name, 'nl') : sort === 'orders' ? b.orders - a.orders : b.cents - a.cents);
   function changeDates(next: {start: string; end: string}, period = '') { operation.current++; controller.current?.abort(); setBusy(false); setProgress(''); setReport(null); setError(''); setDates(next); setActivePeriod(period); }
   function preset(value: string) {
@@ -132,6 +134,12 @@ export default function EmailRevenue({connected, autoLoad = false, endpoint = ''
         {cutScope==='custom' && <div className={styles.cutOptions} role="group" aria-label="Onderdelen voor jouw cut">{selected.length ? selected.map(row=>{const key=`${row.type}:${row.id}`;return <label key={key}><input type="checkbox" checked={cutIds.includes(key)} onChange={event=>setCutIds(previous=>event.target.checked?[...previous,key]:previous.filter(id=>id!==key))}/><span>{row.name}<small>{row.type==='campaign'?'Campagne':'Flow'} · {money(row.cents)}</small></span></label>;}) : <p>Er staan geen onderdelen in je omzetselectie.</p>}</div>}
         <p className={styles.cutBasis} id="cut-basis">{cut ? <>{(cut.basisPoints/100).toLocaleString('nl-NL')}% van {money(cut.baseCents)} · {cut.rows.length} {cut.rows.length===1?'onderdeel':'onderdelen'}</> : 'Je vergoeding verschijnt zodra je percentage geldig is.'}</p>
         <p className={styles.cutHint}>Je cut volgt de selectie hierboven: uitgesloten regels en een uitgesloten welkomstflow tellen niet mee. We ronden één keer af op centen.</p>
+        {onPrepareInvoice && <div className={styles.invoiceAction}>
+          <div><span>Notabedrag · minimaal €250</span><strong data-testid="revenue-invoice-amount">{invoiceDraft ? money(invoiceDraft.amountCents) : '—'}</strong><p>{invoiceError || (!invoiceDraft ? 'Vul een geldig percentage in om een nota klaar te zetten.' : invoiceDraft.minimumApplied ? `Je berekende cut is ${money(invoiceDraft.cutCents)}. Voor je nota geldt het minimum van €250.` : 'Je cut ligt op of boven €250 en wordt volledig overgenomen.')}</p></div>
+          <button type="button" className={styles.primary} disabled={!invoiceDraft || cutScope==='custom' && !cut?.rows.length} onClick={()=>invoiceDraft && onPrepareInvoice(invoiceDraft)}>Nota klaarzetten<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true"><path d="M3 10h13m-5-5 5 5-5 5"/></svg></button>
+          <small>Kies daarna je klant en notadatum. Je controleert eerst het voorbeeld.</small>
+        </div>}
+
       </section>
       <div className={styles.listHeading}><h2>Campagnes & flows <span>{report.rows.length}</span></h2><label><span className={styles.srOnly}>Zoeken op naam</span><input type="search" placeholder="Zoek op naam…" value={query} onChange={event => setQuery(event.target.value)}/></label><label><span className={styles.srOnly}>Sorteren</span><select value={sort} onChange={event => setSort(event.target.value)}><option value="revenue">Hoogste omzet</option><option value="name">Naam A–Z</option><option value="orders">Meeste bestellingen</option></select></label></div>
       <p className={styles.tableHint}>Vink een regel uit om hem uit je totaal te halen. Zoeken verandert alleen de lijst.</p>

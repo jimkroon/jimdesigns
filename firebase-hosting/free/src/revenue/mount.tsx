@@ -4,6 +4,7 @@ import {getToken} from 'firebase/app-check';
 import type {User} from 'firebase/auth';
 import {development,appCheck} from '../firebase.mjs';
 import EmailRevenue from './EmailRevenue';
+import type {RevenueInvoiceDraft} from './core';
 import configuration from './config.json';
 type Connection = {state: 'checking' | 'connected' | 'unconfigured' | 'error'; message?: string; flowCount?: number};
 async function headers(user: User): Promise<Record<string, string>> {
@@ -11,7 +12,7 @@ async function headers(user: User): Promise<Record<string, string>> {
   if (!development) result['X-Firebase-AppCheck'] = (await getToken(appCheck, false)).token;
   return result;
 }
-function Dashboard({user}: {user: User}) {
+function Dashboard({user,onPrepareInvoice}: {user: User; onPrepareInvoice?: (draft: RevenueInvoiceDraft)=>void}) {
   const [connection, setConnection] = useState<Connection>({state: 'checking'});
   const [attempt, setAttempt] = useState(0);
   useEffect(() => {
@@ -33,11 +34,11 @@ function Dashboard({user}: {user: User}) {
       <p>{state==='connected' ? `${connection.flowCount ?? ''} flows beschikbaar · E-mailrapportages` : state==='checking' ? 'Je account en rapportagerechten worden gecontroleerd.' : state==='error' ? connection.message : 'De beveiligde rapportagekoppeling moet nog worden ingesteld.'}</p></div>
       {state==='error'||state==='unconfigured'?<button type="button" onClick={()=>setAttempt(value=>value+1)}>Opnieuw controleren</button>:<span className="revenue-private">Alleen voor jou</span>}
     </section>
-    {state==='connected' && <EmailRevenue connected endpoint={configuration.endpoint} authorize={() => headers(user)} autoLoad/>}
+    {state==='connected' && <EmailRevenue onPrepareInvoice={onPrepareInvoice} connected endpoint={configuration.endpoint} authorize={() => headers(user)} autoLoad/>}
     {state==='checking' && <div className="revenue-skeleton" aria-hidden="true"><span/><span/><span/></div>}
     {state==='unconfigured' && <div className="revenue-unconfigured"><h2>Je rapportagekoppeling is nog niet ingesteld.</h2><p>Er is nog geen werkende Klaviyo-koppeling beschikbaar. Je omzet verschijnt zodra deze is aangesloten.</p></div>}
   </>;
 }
-export function mountRevenue(element: HTMLElement, user: User) {
-  const root = createRoot(element); root.render(<Dashboard user={user}/>); return () => root.unmount();
+export function mountRevenue(element: HTMLElement, user: User, onPrepareInvoice?: (draft: RevenueInvoiceDraft)=>void) {
+  const root = createRoot(element); root.render(<Dashboard user={user} onPrepareInvoice={onPrepareInvoice}/>); return () => root.unmount();
 }

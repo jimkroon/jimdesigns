@@ -66,6 +66,22 @@ export function calculateRevenueCut(rows: RevenueRow[], percentage: string, scop
   const cents = Math.sign(product) * Math.floor((Math.abs(product) + 5000) / 10000);
   return {basisPoints, baseCents, cents: cents || 0, rows: included, scope};
 }
+export function revenueInvoiceAmount(cutCents: number, minimumCents = 25000) {
+  if (!Number.isSafeInteger(cutCents) || !Number.isSafeInteger(minimumCents) || minimumCents < 0) throw new Error('Het notabedrag is ongeldig.');
+  const amountCents = Math.max(cutCents, minimumCents);
+  if (amountCents < 1 || amountCents > 99999999) throw new Error('Het notabedrag moet tussen €0,01 en €999.999,99 liggen.');
+  return {amountCents, minimumApplied: cutCents < minimumCents};
+}
+export type RevenueInvoiceDraft = {amountCents: number; cutCents: number; baseCents: number; basisPoints: number; minimumApplied: boolean; start: string; end: string; description: string};
+export function prepareRevenueInvoice(report: Pick<RevenueReport, 'start' | 'end' | 'metadata'>, cut: RevenueCut): RevenueInvoiceDraft {
+  validateRevenueRange(report.start, report.end);
+  if (report.metadata.currency !== 'EUR') throw new Error('Je notafunctie ondersteunt alleen bedragen in euro’s.');
+  const amount = revenueInvoiceAmount(cut.cents);
+  const date = (value: string) => value.split('-').reverse().join('-');
+  const percent = (cut.basisPoints / 100).toLocaleString('nl-NL');
+  const description = `E-mailmarketing ${date(report.start)} t/m ${date(report.end)} (${percent}%)${amount.minimumApplied ? ' - minimumvergoeding €250,00' : ''}`;
+  return {...amount, cutCents: cut.cents, baseCents: cut.baseCents, basisPoints: cut.basisPoints, start: report.start, end: report.end, description};
+}
 export function revenueCsv(report: RevenueReport, rows: RevenueRow[], cut?: RevenueCut) {
   const cell = (value: unknown) => '"' + String(value ?? '').replace(/^[=+\-@\t\r]/, "'$&").replaceAll('"', '""') + '"';
   const sum = revenueTotal(rows);
