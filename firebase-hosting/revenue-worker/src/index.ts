@@ -15,9 +15,10 @@ export async function handle(request: Request, env: RevenueEnv, upstream: typeof
     const url = new URL(request.url);
     if (url.pathname !== '/revenue') return reply({error: 'Pagina niet gevonden.'}, 404);
     if (url.search.length > 4096) return reply({error: 'Ongeldige aanvraag.'}, 400);
-    if (url.searchParams.get('part') === 'status') return reply({connected: !!env.KLAVIYO_REPORTING_KEY});
+    if (url.searchParams.get('part') === 'status' && !env.KLAVIYO_REPORTING_KEY) return reply({connected: false});
     const api = new RevenueApi(env, cache, upstream);
     const metadata = await api.metadata();
+    if (url.searchParams.get('part') === 'status') return reply({connected: true, flowCount: metadata.flows.length});
     if (url.searchParams.get('part') === 'metadata') return reply({metadata});
     const type = url.searchParams.get('part');
     if (type !== 'campaign' && type !== 'flow') return reply({error: 'Ongeldig rapporttype.'}, 400);

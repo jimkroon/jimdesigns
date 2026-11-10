@@ -15,7 +15,9 @@ export class RevenueApi {
     const url = new URL(route, 'https://a.klaviyo.com/api/');
     if (url.origin !== 'https://a.klaviyo.com' || !url.pathname.startsWith('/api/')) throw new RevenueApiError('Ongeldige rapportverwijzing.');
     let response: Response;
-    try { response = await this.request(url, {method: payload ? 'POST' : 'GET', redirect: 'error', signal: AbortSignal.timeout(25000), headers: {Authorization: `Klaviyo-API-Key ${this.env.KLAVIYO_REPORTING_KEY}`, revision: '2026-10-15', Accept: 'application/vnd.api+json', 'Content-Type': 'application/vnd.api+json'}, ...(payload ? {body: JSON.stringify(payload)} : {})}); }
+    // Native Workers fetch must be invoked without the RevenueApi instance as receiver.
+    const request = this.request;
+    try { response = await request(url, {method: payload ? 'POST' : 'GET', redirect: 'manual', signal: AbortSignal.timeout(25000), headers: {Authorization: `Klaviyo-API-Key ${this.env.KLAVIYO_REPORTING_KEY}`, revision: '2026-10-15', Accept: 'application/vnd.api+json', 'Content-Type': 'application/vnd.api+json'}, ...(payload ? {body: JSON.stringify(payload)} : {})}); }
     catch { throw new RevenueApiError('Klaviyo is tijdelijk niet bereikbaar. Probeer opnieuw.'); }
     if (response.status === 401 || response.status === 403) throw new RevenueApiError('De Klaviyo-koppeling mist geldige leesrechten voor rapportages.', 503);
     if (response.status === 429) { const retry = Number(response.headers.get('Retry-After')); throw new RevenueApiError('Klaviyo verwerkt al een rapport. We proberen het zo opnieuw.', 429, Number.isFinite(retry) ? Math.min(120, Math.max(31, retry)) : 31); }

@@ -3,13 +3,13 @@ import {aggregateRevenue, mergeRevenue, nextRevenueDate, revenueCsv, revenueTime
 import type {RevenueMetadata, RevenueReport, RevenueResult, RevenueRow} from './core';
 import styles from './EmailRevenue.module.css';
 
-type Props = {connected: boolean; endpoint?: string; authorize?: () => Promise<Record<string, string>>};
+type Props = {connected: boolean; autoLoad?: boolean; endpoint?: string; authorize?: () => Promise<Record<string, string>>};
 type ApiReply = {metadata?: RevenueMetadata; results?: RevenueResult[]; next?: string; fetchedAt?: string; requestDelayMs?: number; error?: string; retryAfter?: number};
 function currentDate() { return new Intl.DateTimeFormat('en-CA', {timeZone: 'Europe/Amsterdam', year: 'numeric', month: '2-digit', day: '2-digit'}).format(new Date()); }
 function initialDates() { const last = nextRevenueDate(currentDate().slice(0, 7) + '-01', -1); return {start: last.slice(0, 7) + '-01', end: last}; }
 function labelDate(value: string) { return new Intl.DateTimeFormat('nl-NL', {day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC'}).format(new Date(value + 'T12:00:00Z')); }
 function DownloadIcon() { return <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true"><path d="M10 2v10m-4-4 4 4 4-4M3 13v4h14v-4" /></svg>; }
-export default function EmailRevenue({connected, endpoint = '', authorize = async () => ({})}: Props) {
+export default function EmailRevenue({connected, autoLoad = false, endpoint = '', authorize = async () => ({})}: Props) {
   const [dates, setDates] = useState(initialDates);
   const [activePeriod, setActivePeriod] = useState('last-month');
   const [metadata, setMetadata] = useState<RevenueMetadata | null>(null);
@@ -26,6 +26,8 @@ export default function EmailRevenue({connected, endpoint = '', authorize = asyn
   const controller = useRef<AbortController | null>(null);
   const operation = useRef(0);
   useEffect(() => () => { operation.current++; controller.current?.abort(); }, []);
+
+  useEffect(() => {if (connected && autoLoad) void load();}, [connected, autoLoad]);
 
   async function load() {
     controller.current?.abort(); const abort = new AbortController(); controller.current = abort;
@@ -97,7 +99,6 @@ export default function EmailRevenue({connected, endpoint = '', authorize = asyn
     const link = document.createElement('a'); link.href = url; link.download = `emailomzet-${report.start}-${report.end}.csv`; link.click(); setTimeout(() => URL.revokeObjectURL(url), 1000);
   }
   return <div className={styles.dashboard}>
-    <div className={styles.heading}><div><h2>Campagnes en flows</h2><p>Je campagnes en flows. Eén helder overzicht.</p></div><span className={styles.private}><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true"><rect x="4" y="8" width="12" height="9" rx="2"/><path d="M6.5 8V5a3.5 3.5 0 0 1 7 0v3"/></svg>Alleen jouw account</span></div>
     <section className={styles.period} aria-label="Rapportperiode">
       <div className={styles.presets}>{[['this-month', 'Deze maand'], ['last-month', 'Vorige maand'], ['30', '30 dagen'], ['year', 'Dit jaar']].map(([value, label]) => <button key={value} className={activePeriod === value ? styles.active : ''} aria-pressed={activePeriod === value} onClick={() => preset(value)}>{label}</button>)}</div>
       <form onSubmit={event => { event.preventDefault(); void load(); }} className={styles.dateForm}>
@@ -106,13 +107,13 @@ export default function EmailRevenue({connected, endpoint = '', authorize = asyn
       </form>
     </section>
     {!connected && <section className={styles.emptyState} aria-labelledby="revenue-connect"><svg className={styles.emptyIcon} viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true"><path d="M10 12h28v25H10zM10 19h28M17 27h5m4 0h5m-14 5h5"/><path d="M17 8v8m14-8v8"/></svg><h2 id="revenue-connect">Je echte cijfers beginnen hier.</h2><p>De beveiligde plek voor je omzet is klaar. De Klaviyo-rapportagekoppeling moet nog worden aangesloten.</p><span className={styles.connectionStatus}>Klaviyo nog niet gekoppeld</span><p className={styles.small}>Je ziet hier pas bedragen en flows als ze uit jouw Klaviyo-account zijn opgehaald. Er worden geen voorbeeldbedragen getoond.</p></section>}
-    {connected && !report && !busy && !error && <div className={styles.startState}><h2>Welke periode wil je bekijken?</h2><p>Kies hierboven je datums en haal je rapport op. Daarna bepaal je welke campagnes en flows meetellen.</p></div>}
+    {connected && !report && !busy && !error && <div className={styles.startState}><h2>Kies je rapportperiode</h2><p>Kies hierboven je datums en haal je rapport op. Daarna bepaal je welke campagnes en flows meetellen.</p></div>}
     {error && <div className={styles.error} role="alert"><strong>Rapport niet beschikbaar</strong><p>{error}</p><button onClick={() => void load()}>Opnieuw proberen</button></div>}
     {busy && <div className={styles.loading} role="status"><span className={styles.spinner}/><div><strong>Even je cijfers erbij pakken.</strong><p>{progress}</p><small>We tonen het totaal zodra alle campagne- en flowpagina’s compleet zijn.</small></div></div>}
     {report && <>
       <div className={styles.reportTop}><p>{labelDate(report.start)} <span>tot en met</span> {labelDate(report.end)}</p><button className={styles.export} onClick={exportCsv}><DownloadIcon/>Exporteren</button></div>
       <section className={styles.summary} aria-label="Geselecteerde omzet"><div className={styles.mainTotal}><span>Toegeschreven e-mailomzet</span><strong data-testid="revenue-total" aria-live="polite">{money(sum.cents)}</strong><small>{sum.orders} {sum.orders === 1 ? 'bestelling' : 'bestellingen'} · {selected.length} onderdelen geselecteerd</small></div><dl><div><dt><i className={styles.campaignDot}/>Campagnes</dt><dd>{money(campaigns.cents)}</dd></div><div><dt><i className={styles.flowDot}/>Flows</dt><dd>{money(flows.cents)}</dd></div></dl></section>
-      <section className={styles.selection} aria-labelledby="selection-title"><div className={styles.selectionHeading}><h2 id="selection-title">Wat telt mee?</h2><button className={styles.reset} onClick={() => { setMode('all'); setIncludeWelcome(true); setExcluded([]); }}>Selectie herstellen</button></div>
+      <section className={styles.selection} aria-labelledby="selection-title"><div className={styles.selectionHeading}><h2 id="selection-title">Welke omzet telt mee?</h2><button className={styles.reset} onClick={() => { setMode('all'); setIncludeWelcome(true); setExcluded([]); }}>Selectie herstellen</button></div>
         <div className={styles.selectionControls}><div className={styles.segments} aria-label="Rapportselectie">{[['all', 'Alles'], ['campaign', 'Campagnes'], ['flow', 'Flows']].map(([value, label]) => <button key={value} aria-pressed={mode === value} className={mode === value ? styles.active : ''} onClick={() => setMode(value as typeof mode)}>{label}</button>)}</div><label className={styles.welcomeControl}><input type="checkbox" checked={includeWelcome && mode !== 'campaign'} disabled={!welcomeIds.length || mode === 'campaign'} onChange={event => setIncludeWelcome(event.target.checked)}/>Welkomstflow meetellen{welcomeIds.length > 0 && <span>{welcomeIds.length}</span>}</label></div>
         <details className={styles.flowMapping}><summary>{welcomeIds.length ? 'Welkomstflows controleren' : 'Welke flow is je welkomstflow?'}</summary><p>Selecteer alle versies die je als welkomstflow wilt kunnen uitsluiten. Dit verandert alleen jouw rapport.</p><div>{metadata?.flows.map(flow => <label key={flow.id}><input type="checkbox" checked={welcomeIds.includes(flow.id)} onChange={event => setWelcomeIds(previous => event.target.checked ? [...previous, flow.id] : previous.filter(id => id !== flow.id))}/><span>{flow.name}<small>{flow.id}</small></span></label>)}</div></details>
       </section>

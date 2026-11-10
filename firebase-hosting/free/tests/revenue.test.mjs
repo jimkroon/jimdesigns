@@ -38,7 +38,8 @@ async function token(changes={}){
   const input=encode({alg:'RS256',kid:'test-key'})+'.'+encode({iss:'https://securetoken.google.com/jimdesigns',aud:'jimdesigns',sub:'jimdesigns-owner',iat:now,exp:now+3600,auth_time:now,...changes});
   return input+'.'+Buffer.from(await crypto.subtle.sign('RSASSA-PKCS1-v1_5',keys.privateKey,Buffer.from(input))).toString('base64url');
 }
-function upstream({seen=Date.now(),sessionStatus=200}={}) {return async url=>{
+function upstream({seen=Date.now(),sessionStatus=200}={}) {return async (url,options)=>{
+  assert.equal(options.redirect,'manual');
   if(String(url).includes('service_accounts'))return Response.json({keys:[jwk]});
   if(String(url).includes('firestore.googleapis.com'))return Response.json({fields:{auth_time:{integerValue:String(now)},last_seen:{timestampValue:new Date(seen).toISOString()}}},{status:sessionStatus});
   throw Error('Unexpected upstream request');
@@ -58,11 +59,22 @@ test('anonymous, other UID, expired, wrong project, tampered token and idle sess
 });
 test('Klaviyo pagination preserves metric and channel; rejects foreign links; cache isolates keys',async()=>{
   let calls=0;const bodies=[];
-  const api=new RevenueApi({KLAVIYO_REPORTING_KEY:'synthetic-a'},undefined,async(url,options)=>{calls++;bodies.push(JSON.parse(options.body));return Response.json({data:{attributes:{results:[row('flow','f','m'+calls,10,1)]}},links:{next:calls===1?'https://a.klaviyo.com/api/flow-values-reports/?page_cursor=second':null}});});
+  const api=new RevenueApi({KLAVIYO_REPORTING_KEY:'synthetic-a'},undefined,async(url,options)=>{assert.equal(options.redirect,'manual');calls++;bodies.push(JSON.parse(options.body));return Response.json({data:{attributes:{results:[row('flow','f','m'+calls,10,1)]}},links:{next:calls===1?'https://a.klaviyo.com/api/flow-values-reports/?page_cursor=second':null}});});
   const one=await api.reportPage('flow','2026-10-01T00:00:00Z','2026-10-31T23:59:59Z','placed');
   await api.reportPage('flow','2026-10-01T00:00:00Z','2026-10-31T23:59:59Z','placed',one.value.next);assert.deepEqual(bodies[0],bodies[1]);assert.equal(bodies[0].data.attributes.filter,'equals(send_channel,"email")');
   assert.equal((await api.reportPage('flow','2026-10-01T00:00:00Z','2026-10-31T23:59:59Z','placed')).cached,true);assert.equal(calls,2);
   await assert.rejects(api.call('https://evil.test/api/metrics'),/rapportverwijzing/);assert.equal(calls,2);
   const denied=new RevenueApi({KLAVIYO_REPORTING_KEY:'synthetic-b'},undefined,async()=>new Response('',{status:403}));await assert.rejects(denied.call('metrics/'),/leesrechten/);
   const limited=new RevenueApi({KLAVIYO_REPORTING_KEY:'synthetic-c'},undefined,async()=>new Response('',{status:429,headers:{'Retry-After':'40'}}));await assert.rejects(limited.call('flow-values-reports/'),error=>error.status===429&&error.retryAfter===40);
+});
+
+test('upstream redirects are rejected without forwarding the private key',async()=>{
+ let calls=0;
+ const api=new RevenueApi({KLAVIYO_REPORTING_KEY:'synthetic-redirect'},undefined,async(url,options)=>{calls++;assert.equal(options.redirect,'manual');return new Response(null,{status:302,headers:{Location:'https://foreign.test/'}});});
+ await assert.rejects(api.call('metrics/'),/niet ophalen/);assert.equal(calls,1);
+});
+
+test('the platform fetch function is invoked without a class receiver',async()=>{
+ const api=new RevenueApi({KLAVIYO_REPORTING_KEY:'synthetic-native-fetch'},undefined,async function(url,options){assert.equal(this,undefined);assert.equal(options.redirect,'manual');return Response.json({data:[]});});
+ assert.deepEqual(await api.call('metrics/'),{data:[]});
 });

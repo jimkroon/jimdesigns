@@ -1,6 +1,7 @@
 const PROJECT = 'jimdesigns';
 const OWNER = 'jimdesigns-owner';
 const ISSUER = `https://securetoken.google.com/${PROJECT}`;
+// Workers supports manual redirects; every non-success response below is rejected.
 const JWKS = 'https://www.googleapis.com/service_accounts/v1/jwk/securetoken@system.gserviceaccount.com';
 let keyCache: {expires: number; keys: JsonWebKey[]} | undefined;
 export class AccessError extends Error { constructor(public status = 401) { super('Log opnieuw in op je privéaccount.'); } }
@@ -20,7 +21,7 @@ export async function authorize(request: Request, upstream: typeof fetch = fetch
       !Number.isInteger(claims.exp) || claims.exp <= seconds || !Number.isInteger(claims.iat) || claims.iat > seconds + 30 ||
       !Number.isInteger(claims.auth_time) || claims.auth_time > seconds + 30 || seconds - claims.auth_time >= 28800) throw new AccessError();
   if (!keyCache || keyCache.expires <= now) {
-    const response = await upstream(JWKS, {signal: AbortSignal.timeout(8000), redirect: 'error'});
+    const response = await upstream(JWKS, {signal: AbortSignal.timeout(8000), redirect: 'manual'});
     if (!response.ok) throw new AccessError(503);
     const body = await response.json() as {keys: JsonWebKey[]};
     if (!Array.isArray(body.keys)) throw new AccessError(503);
@@ -38,7 +39,7 @@ export async function authorize(request: Request, upstream: typeof fetch = fetch
   const headers: Record<string, string> = {Authorization: raw};
   const appCheck = request.headers.get('X-Firebase-AppCheck');
   if (appCheck) headers['X-Firebase-AppCheck'] = appCheck;
-  const response = await upstream(`https://firestore.googleapis.com/v1/projects/${PROJECT}/databases/(default)/documents/sessions/${OWNER}-${claims.auth_time}`, {headers, signal: AbortSignal.timeout(8000), redirect: 'error'});
+  const response = await upstream(`https://firestore.googleapis.com/v1/projects/${PROJECT}/databases/(default)/documents/sessions/${OWNER}-${claims.auth_time}`, {headers, signal: AbortSignal.timeout(8000), redirect: 'manual'});
   if (!response.ok) throw new AccessError(response.status >= 500 ? 503 : 401);
   const session = await response.json() as {fields?: {auth_time?: {integerValue?: string}; last_seen?: {timestampValue?: string}}};
   const seen = Date.parse(session.fields?.last_seen?.timestampValue || '');

@@ -6,7 +6,7 @@ Firebase Spark continues to serve JimDesigns and its existing account login. Thi
 
 Published Worker: `https://jimdesigns-revenue.revenue-worker.workers.dev/revenue`. Firebase Hosting has the exact origin in its private-page CSP and browser configuration. A dedicated read-only Klaviyo reporting key is installed as a Worker secret, with Shopify Placed Order metric `ShpU4z` and welcome flow `UxqPvf` (Added to E-maillijst).
 
-Real October 1–31, 2026 flow values were compared against Klaviyo's Flows UI using Shopify Placed Order: welcome €1,678.24 and browse abandonment €33.45 matched to the cent. The API also returned eight campaign message rows. Private reconciliation files stay outside Git. Recent results can still change due to attribution. Final end-to-end production verification through the actual private Firebase login remains to be completed.
+Real October 1–31, 2026 flow values were compared against Klaviyo's Flows UI using Shopify Placed Order: welcome €1,678.24 and browse abandonment €33.45 matched to the cent. The API also returned eight campaign message rows. Private reconciliation files stay outside Git. Recent results can still change due to attribution. The live Firebase owner login now passes authentication and connection checks. The October production report and filters were verified through that actual login: total €3,245.31, campaigns €1,533.62, flows €1,711.69, flows excluding welcome €33.45. All 19 automated tests and desktop/mobile connection-state checks pass.
 
 ## Deploy
 
@@ -31,3 +31,7 @@ Free Workers has daily request/CPU limits. On exhaustion the service stops worki
 Sources: [Klaviyo reporting](https://developers.klaviyo.com/en/reference/reporting_api_overview), [Workers limits](https://developers.cloudflare.com/workers/platform/limits/), [Workers pricing](https://developers.cloudflare.com/workers/platform/pricing/).
 
 Tests: from `firebase-hosting/`, start Firebase auth/Firestore emulators and run `npm test --prefix free`. `free/tests/revenue.test.mjs` uses signed synthetic JWTs and isolated upstream fixtures; no private data or real API key is involved.
+
+## Runtime fixes, 10 November 2026
+
+Workers rejects `redirect: "error"` before sending a request. All upstream requests now use `manual`, reject non-success responses and never follow redirects with credentials. Native Workers fetch is invoked as a function rather than a `RevenueApi` method. Regression tests cover both conditions. Connection status now distinguishes checking, actual connection failure, missing configuration and success; only success mounts the report. Status checks validate Klaviyo metadata, not just presence of a key. The last-month report loads automatically.
