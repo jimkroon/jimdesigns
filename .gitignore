@@ -39,3 +39,7 @@ yarn-error.log*
 /.wrangler/
 /outputs/
 /work/
+
+# Local previews and private Cloudflare development state
+.local-review/
+**/.wrangler/

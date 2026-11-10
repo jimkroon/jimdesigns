@@ -3,6 +3,7 @@ import {initializeAuth,browserSessionPersistence,connectAuthEmulator} from 'fire
 import {getFirestore,connectFirestoreEmulator} from 'firebase/firestore';
 import {initializeAppCheck,ReCaptchaEnterpriseProvider} from 'firebase/app-check';
 import configuration from './firebase-config.json';
+export let appCheck;
 export const development = __DEV__;
 export async function foreground(){
   if(document.visibilityState==='visible')return;
@@ -11,7 +12,7 @@ export async function foreground(){
 export function connect(name) {
   const config=development?{...configuration,projectId:'demo-jimdesigns',apiKey:'synthetic-emulator-key'}:configuration;
   const app=initializeApp(config,name);
-  if(!development) initializeAppCheck(app,{provider:new ReCaptchaEnterpriseProvider('6LeTqAUuAAAAAKYANnA7WR8Gk9918i55qFM_QtYG'),isTokenAutoRefreshEnabled:true});
+  if(!development) appCheck=initializeAppCheck(app,{provider:new ReCaptchaEnterpriseProvider('6LeTqAUuAAAAAKYANnA7WR8Gk9918i55qFM_QtYG'),isTokenAutoRefreshEnabled:true});
   const auth=initializeAuth(app,{persistence:browserSessionPersistence});const db=getFirestore(app);
   if(development){connectAuthEmulator(auth,'http://127.0.0.1:9099',{disableWarnings:true});connectFirestoreEmulator(db,'127.0.0.1',8383);}
   auth.languageCode='nl';return {app,auth,db};

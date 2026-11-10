@@ -1,0 +1,14 @@
+{
+  "name": "jimdesigns-revenue",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-11-10",
+  "workers_dev": true,
+  "observability": {
+    "enabled": false
+  },
+  "account_id": "9f51cd5c84869bfcaeda67bccc589b8c",
+  "vars": {
+    "KLAVIYO_ORDER_METRIC_ID": "ShpU4z",
+    "KLAVIYO_WELCOME_FLOW_IDS": "UxqPvf"
+  }
+}
