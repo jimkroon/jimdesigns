@@ -78,3 +78,24 @@ test('the platform fetch function is invoked without a class receiver',async()=>
  const api=new RevenueApi({KLAVIYO_REPORTING_KEY:'synthetic-native-fetch'},undefined,async function(url,options){assert.equal(this,undefined);assert.equal(options.redirect,'manual');return Response.json({data:[]});});
  assert.deepEqual(await api.call('metrics/'),{data:[]});
 });
+
+test('commission uses the chosen eligible revenue, rounds once and accepts Dutch percentages',()=>{
+ const rows=[{id:'c',type:'campaign',name:'Campagne',cents:143096,orders:22},{id:'w',type:'flow',name:'Welkom',cents:103230,orders:17}];
+ assert.equal(core.calculateRevenueCut(rows,'17').cents,41875);
+ assert.equal(core.calculateRevenueCut(rows,'17','campaign').cents,24326);
+ assert.equal(core.calculateRevenueCut(rows,'17','flow').cents,17549);
+ const custom=core.calculateRevenueCut(rows,'17','custom',['campaign:c','flow:missing']);assert.equal(custom.cents,24326);assert.equal(custom.rows.length,1);
+ assert.equal(core.calculateRevenueCut(rows,'17,50').cents,43107);assert.equal(core.calculateRevenueCut(rows,'17.50').cents,43107);
+ assert.equal(core.calculateRevenueCut(rows,'0').cents,0);assert.equal(core.calculateRevenueCut(rows,'100').cents,246326);
+ const excluded=core.selectRevenue(rows,{campaigns:true,flows:true,welcome:false,welcomeIds:['w'],excluded:[]});assert.equal(core.calculateRevenueCut(excluded,'17','flow').cents,0);
+ assert.equal(core.calculateRevenueCut(rows,'17','custom',[]).cents,0);
+ assert.equal(core.calculateRevenueCut([{...rows[0],cents:1},{...rows[1],cents:1}],'50').cents,1);
+ assert.equal(core.calculateRevenueCut([{...rows[0],cents:-1}],'50').cents,-1);
+ for(const raw of ['', '17,', '-1','101','100,01','17.555','Infinity','NaN','17%'])assert.throws(()=>core.calculateRevenueCut(rows,raw));
+});
+test('CSV records the exact commission percentage, base and selected component IDs',()=>{
+ const rows=[{id:'c',type:'campaign',name:'Campagne',cents:143096,orders:22},{id:'w',type:'flow',name:'Welkom',cents:103230,orders:17}];
+ const report={start:'2026-10-15',end:'2026-11-10',fetchedAt:'2026-11-10T17:00:00Z',metadata:{timezone:'Europe/Amsterdam',currency:'EUR'}};
+ const csv=core.revenueCsv(report,rows,core.calculateRevenueCut(rows,'17','custom',['campaign:c']));
+ assert.match(csv,/"Jouw cut \(%\)";"17,00"/);assert.match(csv,/"Cut berekend over";"1430,96"/);assert.match(csv,/"Onderdelen voor cut";"campaign:c"/);assert.match(csv,/"Jouw cut";"243,26"/);
+});

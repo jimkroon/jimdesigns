@@ -52,11 +52,26 @@ export function selectRevenue(rows: RevenueRow[], selection: RevenueSelection) {
   return rows.filter(row => !selection.excluded.includes(`${row.type}:${row.id}`) && (row.type === 'campaign' ? selection.campaigns : selection.flows && (selection.welcome || !selection.welcomeIds.includes(row.id))));
 }
 export function revenueTotal(rows: RevenueRow[]) { return rows.reduce((sum, r) => ({cents: sum.cents + r.cents, orders: sum.orders + r.orders}), {cents: 0, orders: 0}); }
-export function revenueCsv(report: RevenueReport, rows: RevenueRow[]) {
+export type CutScope = 'selection' | 'campaign' | 'flow' | 'custom';
+export type RevenueCut = {basisPoints: number; baseCents: number; cents: number; rows: RevenueRow[]; scope: CutScope};
+export function calculateRevenueCut(rows: RevenueRow[], percentage: string, scope: CutScope = 'selection', ids: string[] = []): RevenueCut {
+  const match = /^(\d{1,3})(?:[.,](\d{1,2}))?$/.exec(percentage.trim());
+  if (!match) throw new Error('Vul een percentage van 0 tot 100 in, met maximaal twee decimalen.');
+  const basisPoints = Number(match[1]) * 100 + Number((match[2] || '').padEnd(2, '0'));
+  if (basisPoints > 10000) throw new Error('Je percentage moet tussen 0 en 100 liggen.');
+  const included = rows.filter(row => scope === 'selection' || (scope === 'custom' ? ids.includes(`${row.type}:${row.id}`) : row.type === scope));
+  const baseCents = revenueTotal(included).cents, product = baseCents * basisPoints;
+  if (!Number.isSafeInteger(baseCents) || !Number.isSafeInteger(product)) throw new Error('Dit bedrag is te groot om je cut nauwkeurig te berekenen.');
+  // Round once on the selected total, to whole cents, including negative adjustments.
+  const cents = Math.sign(product) * Math.floor((Math.abs(product) + 5000) / 10000);
+  return {basisPoints, baseCents, cents: cents || 0, rows: included, scope};
+}
+export function revenueCsv(report: RevenueReport, rows: RevenueRow[], cut?: RevenueCut) {
   const cell = (value: unknown) => '"' + String(value ?? '').replace(/^[=+\-@\t\r]/, "'$&").replaceAll('"', '""') + '"';
   const sum = revenueTotal(rows);
   return '\uFEFF' + [
     ['Bron', 'Klaviyo Reporting API'], ['Van', report.start], ['Tot en met', report.end], ['Datumbasis', 'Verzenddatum'], ['Tijdzone', report.metadata.timezone], ['Valuta', report.metadata.currency], ['Opgehaald', report.fetchedAt], [],
     ['Naam', 'Type', 'ID', 'Omzet', 'Bestellingen'], ...rows.map(r => [r.name, r.type === 'flow' ? 'Flow' : 'Campagne', r.id, (r.cents / 100).toFixed(2).replace('.', ','), r.orders]), ['Totaal', '', '', (sum.cents / 100).toFixed(2).replace('.', ','), sum.orders],
+    ...(cut ? [[], ['Jouw cut (%)', (cut.basisPoints / 100).toFixed(2).replace('.', ',')], ['Cut berekend over', (cut.baseCents / 100).toFixed(2).replace('.', ',')], ['Onderdelen voor cut', cut.rows.map(row => `${row.type}:${row.id}`).join(', ')], ['Jouw cut', (cut.cents / 100).toFixed(2).replace('.', ',')]] : []),
   ].map(row => row.map(cell).join(';')).join('\r\n');
 }

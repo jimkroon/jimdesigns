@@ -1,6 +1,6 @@
 import {useEffect, useRef, useState} from 'react';
-import {aggregateRevenue, mergeRevenue, nextRevenueDate, revenueCsv, revenueTimeframes, revenueTotal, selectRevenue, validateRevenueRange} from './core';
-import type {RevenueMetadata, RevenueReport, RevenueResult, RevenueRow} from './core';
+import {calculateRevenueCut, aggregateRevenue, mergeRevenue, nextRevenueDate, revenueCsv, revenueTimeframes, revenueTotal, selectRevenue, validateRevenueRange} from './core';
+import type {CutScope, RevenueCut, RevenueMetadata, RevenueReport, RevenueResult, RevenueRow} from './core';
 import styles from './EmailRevenue.module.css';
 
 type Props = {connected: boolean; autoLoad?: boolean; endpoint?: string; authorize?: () => Promise<Record<string, string>>};
@@ -20,6 +20,9 @@ export default function EmailRevenue({connected, autoLoad = false, endpoint = ''
   const [excluded, setExcluded] = useState<string[]>([]);
   const [query, setQuery] = useState('');
   const [sort, setSort] = useState('revenue');
+  const [cutPercentage, setCutPercentage] = useState('17');
+  const [cutScope, setCutScope] = useState<CutScope>('selection');
+  const [cutIds, setCutIds] = useState<string[]>([]);
   const [busy, setBusy] = useState(false);
   const [progress, setProgress] = useState('');
   const [error, setError] = useState('');
@@ -83,6 +86,8 @@ export default function EmailRevenue({connected, autoLoad = false, endpoint = ''
   const included = new Set(selected.map(r => `${r.type}:${r.id}`));
   const sum = revenueTotal(selected), campaigns = revenueTotal(selected.filter(r => r.type === 'campaign')), flows = revenueTotal(selected.filter(r => r.type === 'flow'));
   const money = (cents: number) => new Intl.NumberFormat('nl-NL', {style: 'currency', currency: report?.metadata.currency || metadata?.currency || 'EUR'}).format(cents / 100);
+  let cut: RevenueCut | undefined, cutError = '';
+  try {cut = calculateRevenueCut(selected, cutPercentage, cutScope, cutIds);} catch (error) {cutError = error instanceof Error ? error.message : 'Controleer je percentage.';}
   const visible = (report?.rows || []).filter(r => r.name.toLocaleLowerCase('nl-NL').includes(query.toLocaleLowerCase('nl-NL'))).sort((a, b) => sort === 'name' ? a.name.localeCompare(b.name, 'nl') : sort === 'orders' ? b.orders - a.orders : b.cents - a.cents);
   function changeDates(next: {start: string; end: string}, period = '') { operation.current++; controller.current?.abort(); setBusy(false); setProgress(''); setReport(null); setError(''); setDates(next); setActivePeriod(period); }
   function preset(value: string) {
@@ -95,7 +100,7 @@ export default function EmailRevenue({connected, autoLoad = false, endpoint = ''
   function exclude(id: string, checked: boolean) { setExcluded(previous => checked ? previous.filter(value => value !== id) : [...new Set([...previous, id])]); }
   function exportCsv() {
     if (!report) return;
-    const url = URL.createObjectURL(new Blob([revenueCsv(report, selected)], {type: 'text/csv;charset=utf-8;'}));
+    const url = URL.createObjectURL(new Blob([revenueCsv(report, selected, cut)], {type: 'text/csv;charset=utf-8;'}));
     const link = document.createElement('a'); link.href = url; link.download = `emailomzet-${report.start}-${report.end}.csv`; link.click(); setTimeout(() => URL.revokeObjectURL(url), 1000);
   }
   return <div className={styles.dashboard}>
@@ -116,6 +121,17 @@ export default function EmailRevenue({connected, autoLoad = false, endpoint = ''
       <section className={styles.selection} aria-labelledby="selection-title"><div className={styles.selectionHeading}><h2 id="selection-title">Welke omzet telt mee?</h2><button className={styles.reset} onClick={() => { setMode('all'); setIncludeWelcome(true); setExcluded([]); }}>Selectie herstellen</button></div>
         <div className={styles.selectionControls}><div className={styles.segments} aria-label="Rapportselectie">{[['all', 'Alles'], ['campaign', 'Campagnes'], ['flow', 'Flows']].map(([value, label]) => <button key={value} aria-pressed={mode === value} className={mode === value ? styles.active : ''} onClick={() => setMode(value as typeof mode)}>{label}</button>)}</div><label className={styles.welcomeControl}><input type="checkbox" checked={includeWelcome && mode !== 'campaign'} disabled={!welcomeIds.length || mode === 'campaign'} onChange={event => setIncludeWelcome(event.target.checked)}/>Welkomstflow meetellen{welcomeIds.length > 0 && <span>{welcomeIds.length}</span>}</label></div>
         <details className={styles.flowMapping}><summary>{welcomeIds.length ? 'Welkomstflows controleren' : 'Welke flow is je welkomstflow?'}</summary><p>Selecteer alle versies die je als welkomstflow wilt kunnen uitsluiten. Dit verandert alleen jouw rapport.</p><div>{metadata?.flows.map(flow => <label key={flow.id}><input type="checkbox" checked={welcomeIds.includes(flow.id)} onChange={event => setWelcomeIds(previous => event.target.checked ? [...previous, flow.id] : previous.filter(id => id !== flow.id))}/><span>{flow.name}<small>{flow.id}</small></span></label>)}</div></details>
+      </section>
+      <section className={styles.cut} aria-labelledby="cut-title">
+        <div className={styles.cutHeading}><div><h2 id="cut-title">Jouw cut</h2><p>Bepaal je percentage en welke omzet meetelt.</p></div><div className={styles.cutResult}><span>Jouw vergoeding</span><strong data-testid="revenue-cut" aria-live="polite">{cut ? money(cut.cents) : '—'}</strong></div></div>
+        <div className={styles.cutFields}>
+          <label>Je percentage<span className={styles.percentageInput}><input aria-label="Je percentage" type="text" inputMode="decimal" value={cutPercentage} maxLength={6} aria-invalid={!!cutError} aria-describedby={cutError?'cut-error':'cut-basis'} onChange={event=>setCutPercentage(event.target.value)}/><span aria-hidden="true">%</span></span></label>
+          <label>Berekenen over<select aria-label="Berekenen over" value={cutScope} onChange={event=>setCutScope(event.target.value as CutScope)}><option value="selection">Mijn huidige selectie</option><option value="campaign">Alleen geselecteerde campagnes</option><option value="flow">Alleen geselecteerde flows</option><option value="custom">Zelf onderdelen kiezen</option></select></label>
+        </div>
+        {cutError && <p className={styles.cutError} id="cut-error" role="alert">{cutError}</p>}
+        {cutScope==='custom' && <div className={styles.cutOptions} role="group" aria-label="Onderdelen voor jouw cut">{selected.length ? selected.map(row=>{const key=`${row.type}:${row.id}`;return <label key={key}><input type="checkbox" checked={cutIds.includes(key)} onChange={event=>setCutIds(previous=>event.target.checked?[...previous,key]:previous.filter(id=>id!==key))}/><span>{row.name}<small>{row.type==='campaign'?'Campagne':'Flow'} · {money(row.cents)}</small></span></label>;}) : <p>Er staan geen onderdelen in je omzetselectie.</p>}</div>}
+        <p className={styles.cutBasis} id="cut-basis">{cut ? <>{(cut.basisPoints/100).toLocaleString('nl-NL')}% van {money(cut.baseCents)} · {cut.rows.length} {cut.rows.length===1?'onderdeel':'onderdelen'}</> : 'Je vergoeding verschijnt zodra je percentage geldig is.'}</p>
+        <p className={styles.cutHint}>Je cut volgt de selectie hierboven: uitgesloten regels en een uitgesloten welkomstflow tellen niet mee. We ronden één keer af op centen.</p>
       </section>
       <div className={styles.listHeading}><h2>Campagnes & flows <span>{report.rows.length}</span></h2><label><span className={styles.srOnly}>Zoeken op naam</span><input type="search" placeholder="Zoek op naam…" value={query} onChange={event => setQuery(event.target.value)}/></label><label><span className={styles.srOnly}>Sorteren</span><select value={sort} onChange={event => setSort(event.target.value)}><option value="revenue">Hoogste omzet</option><option value="name">Naam A–Z</option><option value="orders">Meeste bestellingen</option></select></label></div>
       <p className={styles.tableHint}>Vink een regel uit om hem uit je totaal te halen. Zoeken verandert alleen de lijst.</p>
