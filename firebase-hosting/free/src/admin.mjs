@@ -1,14 +1,17 @@
 import {mountRevenue} from './revenue/mount.tsx';
-import {onAuthStateChanged,signInWithEmailAndPassword,signOut,EmailAuthProvider,reauthenticateWithCredential,updatePassword} from 'firebase/auth';
+import {onAuthStateChanged,createUserWithEmailAndPassword,sendEmailVerification,signInWithEmailAndPassword,signOut,EmailAuthProvider,reauthenticateWithCredential,updatePassword} from 'firebase/auth';
 import {connect,foreground} from './firebase.mjs';
 import {OWNER,money,numberLabel,dateLabel,today,requestKey,discountedAmount,invoiceTotals,percentLabel,errorMessage} from './core.mjs';
-import {openSession,load,createInvoice,saveCustomer,saveSeller,markRequest,exportBackup,historicalPdf} from './repository.mjs';
+import {accents,fonts,defaultDesign} from './nota-design.mjs';
+import {findInvoice,initializeWorkspace,workspace,saveDesign,openSession,load,createInvoice,saveCustomer,saveSeller,markRequest,exportBackup,historicalPdf} from './repository.mjs';
 import {workEntry,workDescription,hoursLabel} from './hours.mjs';
 import {saveWork} from './repository.mjs';
 import {invoicePdf} from './pdf.mjs';
 import {invoiceBrand} from './invoice-brand.mjs';
 await foreground();
-const {auth,db}=connect('dashboard');
+const {auth,db:rootDb}=connect('dashboard');
+let db=null;
+const isOwner=()=>auth.currentUser?.uid===OWNER;
 const app=document.querySelector('#app'),login=document.querySelector('#login'),initial=document.querySelector('#initial-status');
 let revenueInvoiceDraft=null;
 let releaseRevenue=()=>{};
@@ -19,16 +22,20 @@ const icon=name=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" str
 const brand=`<a class="brand" href="/"><img src="/assets/jimdesigns-logo.svg" width="32" height="32" alt=""><span>JimDesigns</span></a>`;
 const partyLines=person=>['name','company','address','city'].filter(key=>person?.[key]).map(key=>`<span>${escape(person[key])}</span>`).join('');
 const formData=form=>Object.fromEntries(new FormData(form));
-function route(){const params=new URLSearchParams(location.search);return {page:params.has('backup')?'settings':['new','history','customers','requests','settings','omzet','uren'].includes(params.get('page'))?params.get('page'):'overview',view:Number(params.get('view')||params.get('pdf'))||null,edit:Number(params.get('edit'))||null};}
+function route(){const params=new URLSearchParams(location.search);return {page:params.has('backup')?'settings':['new','history','customers','settings','uren',...(isOwner()?['requests','omzet']:[])].includes(params.get('page'))?params.get('page'):'overview',view:Number(params.get('view')||params.get('pdf'))||null,edit:Number(params.get('edit'))||null};}
 function navigate(search=''){history.pushState(null,'',location.pathname+search);render();document.querySelector('.workspace-heading h1')?.focus();if(route().page==='requests')refresh().catch(error=>notice(errorMessage(error),true));}
-function notice(message,error=false){const element=app.querySelector('[data-status]');element.textContent=message;element.className='notice '+(error?'error':'success');element.hidden=false;element.focus();}
+function notice(message,error=false){const element=app.querySelector('[data-status]');if(!element)return;element.textContent=message;element.className='notice '+(error?'error':'success');element.hidden=false;element.focus();}
 function loginNotice(message){const element=document.querySelector('#login-status');element.textContent=message;element.hidden=false;element.focus();}
 function paper(invoice,preview=false){
   const totals=invoiceTotals(invoice),valid=!preview||invoice.valid_amount;
   const amount=valid?money(totals.amount_cents):'€ —';
   const subtotal=valid?money(totals.subtotal_cents):'€ —';
+  const design=preview?state.design:invoice.design;
+  const brandName=invoice.seller.company || invoice.seller.name || 'Je bedrijfsnaam';
+  const styling=design?` data-font="${Object.hasOwn(fonts,design.font)?design.font:'sans'}" style="--nota-accent:${accents[design.accent]||accents.inkt}"`:'';
+  const logo=design?'':`<img src="${invoiceBrand.logoDataUri}" width="40" height="37" alt="">`;
   const adjustments=valid&&totals.discount_basis_points>0?`<div class="paper-adjustments"><div><span>Subtotaal</span><span>${escape(subtotal)}</span></div><div><span>Korting (${escape(percentLabel(totals.discount_basis_points))})</span><span>− ${escape(money(totals.discount_cents))}</span></div></div>`:'';
-  return `<article class="paper" aria-label="${preview?'Voorbeeld van nieuwe nota':'Nota '+numberLabel(invoice.number)}"><div class="paper-head"><div class="paper-brand"><img src="${invoiceBrand.logoDataUri}" width="40" height="37" alt=""><span>${escape(invoiceBrand.name)}</span></div><div class="paper-document"><span>NOTA</span><span>${numberLabel(invoice.number)}</span></div></div><p class="paper-subject">${escape(invoice.description)}</p><div class="paper-parties"><div><h3>Van</h3><div class="party">${partyLines(invoice.seller)}</div></div><div><h3>Aan</h3><div class="party">${partyLines(invoice.customer)}</div></div></div><div class="paper-date"><span>Datum</span><span>${escape(dateLabel(invoice.date))}</span></div><div class="paper-table"><div class="paper-table-head"><span>Omschrijving</span><span>Bedrag</span></div><div class="paper-row"><span>${escape(invoice.description)}</span><span>${escape(subtotal)}</span></div>${adjustments}<div class="paper-total"><span>Te betalen</span><strong>${escape(amount)}</strong></div></div><div class="paper-payment"><h3>Betaling</h3><p>${valid&&totals.amount_cents===0?'Er hoeft geen bedrag te worden overgemaakt.':'Maak '+escape(amount)+' over naar:'}</p><p class="iban">${escape(invoice.seller.iban.match(/.{1,4}/g)?.join(' ')||'')}</p><p>Ten name van ${escape(invoice.seller.name)}</p><p>Vermeld bij de betaling: nota ${numberLabel(invoice.number)}.</p></div></article>`;
+  return `<article class="paper"${styling} aria-label="${preview?'Voorbeeld van nieuwe nota':'Nota '+numberLabel(invoice.number)}"><div class="paper-head"><div class="paper-brand">${logo}<span>${escape(design?brandName:invoiceBrand.name)}</span></div><div class="paper-document"><span>NOTA</span><span>${numberLabel(invoice.number)}</span></div></div><p class="paper-subject">${escape(invoice.description)}</p><div class="paper-parties"><div><h3>Van</h3><div class="party">${partyLines(invoice.seller)}</div></div><div><h3>Aan</h3><div class="party">${partyLines(invoice.customer)}</div></div></div><div class="paper-date"><span>Datum</span><span>${escape(dateLabel(invoice.date))}</span></div><div class="paper-table"><div class="paper-table-head"><span>Omschrijving</span><span>Bedrag</span></div><div class="paper-row"><span>${escape(invoice.description)}</span><span>${escape(subtotal)}</span></div>${adjustments}<div class="paper-total"><span>Te betalen</span><strong>${escape(amount)}</strong></div></div><div class="paper-payment"><h3>Betaling</h3><p>${valid&&totals.amount_cents===0?'Er hoeft geen bedrag te worden overgemaakt.':'Maak '+escape(amount)+' over naar:'}</p><p class="iban">${escape(invoice.seller.iban.match(/.{1,4}/g)?.join(' ')||'')}</p><p>Ten name van ${escape(invoice.seller.name)}</p><p>Vermeld bij de betaling: nota ${numberLabel(invoice.number)}.</p></div></article>`;
 }
 function partyFields(person={},seller=false){return ['name','company','address','city',...(seller?['iban']:[])].map(key=>{
   const labels={name:'Naam',company:'Bedrijfsnaam',address:'Straat en huisnummer',city:'Postcode en plaats',iban:'IBAN'};
@@ -65,14 +72,15 @@ function hoursPage(){
 }
 function newInvoice(){
   if(!state.customers.length)return '<div class="empty-state"><h2>Voeg eerst een klant toe.</h2><p>Daarna kun je een genummerde nota maken.</p><a class="primary" href="?page=customers">Klant toevoegen</a></div>';
-  const fromRevenue=new URLSearchParams(location.search).get('from')==='omzet';
+  if(!state.seller.iban)return '<div class="empty-state"><h2>Wie stuurt de nota?</h2><p>Vul je afzendergegevens en IBAN in voor je eerste nota.</p><a class="primary" href="?page=settings">Afzender instellen</a></div>';
+  const fromRevenue=isOwner()&&new URLSearchParams(location.search).get('from')==='omzet';
   const source=fromRevenue?revenueInvoiceDraft:null;
   const workId=new URLSearchParams(location.search).get('work');
   const work=workId?state.hours.entries.find(e=>e.id===workId):null;
   if(workId && (!work || work.invoice_number || source)) return '<p>Deze uren zijn niet meer beschikbaar voor een nieuwe nota. <a href="?page=uren">Bekijk uren</a></p>';
   const customer=work?state.customers.find(c=>c.id===work.customer_id):source?{name:'Kies een klant',company:'',address:'',city:''}:state.customers[0];
   const date=state.sequence.latest_date>today()?state.sequence.latest_date:today();
-  const description=work?workDescription(work):source?source.description:'E-mailmarketing';
+  const description=work?workDescription(work):source?source.description:isOwner()?'E-mailmarketing':'';
   const amount=work?(work.amount_cents/100).toFixed(2).replace('.',','):source?(source.amountCents/100).toFixed(2).replace('.',','):'';
   const sourceNote=source?`<section class="revenue-invoice-source" aria-label="Nota vanuit e-mailomzet"><h2>Vanuit jouw cut</h2><p>${escape((source.basisPoints/100).toLocaleString('nl-NL'))}% van ${escape(money(source.baseCents))} = ${escape(money(source.cutCents))}.${source.minimumApplied?' Voor deze nota geldt de minimumvergoeding van €250.':''}</p><p>Kies de juiste klant en datum. Het bedrag komt uit je omzetselectie.</p></section>`:fromRevenue?'<p class="notice error">Dit cut-voorbeeld is niet meer beschikbaar. Ga terug naar E-mailomzet en zet je nota opnieuw klaar.</p>':'';
   const discountFields=source?'<input type="hidden" name="discount_percent" value="0">':`<div class="field"><label for="discount">Korting <span>(optioneel)</span></label><div class="percent-field"><input id="discount" name="discount_percent" inputmode="decimal" value="0" maxlength="8" autocomplete="off" aria-describedby="discount-hint discount-error"><span aria-hidden="true">%</span></div><small id="discount-hint" class="form-note">Van 0 tot 100%. De korting en het eindbedrag staan op de nota.</small><small id="discount-error" class="field-error" aria-live="polite" hidden></small></div>`;
@@ -80,44 +88,109 @@ function newInvoice(){
 }
 function historyPage(){return `<div class="list-toolbar"><p>${state.invoices.length===200?'De 200 meest recente nota’s':state.invoices.length+' opgeslagen nota’s'}</p><a class="primary" href="?page=new">${icon('plus')} Nieuwe nota</a></div>${state.invoices.length?`<div class="invoice-list"><div class="list-head"><span>Nota / klant</span><span>Datum</span><span>Bedrag</span><span>Download</span></div>${state.invoices.map(item=>`<div class="invoice-item"><a class="invoice-identity" href="?view=${item.number}"><span class="document-icon">${icon('file')}</span><span><strong>${numberLabel(item.number)} <span>${escape(item.customer.name)}</span></strong><small>${escape(item.description)}</small></span></a><time datetime="${item.date}">${escape(dateLabel(item.date))}</time><strong class="invoice-amount">${escape(money(item.amount_cents))}</strong><button class="download-link" type="button" data-download="${item.number}" aria-label="Download nota ${numberLabel(item.number)} als PDF">${icon('download')}<span>PDF</span></button></div>`).join('')}</div>`:'<p class="empty-state">Je hebt nog geen nota’s opgeslagen. Begin met een nieuwe nota.</p>'}<p class="archive-note">Bestaande nota’s behouden hun opgeslagen gegevens. Oorspronkelijke PDF’s zijn bewaard.</p>`;}
 function customerPage(edit){const person=state.customers.find(c=>c.id===edit);return `<div class="manage-layout"><div><h2>Opgeslagen klanten</h2><div class="customer-list">${state.customers.map(c=>`<a class="customer-card" href="?page=customers&edit=${c.id}"><strong>${escape(c.name)}</strong><div class="party">${partyLines({...c,name:''})}</div><span class="inline-link">Gegevens aanpassen</span></a>`).join('')}</div></div><form data-form="customer" data-id="${person?.id||''}"><h2>${person?'Klant aanpassen':'Nieuwe klant'}</h2>${partyFields(person)}<button class="primary" type="submit">Klant opslaan</button>${person?'<a class="back-link" href="?page=customers">Nieuwe klant toevoegen</a>':''}<p class="form-note">Bestaande nota’s behouden hun oorspronkelijke gegevens.</p></form></div>`;}
-function settingsPage(){return `<div class="manage-layout settings-grid"><form data-form="seller"><h2>Jouw gegevens</h2><p class="form-note">Deze gegevens komen op nieuwe nota’s.</p>${partyFields(state.seller,true)}<button class="primary" type="submit">Gegevens opslaan</button></form><div><form data-form="password"><h2>Wachtwoord wijzigen</h2>${[['current_password','Huidig wachtwoord','current-password'],['password','Nieuw wachtwoord','new-password'],['confirmation','Herhaal nieuw wachtwoord','new-password']].map(([name,label,complete])=>`<div class="field"><label for="${name}">${label}</label><input id="${name}" name="${name}" type="password" autocomplete="${complete}" ${name==='current_password'?'':'minlength="12"'} maxlength="72" required></div>`).join('')}<button class="secondary" type="submit">Wachtwoord wijzigen</button><p class="form-note">Kies een lange zin van 12 tot 72 tekens.</p></form><section class="backup-section"><h2>Back-up van je administratie</h2><p>Download je klanten, nota’s, oorspronkelijke PDF’s en ontvangen aanvragen.</p><button class="secondary" type="button" data-backup>${icon('download')} Back-up downloaden</button></section></div></div>`;}
-function requestsPage(){return `<div class="list-toolbar"><button class="secondary" type="button" data-refresh>Vernieuwen</button></div><p>Aanvragen via je website verschijnen hier. Je antwoordt zelf per e-mail.</p>${state.requests.length?state.requests.map(item=>`<article class="request-item"><div class="request-header"><div><h2>${escape(item.name)}</h2><a class="inline-link" href="mailto:${escape(encodeURIComponent(item.email))}">${escape(item.email)}</a><small class="request-meta">${escape(item.created_at?.toDate?new Intl.DateTimeFormat('nl-NL',{dateStyle:'long',timeStyle:'short'}).format(item.created_at.toDate()):'Zojuist')}</small></div><span class="request-state">${{new:'Nieuw',read:'Gelezen',replied:'Beantwoord'}[item.status]||'Nieuw'}</span></div>${item.website?`<a class="inline-link" href="${escape(item.website)}" target="_blank" rel="noopener noreferrer">${escape(item.website)}</a>`:''}<p class="request-message">${escape(item.message)}</p><div class="actions"><a class="primary" href="mailto:${escape(encodeURIComponent(item.email))}?subject=${encodeURIComponent('Je aanvraag bij JimDesigns')}">Antwoorden per e-mail ${icon('mail')}</a><button class="secondary" type="button" data-request="${item.id}" data-status="${item.status==='new'?'read':'replied'}">${item.status==='new'?'Markeer als gelezen':'Markeer als beantwoord'}</button></div></article>`).join(''):'<div class="empty-state"><h2>Nog geen aanvragen.</h2><p>Nieuwe berichten uit het contactformulier komen hier binnen.</p></div>'}`;}
+function designForm(){
+  const design=state.design??defaultDesign;
+  const colorNames={inkt:'Inkt',bos:'Bosgroen',klei:'Baksteen',marine:'Marineblauw'};
+  return `<form data-form="design"><h2>Nota-ontwerp</h2><div class="design-sample" data-font="${escape(design.font)}" style="--nota-accent:${accents[design.accent]}"><strong>${escape(state.seller.company||state.seller.name||'Je bedrijfsnaam')}</strong><span>Nota ${numberLabel(state.sequence.next_number)}</span></div><div class="field"><label for="accent">Accentkleur</label><select name="accent" id="accent">${Object.entries(colorNames).map(([key,name])=>`<option value="${key}" ${key===design.accent?'selected':''}>${name}</option>`).join('')}</select></div><div class="field"><label for="nota-font">Lettertype</label><select id="nota-font" name="font">${Object.entries(fonts).map(([key,name])=>`<option value="${key}" ${key===design.font?'selected':''}>${name}</option>`).join('')}</select></div><button class="primary" type="submit">Ontwerp opslaan</button></form>`;
+}
+function settingsPage(){return `<div class="manage-layout settings-grid"><form data-form="seller"><h2>Jouw gegevens</h2><p class="form-note">Deze gegevens komen op nieuwe nota’s.</p>${partyFields(state.seller,true)}<button class="primary" type="submit">Gegevens opslaan</button></form><div>${designForm()}<form data-form="password"><h2>Wachtwoord wijzigen</h2>${[['current_password','Huidig wachtwoord','current-password'],['password','Nieuw wachtwoord','new-password'],['confirmation','Herhaal nieuw wachtwoord','new-password']].map(([name,label,complete])=>`<div class="field"><label for="${name}">${label}</label><input id="${name}" name="${name}" type="password" autocomplete="${complete}" ${name==='current_password'?'':'minlength="12"'} maxlength="72" required></div>`).join('')}<button class="secondary" type="submit">Wachtwoord wijzigen</button><p class="form-note">Kies een lange zin van 12 tot 72 tekens.</p></form><section class="backup-section"><h2>Back-up van je administratie</h2><p>Download een kopie van je eigen administratie.</p><button class="secondary" type="button" data-backup>${icon('download')} Back-up downloaden</button></section></div></div>`;}
+function requestsPage(){return `<div class="list-toolbar"><button class="secondary" type="button" data-refresh>Vernieuwen</button></div><p>Aanvragen via je website verschijnen hier. Je antwoordt zelf per e-mail.</p>${state.requests.length?state.requests.map(item=>`<article class="request-item"><div class="request-header"><div><h2>${escape(item.name)}</h2><a class="inline-link" href="mailto:${escape(encodeURIComponent(item.email))}">${escape(item.email)}</a><small class="request-meta">${escape(item.created_at?.toDate?new Intl.DateTimeFormat('nl-NL',{dateStyle:'long',timeStyle:'short'}).format(item.created_at.toDate()):'Zojuist')}</small></div><span class="request-state">${{new:'Nieuw',read:'Gelezen',replied:'Beantwoord'}[item.status]||'Nieuw'}</span></div>${item.website?`<a class="inline-link" href="${escape(item.website)}" target="_blank" rel="noopener noreferrer">${escape(item.website)}</a>`:''}<p class="request-message">${escape(item.message)}</p><div class="actions"><a class="primary" href="mailto:${escape(encodeURIComponent(item.email))}?subject=${encodeURIComponent('Je aanvraag bij JimDesigns')}">Antwoorden per e-mail ${icon('mail')}</a><button class="secondary" type="button" data-request="${escape(item.id)}" data-status="${item.status==='new'?'read':'replied'}">${item.status==='new'?'Markeer als gelezen':'Markeer als beantwoord'}</button></div></article>`).join(''):'<div class="empty-state"><h2>Nog geen aanvragen.</h2><p>Nieuwe berichten uit het contactformulier komen hier binnen.</p></div>'}`;}
 function savedPage(invoice){return `<div class="saved-layout"><div class="saved-actions"><span class="saved-mark">Opgeslagen</span><h2>${escape(invoice.customer.name)}</h2><p>${escape(invoice.description)}</p><p class="saved-price">${escape(money(invoice.amount_cents))}</p><button class="primary" type="button" data-download="${invoice.number}">${icon('download')} Download PDF</button><a class="secondary" href="?page=new">${icon('plus')} Nieuwe nota</a><a class="back-link" href="?page=history">Naar alle nota’s</a><small class="form-note">De opgeslagen nota blijft gelijk als je later gegevens aanpast.</small></div><div class="preview-region">${paper(invoice)}</div></div>`;}
 function render(){
   releaseRevenue(); releaseRevenue=()=>{};
-  if(!state||!user)return;const {page,view,edit}=route();const invoice=view?state.invoices.find(i=>i.number===view):null;
-  const titles={overview:'Werkoverzicht',uren:'Uren',omzet:'E-mailomzet',new:'Nieuwe nota',history:'Alle nota’s',customers:'Klanten',requests:'Aanvragen',settings:'Mijn gegevens'};
+  if(!state||!user)return;const {page,view,edit}=route();const invoice=view?(state.invoices.find(i=>i.number===view)||state.detail?.number===view&&state.detail):null;
+  const titles={overview:'Werkoverzicht',uren:'Uren',omzet:'E-mailomzet',new:'Nieuwe nota',history:'Alle nota’s',customers:'Klanten',requests:'Aanvragen',settings:'Instellingen'};
   const descriptions={overview:'',uren:'Registreer je werk per klant en maak een nota van je uren.',omzet:'Berfume · Inzicht in je campagnes en flows.',new:revenueInvoiceDraft&&new URLSearchParams(location.search).get('from')==='omzet'?'Kies je klant en datum. Controleer je nota.':'Kies je klant. Vul het bedrag in. Klaar.',history:'Je opgeslagen nota’s, altijd terug te vinden.',customers:'Een keer invullen, elke nota weer gebruiken.',requests:'Berichten van je website.',settings:'Voor je nieuwe nota’s en je account.'};
-  let content=view?(invoice?savedPage(invoice):'<p class="empty-state">Deze nota staat niet in de recente lijst. Download je volledige back-up of kies een nota uit het overzicht.</p>'):({overview:overviewPage,uren:hoursPage,omzet:()=>'<div id="revenue-root"></div>',new:newInvoice,history:historyPage,customers:()=>customerPage(edit),requests:requestsPage,settings:settingsPage}[page])();
+  let content=view?(invoice?savedPage(invoice):'<p class="empty-state" data-detail-status>Nota laden…</p>'):({overview:overviewPage,uren:hoursPage,omzet:()=>'<div id="revenue-root"></div>',new:newInvoice,history:historyPage,customers:()=>customerPage(edit),requests:requestsPage,settings:settingsPage}[page])();
   const displayName=state.seller.name || user.email;
   const initials=displayName.trim().split(/\s+/).map(word=>word[0]).slice(0,2).join('').toUpperCase();
   const count=state.requests.filter(r=>r.status==='new').length;
-  app.innerHTML=`<div class="app-shell"><aside class="sidebar">${brand}<button class="menu-toggle" type="button" aria-expanded="false" aria-controls="workspace-nav">Menu ☰</button><nav id="workspace-nav" aria-label="Werkruimte">${[['overview','Overzicht','overview'],['uren','Uren','clock'],['new','Nieuwe nota','plus'],['history','Alle nota’s','file'],['customers','Klanten','people'],['requests','Inbox'+(count?' ('+count+')':''),'mail'],['omzet','E-mailomzet','chart'],['settings','Mijn gegevens','settings']].map(([key,label,symbol])=>`<a href="${key==='overview'?'./':'?page='+key}" ${page===key&&!view||view&&key==='history'?'aria-current="page"':''}>${icon(symbol)}<span>${label}</span></a>`).join('')}</nav><div class="sidebar-bottom"><a href="/">Naar je website</a><div class="account"><span class="avatar">${escape(initials)}</span><span><strong>${escape(displayName)}</strong><small>Privéomgeving</small></span><button type="button" class="icon-button" data-logout aria-label="Uitloggen" title="Uitloggen">${icon('logout')}</button></div></div></aside><main id="workspace" class="workspace ${page==='omzet'?'revenue-workspace':''}"><header class="workspace-heading"><div><h1 tabindex="-1">${invoice?'Nota '+numberLabel(invoice.number):titles[page]}</h1><p>${invoice?'Opgeslagen en klaar om te downloaden.':descriptions[page]}</p></div><span class="workspace-date">${escape(dateLabel(today()))}</span></header><div class="notice" data-status role="status" tabindex="-1" hidden></div>${content}</main></div>`;
+  app.innerHTML=`<div class="app-shell"><aside class="sidebar">${brand}<button class="menu-toggle" type="button" aria-expanded="false" aria-controls="workspace-nav">Menu ☰</button><nav id="workspace-nav" aria-label="Werkruimte">${[['overview','Overzicht','overview'],['uren','Uren','clock'],['new','Nieuwe nota','plus'],['history','Alle nota’s','file'],['customers','Klanten','people'],['requests','Inbox'+(count?' ('+count+')':''),'mail'],['omzet','E-mailomzet','chart'],['settings','Instellingen','settings']].filter(([key])=>isOwner()||!['requests','omzet'].includes(key)).map(([key,label,symbol])=>`<a href="${key==='overview'?'./':'?page='+key}" ${page===key&&!view||view&&key==='history'?'aria-current="page"':''}>${icon(symbol)}<span>${label}</span></a>`).join('')}</nav><div class="sidebar-bottom">${isOwner()?'<a href="/">Naar je website</a>':''}<div class="account"><span class="avatar">${escape(initials)}</span><span><strong>${escape(displayName)}</strong><small>Privéomgeving</small></span><button type="button" class="icon-button" data-logout aria-label="Uitloggen" title="Uitloggen">${icon('logout')}</button></div></div></aside><main id="workspace" class="workspace ${page==='omzet'?'revenue-workspace':''}"><header class="workspace-heading"><div><h1 tabindex="-1">${invoice?'Nota '+numberLabel(invoice.number):titles[page]}</h1><p>${invoice?'Opgeslagen en klaar om te downloaden.':descriptions[page]}</p></div><span class="workspace-date">${escape(dateLabel(today()))}</span></header><div class="notice" data-status role="status" tabindex="-1" hidden></div>${content}</main></div>`;
+  if(view&&!invoice){
+    const version=sessionVersion;
+    const status=app.querySelector('[data-detail-status]');
+    findInvoice(db,view).then(found=>{
+      if(!currentSession(version)||!status.isConnected)return;
+      if(found){state.detail=found;render();}else status.textContent='Deze nota is niet gevonden.';
+    }).catch(error=>{if(status.isConnected)status.textContent=errorMessage(error);});
+  }
   if(page==='omzet'&&!view)releaseRevenue=mountRevenue(document.querySelector('#revenue-root'),user,draft=>{revenueInvoiceDraft=draft;draftKey=requestKey();navigate('?page=new&from=omzet');});
   document.title=(invoice?'Nota '+numberLabel(invoice.number):titles[page])+' · JimDesigns';
 }
-async function refresh(){state=await load(db);render();}
+async function refresh(){
+  const ref=db, next=await load(ref);
+  if(db!==ref || !user || auth.currentUser?.uid!==user.uid)return;
+  state=next;render();
+}
 function download(bytes,type,name){const url=URL.createObjectURL(new Blob([bytes],{type}));const link=document.createElement('a');link.href=url;link.download=name;document.body.append(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),60000);}
-document.querySelector('#login-form').addEventListener('submit',async event=>{
-  event.preventDefault();if(busy)return;busy=true;const form=event.currentTarget,button=form.querySelector('button');button.disabled=true;button.textContent='Inloggen…';document.querySelector('#login-status').hidden=true;
-  try{const values=formData(form);await signInWithEmailAndPassword(auth,values.email.trim().toLowerCase(),values.password);form.elements.password.value='';}catch(error){loginNotice(errorMessage(error));}finally{busy=false;button.disabled=false;button.textContent='Inloggen';}
+const loginForm=document.querySelector('#login-form');
+const switchMode=document.querySelector('#auth-switch');
+let signup=false;
+let sessionVersion=0;
+const currentSession=version=>sessionVersion===version && user && auth.currentUser===user;
+function authMode(register){
+  signup=register;
+  document.querySelector('#auth-title').textContent=signup?'Account aanmaken':'Inloggen';
+  document.querySelector('#auth-help').textContent=signup?'Maak een eigen werkruimte voor je uren en nota’s. Kies een wachtwoord van minstens 12 tekens en bevestig je e-mailadres.':'Open je uren en nota’s.';
+  loginForm.elements.password.autocomplete=signup?'new-password':'current-password';
+  loginForm.elements.password.minLength=signup?12:1;
+  loginForm.elements.password.value='';
+  loginForm.querySelector('button').textContent=signup?'Account aanmaken':'Inloggen';
+  switchMode.textContent=signup?'Ik heb al een account':'Maak een account aan';
+  document.querySelector('#login-status').hidden=true;
+}
+switchMode.addEventListener('click',()=>{authMode(!signup);loginForm.elements.email.focus();});
+loginForm.addEventListener('submit',async event=>{
+  event.preventDefault();if(busy)return;
+  const values=formData(loginForm),email=values.email.trim().toLowerCase();
+  const button=loginForm.querySelector('button');
+  let created=false;
+  busy=true;switchMode.disabled=true;button.disabled=true;
+  try{
+    if(signup){
+      const credential=await createUserWithEmailAndPassword(auth,email,values.password);
+      created=true;
+      await sendEmailVerification(credential.user);
+      await signOut(auth);authMode(false);loginNotice('Controleer je inbox. Bevestig je e-mailadres en log daarna in.');
+    }else{
+      const credential=await signInWithEmailAndPassword(auth,email,values.password);
+      if(credential.user.uid!==OWNER && !credential.user.emailVerified){
+        await sendEmailVerification(credential.user);
+        await signOut(auth);loginNotice('Er is een bevestigingsmail verstuurd. Open de link en log opnieuw in.');
+      }
+    }
+    loginForm.elements.password.value='';
+  }catch(error){
+    if(auth.currentUser && auth.currentUser.uid!==OWNER && !auth.currentUser.emailVerified)await signOut(auth);
+    if(created)authMode(false);
+    loginNotice(created?'Je account is aangemaakt. Log opnieuw in om de bevestigingsmail te versturen.':error.code==='auth/email-already-in-use'?'Probeer in te loggen met je bestaande account.':errorMessage(error));
+  }finally{busy=false;button.disabled=false;switchMode.disabled=false;}
 });
 app.addEventListener('submit',async event=>{
   const form=event.target.closest('[data-form]');if(!form)return;event.preventDefault();if(busy||!form.reportValidity())return;
+  const version=sessionVersion;
   const values=formData(form),button=form.querySelector('button[type="submit"]');busy=true;button.disabled=true;const previous=button.innerHTML;button.textContent='Opslaan…';
   try {
-    if(form.dataset.form==='invoice'){const invoice=await createInvoice(db,{...values,request_key:draftKey});revenueInvoiceDraft=null;draftKey=requestKey();await refresh();navigate('?view='+invoice.number);notice('Nota '+numberLabel(invoice.number)+' is opgeslagen.');}
-    if(form.dataset.form==='work'){await saveWork(db,form.dataset.key,workEntry(values));await refresh();notice('Werkblok opgeslagen.');}
-    if(form.dataset.form==='customer'){await saveCustomer(db,values,Number(form.dataset.id)||null);await refresh();navigate('?page=customers');notice('Klantgegevens opgeslagen. Bestaande nota’s blijven gelijk.');}
-    if(form.dataset.form==='seller'){await saveSeller(db,values);await refresh();notice('Jouw gegevens zijn opgeslagen voor nieuwe nota’s.');}
+    if(form.dataset.form==='invoice'){const invoice=await createInvoice(db,{...values,request_key:draftKey});if(!currentSession(version))return;await refresh();if(!currentSession(version))return;revenueInvoiceDraft=null;draftKey=requestKey();navigate('?view='+invoice.number);notice('Nota '+numberLabel(invoice.number)+' is opgeslagen.');}
+    if(form.dataset.form==='work'){await saveWork(db,form.dataset.key,workEntry(values));await refresh();if(!currentSession(version))return;notice('Werkblok opgeslagen.');}
+    if(form.dataset.form==='customer'){await saveCustomer(db,values,Number(form.dataset.id)||null);await refresh();if(!currentSession(version))return;navigate('?page=customers');notice('Klantgegevens opgeslagen. Bestaande nota’s blijven gelijk.');}
+    if(form.dataset.form==='seller'){await saveSeller(db,values);await refresh();if(!currentSession(version))return;notice('Jouw gegevens zijn opgeslagen voor nieuwe nota’s.');}
+    if(form.dataset.form==='design'){await saveDesign(db,values);await refresh();if(!currentSession(version))return;notice('Ontwerp opgeslagen voor nieuwe nota’s.');}
     if(form.dataset.form==='password'){
       if(values.password.length<12||values.password.length>72)throw new Error('Kies een wachtwoord van 12 tot 72 tekens.');
       if(values.password!==values.confirmation)throw new Error('De twee wachtwoorden zijn niet hetzelfde.');
       await reauthenticateWithCredential(user,EmailAuthProvider.credential(user.email,values.current_password));await updatePassword(user,values.password);authenticatedAt=await openSession(db,user);form.reset();notice('Je wachtwoord is gewijzigd.');
     }
-  }catch(error){notice(errorMessage(error),true);}finally{busy=false;if(button.isConnected){button.disabled=false;button.innerHTML=previous;}}
+  }catch(error){if(currentSession(version))notice(errorMessage(error),true);}finally{busy=false;if(button.isConnected){button.disabled=false;button.innerHTML=previous;}}
 });
 app.addEventListener('input',event=>{
+  const designForm=event.target.closest('[data-form="design"]');
+  if(designForm){
+    const sample=designForm.querySelector('.design-sample');
+    sample.dataset.font=designForm.elements.font.value;
+    sample.style.setProperty('--nota-accent',accents[designForm.elements.accent.value]);
+    return;
+  }
   const work=event.target.closest('[data-form="work"]');
   if(work){
     const total=work.querySelector('[data-work-total]');
@@ -141,29 +214,41 @@ app.addEventListener('click',async event=>{
     button.setAttribute('aria-expanded',String(button.getAttribute('aria-expanded')!=='true'));
     return;
   }
-  if(!button||busy)return;
+  if(!button)return;
   if(button.hasAttribute('data-logout')){await signOut(auth);return;}
+  if(busy)return;
+  const version=sessionVersion;
   if(!button.hasAttribute('data-download')&&!button.hasAttribute('data-backup')&&!button.hasAttribute('data-request')&&!button.hasAttribute('data-refresh'))return;
   busy=true;button.disabled=true;
   try{
-    if(button.dataset.download){const invoice=state.invoices.find(i=>i.number===Number(button.dataset.download));if(!invoice)throw new Error('Deze nota is niet beschikbaar.');const bytes=invoice.original_file?await historicalPdf(db,invoice.original_file):await invoicePdf(invoice);download(bytes,'application/pdf','JimDesigns-nota-'+numberLabel(invoice.number)+'.pdf');}
-    if(button.hasAttribute('data-backup')){const backup=await exportBackup(db);download(JSON.stringify(backup,null,2),'application/json','JimDesigns-backup-'+today()+'.json');notice('Je volledige administratie is gedownload. Bewaar het bestand privé.');}
-    if(button.hasAttribute('data-refresh')){await refresh();notice('Je aanvragen zijn bijgewerkt.');}
-    if(button.dataset.request){await markRequest(db,button.dataset.request,button.dataset.status);await refresh();notice('De aanvraag is bijgewerkt.');}
-  }catch(error){notice(errorMessage(error),true);}finally{busy=false;if(button.isConnected)button.disabled=false;}
+    if(button.dataset.download){const number=Number(button.dataset.download);const invoice=state.invoices.find(i=>i.number===number)||(state.detail?.number===number&&state.detail);if(!invoice)throw new Error('Deze nota is niet beschikbaar.');const bytes=invoice.original_file?await historicalPdf(db,invoice.original_file):await invoicePdf(invoice);if(!currentSession(version))return;download(bytes,'application/pdf',(isOwner()?'JimDesigns-nota-':'Nota-')+numberLabel(invoice.number)+'.pdf');}
+    if(button.hasAttribute('data-backup')){const backup=await exportBackup(db);if(!currentSession(version))return;download(JSON.stringify(backup,null,2),'application/json','JimDesigns-backup-'+today()+'.json');notice('Je administratie is gedownload. Bewaar het bestand privé.');}
+    if(button.hasAttribute('data-refresh')){await refresh();if(!currentSession(version))return;notice('Je aanvragen zijn bijgewerkt.');}
+    if(button.dataset.request){await markRequest(db,button.dataset.request,button.dataset.status);await refresh();if(!currentSession(version))return;notice('De aanvraag is bijgewerkt.');}
+  }catch(error){if(currentSession(version))notice(errorMessage(error),true);}finally{busy=false;if(button.isConnected)button.disabled=false;}
 });
 window.addEventListener('popstate',()=>render());
 for(const type of ['pointerdown','keydown','scroll'])window.addEventListener(type,()=>{
   if(!user)return;const now=Date.now();
   if(now-lastActivity>1800000||now-authenticatedAt>28800000){signOut(auth);loginNotice('Je sessie is verlopen. Log opnieuw in.');return;}
   lastActivity=now;
-  if(now-lastHeartbeat>60000){lastHeartbeat=now;openSession(db,user).catch(async()=>{await signOut(auth);loginNotice('Je sessie is verlopen. Log opnieuw in.');});}
+  if(now-lastHeartbeat>60000){const version=sessionVersion;lastHeartbeat=now;openSession(db,user).catch(async()=>{if(!currentSession(version))return;await signOut(auth);loginNotice('Je sessie is verlopen. Log opnieuw in.');});}
 },{passive:true});
-setInterval(()=>{if(user&&(Date.now()-lastActivity>=1800000||Date.now()-authenticatedAt>=28800000))signOut(auth);},30000);
+setInterval(()=>{if(user&&(Date.now()-lastActivity>=1800000||Date.now()-authenticatedAt>=28800000)){signOut(auth);loginNotice('Je sessie is verlopen. Log opnieuw in.');}},30000);
 onAuthStateChanged(auth,async next=>{
+  sessionVersion++;
   initial.hidden=true;
-  if(!next){releaseRevenue();revenueInvoiceDraft=null;user=null;state=null;app.hidden=true;app.innerHTML='';login.hidden=false;document.querySelector('.skip').href='#main';return;}
-  if(next.uid!==OWNER){await signOut(auth);loginNotice('Dit account heeft geen toegang tot deze privéomgeving.');return;}
-  try{user=next;authenticatedAt=await openSession(db,user);lastActivity=Date.now();lastHeartbeat=Date.now();state=await load(db);login.hidden=true;app.hidden=false;render();document.querySelector('.skip').href='#workspace';}
-  catch(error){await signOut(auth);loginNotice(errorMessage(error));}
+  releaseRevenue();revenueInvoiceDraft=null;user=null;state=null;db=null;draftKey=requestKey();
+  app.hidden=true;app.innerHTML='';login.hidden=false;document.querySelector('.skip').href='#main';
+  if(!next)return;
+  if(next.uid!==OWNER && !next.emailVerified){if(!busy){await signOut(auth);loginNotice('Bevestig je e-mailadres en log opnieuw in.');}return;}
+  const ref=workspace(rootDb,next);
+  try{
+    const started=await openSession(ref,next);
+    await initializeWorkspace(ref);
+    const loaded=await load(ref);
+    if(auth.currentUser!==next)return;
+    user=next;db=ref;state=loaded;authenticatedAt=started;lastActivity=Date.now();lastHeartbeat=Date.now();
+    login.hidden=true;app.hidden=false;render();document.querySelector('.skip').href='#workspace';
+  }catch(error){if(auth.currentUser===next){await signOut(auth);loginNotice(errorMessage(error));}}
 });

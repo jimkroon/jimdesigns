@@ -59,7 +59,9 @@ service cloud.firestore {
         && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['invoice_number'])
         && request.resource.data.invoice_number is int
         && !exists(/databases/$(database)/documents/invoices/$(string(request.resource.data.invoice_number)))
-        && getAfter(/databases/$(database)/documents/invoices/$(string(request.resource.data.invoice_number))).data.customer_id == resource.data.customer_id;
+        && getAfter(/databases/$(database)/documents/invoices/$(string(request.resource.data.invoice_number))).data.customer_id == resource.data.customer_id
+          && getAfter(/databases/$(database)/documents/invoices/$(string(request.resource.data.invoice_number))).data.work_id == id
+          && getAfter(/databases/$(database)/documents/invoices/$(string(request.resource.data.invoice_number))).data.subtotal_cents == resource.data.amount_cents;
     }
     function validWork(d) {
       return d.keys().hasOnly(['description','customer_id','date','hour_units','rate_cents','amount_cents','invoice_number'])
@@ -70,6 +72,13 @@ service cloud.firestore {
         && d.rate_cents is int && d.rate_cents > 0 && d.rate_cents <= 99999999
         && d.amount_cents is int && d.amount_cents > 0 && d.amount_cents <= 99999999
         && d.amount_cents == int((d.hour_units * d.rate_cents + 50) / 100);
+    }
+    function validDesign(d) {
+      return d.keys().hasOnly(['accent','font']) && d.accent in ['inkt','bos','klei','marine'] && d.font in ['sans','serif'];
+    }
+    match /settings/design {
+      allow get: if admin();
+      allow create, update: if admin() && validDesign(request.resource.data);
     }
     match /settings/seller {
       allow read: if admin();
@@ -100,9 +109,12 @@ service cloud.firestore {
     match /invoices/{number} {
       allow read: if admin();
       allow create: if admin()
-        && request.resource.data.keys().hasOnly(['number','customer_id','customer','seller','description','amount_cents','subtotal_cents','discount_basis_points','discount_cents','date','request_key','created_at','original_file'])
+        && request.resource.data.keys().hasOnly(['number','customer_id','customer','seller','description','amount_cents','subtotal_cents','discount_basis_points','discount_cents','date','request_key','created_at','original_file','design','work_id'])
+        && (!request.resource.data.keys().hasAny(['design']) || validDesign(request.resource.data.design))
         && request.resource.data.number is int && request.resource.data.number == int(number)
         && request.resource.data.number == get(/databases/$(database)/documents/settings/sequence).data.next_number
+          && (!request.resource.data.keys().hasAny(['work_id']) || (text(request.resource.data.work_id,1,128)
+            && getAfter(/databases/$(database)/documents/work_entries/$(request.resource.data.work_id)).data.invoice_number == request.resource.data.number))
         && request.resource.data.customer_id is int
         && request.resource.data.customer == get(/databases/$(database)/documents/customers/$(string(request.resource.data.customer_id))).data
         && request.resource.data.seller == get(/databases/$(database)/documents/settings/seller).data
@@ -148,6 +160,115 @@ service cloud.firestore {
         && (!exists(/databases/$(database)/documents/contact_limits/$(uid)) || request.time - resource.data.last_seen >= duration.value(1,'m'))
         && getAfter(/databases/$(database)/documents/contact_requests/$(request.resource.data.request_id)).data.uid == uid
         && getAfter(/databases/$(database)/documents/contact_requests/$(request.resource.data.request_id)).data.created_at == request.time;
+    }
+    match /workspaces/{uid} {
+      function member() {
+        return request.auth != null && request.auth.uid == uid && uid != 'jimdesigns-owner'
+          && request.auth.token.firebase.sign_in_provider == 'password' && request.auth.token.email_verified == true
+          && request.time.toMillis() - request.auth.token.auth_time * 1000 < 28800000;
+      }
+      function active() {
+        let session = get(/databases/$(database)/documents/workspaces/$(uid)/sessions/$(uid + '-' + string(request.auth.token.auth_time))).data;
+        return member() && session.auth_time == request.auth.token.auth_time
+          && request.time - session.last_seen < duration.value(30, 'm');
+      }
+      match /sessions/{id} {
+        allow get: if member() && id == request.auth.uid + '-' + string(request.auth.token.auth_time);
+        allow create, update: if member() && id == request.auth.uid + '-' + string(request.auth.token.auth_time)
+          && request.resource.data.keys().hasOnly(['auth_time','last_seen'])
+          && request.resource.data.auth_time == request.auth.token.auth_time
+          && request.resource.data.last_seen == request.time
+          && (!exists(/databases/$(database)/documents/workspaces/$(uid)/sessions/$(id))
+            || resource.data.auth_time != request.auth.token.auth_time
+            || request.time - resource.data.last_seen < duration.value(30, 'm'));
+      }
+      match /settings/hourly_rate {
+        allow read: if active();
+        allow create, update: if active() && request.resource.data.keys().hasOnly(['rate_cents'])
+          && request.resource.data.rate_cents is int && request.resource.data.rate_cents > 0 && request.resource.data.rate_cents <= 99999999;
+      }
+      match /work_entries/{id} {
+        allow read: if active();
+        allow create: if active() && validWork(request.resource.data);
+        allow update: if active() && resource.data.invoice_number == null
+          && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['invoice_number'])
+          && request.resource.data.invoice_number is int
+          && !exists(/databases/$(database)/documents/workspaces/$(uid)/invoices/$(string(request.resource.data.invoice_number)))
+          && getAfter(/databases/$(database)/documents/workspaces/$(uid)/invoices/$(string(request.resource.data.invoice_number))).data.customer_id == resource.data.customer_id
+          && getAfter(/databases/$(database)/documents/workspaces/$(uid)/invoices/$(string(request.resource.data.invoice_number))).data.work_id == id
+          && getAfter(/databases/$(database)/documents/workspaces/$(uid)/invoices/$(string(request.resource.data.invoice_number))).data.subtotal_cents == resource.data.amount_cents;
+      }
+      function validWork(d) {
+        return d.keys().hasOnly(['description','customer_id','date','hour_units','rate_cents','amount_cents','invoice_number'])
+          && d.invoice_number == null && text(d.description,1,110)
+          && d.customer_id is int && exists(/databases/$(database)/documents/workspaces/$(uid)/customers/$(string(d.customer_id)))
+          && d.date.matches('^[0-9]{4}-[0-9]{2}-[0-9]{2}$') && calendarDate(d.date)
+          && d.hour_units is int && d.hour_units > 0 && d.hour_units <= 999999
+          && d.rate_cents is int && d.rate_cents > 0 && d.rate_cents <= 99999999
+          && d.amount_cents is int && d.amount_cents > 0 && d.amount_cents <= 99999999
+          && d.amount_cents == int((d.hour_units * d.rate_cents + 50) / 100);
+      }
+      match /settings/seller {
+        allow read: if active();
+        allow create, update: if active() && party(request.resource.data, true);
+      }
+      match /settings/design {
+        allow get: if active();
+        allow create, update: if active() && validDesign(request.resource.data);
+      }
+      match /settings/sequence {
+        allow create: if active() && request.resource.data == {'next_number':1,'latest_date':'2000-01-01'};
+        allow read: if active();
+        allow update: if active()
+          && request.resource.data.keys().hasOnly(['next_number','latest_date'])
+          && request.resource.data.next_number == resource.data.next_number + 1
+          && request.resource.data.latest_date == getAfter(/databases/$(database)/documents/workspaces/$(uid)/invoices/$(string(resource.data.next_number))).data.date
+          && getAfter(/databases/$(database)/documents/workspaces/$(uid)/invoices/$(string(resource.data.next_number))).data.number == resource.data.next_number;
+      }
+      match /settings/customers {
+        allow create: if active() && request.resource.data == {'next_id':1};
+        allow read: if active();
+        allow update: if active() && request.resource.data.keys().hasOnly(['next_id'])
+          && request.resource.data.next_id == resource.data.next_id + 1
+          && getAfter(/databases/$(database)/documents/workspaces/$(uid)/customers/$(string(resource.data.next_id))).data.id == resource.data.next_id;
+      }
+      match /customers/{id} {
+        allow read: if active();
+        allow create: if active() && party(request.resource.data, false)
+          && request.resource.data.id is int && request.resource.data.id == int(id)
+          && request.resource.data.id == get(/databases/$(database)/documents/workspaces/$(uid)/settings/customers).data.next_id
+          && getAfter(/databases/$(database)/documents/workspaces/$(uid)/settings/customers).data.next_id == request.resource.data.id + 1;
+        allow update: if active() && party(request.resource.data, false) && request.resource.data.id == resource.data.id;
+      }
+      match /invoices/{number} {
+        allow read: if active();
+        allow create: if active()
+          && request.resource.data.keys().hasOnly(['number','customer_id','customer','seller','description','amount_cents','subtotal_cents','discount_basis_points','discount_cents','date','request_key','created_at','original_file','design','work_id'])
+          && request.resource.data.number is int && request.resource.data.number == int(number)
+          && request.resource.data.number == get(/databases/$(database)/documents/workspaces/$(uid)/settings/sequence).data.next_number
+          && (!request.resource.data.keys().hasAny(['work_id']) || (text(request.resource.data.work_id,1,128)
+            && getAfter(/databases/$(database)/documents/workspaces/$(uid)/work_entries/$(request.resource.data.work_id)).data.invoice_number == request.resource.data.number))
+          && request.resource.data.customer_id is int
+          && request.resource.data.customer == get(/databases/$(database)/documents/workspaces/$(uid)/customers/$(string(request.resource.data.customer_id))).data
+          && request.resource.data.seller == get(/databases/$(database)/documents/workspaces/$(uid)/settings/seller).data
+          && text(request.resource.data.description, 1, 180)
+          && validDesign(request.resource.data.design)
+          && invoiceAmounts(request.resource.data)
+          && request.resource.data.date.matches('^[0-9]{4}-[0-9]{2}-[0-9]{2}$')
+          && calendarDate(request.resource.data.date)
+          && request.resource.data.date >= get(/databases/$(database)/documents/workspaces/$(uid)/settings/sequence).data.latest_date
+          && request.resource.data.request_key.matches('^[a-f0-9]{32}$')
+          && request.resource.data.created_at == request.time && request.resource.data.original_file == null
+          && getAfter(/databases/$(database)/documents/workspaces/$(uid)/settings/sequence).data.next_number == request.resource.data.number + 1
+          && getAfter(/databases/$(database)/documents/workspaces/$(uid)/settings/sequence).data.latest_date == request.resource.data.date
+          && !exists(/databases/$(database)/documents/workspaces/$(uid)/requests/$(request.resource.data.request_key))
+          && getAfter(/databases/$(database)/documents/workspaces/$(uid)/requests/$(request.resource.data.request_key)).data.number == request.resource.data.number;
+      }
+      match /requests/{id} {
+        allow get: if active();
+        allow create: if active() && request.resource.data.keys().hasOnly(['number'])
+          && getAfter(/databases/$(database)/documents/workspaces/$(uid)/invoices/$(string(request.resource.data.number))).data.request_key == id;
+      }
     }
     match /{document=**} { allow read, write: if false; }
   }

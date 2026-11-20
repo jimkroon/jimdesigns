@@ -102,3 +102,48 @@ test('Werkblokken houden hun tarief en kunnen één keer op een nota',async()=>{
   assert.equal((await getDoc(doc(db,'work_entries','blok'))).data().rate_cents,3000);
   assert.equal((await getDoc(doc(db,'work_entries','blok'))).data().invoice_number,5);
 });
+
+test('Verified accounts have separate workspaces, invoice designs and backups',async()=>{
+  const {workspace,openSession,initializeWorkspace,load,saveSeller,saveDesign,saveWork}=await import('../src/repository.mjs');
+  const {invoicePdf}=await import('../src/pdf.mjs');
+  const {workEntry}=await import('../src/hours.mjs');
+  const userFor=uid=>({uid,getIdTokenResult:async()=>({claims:{auth_time:authTime}})});
+  const scopedDb=(uid,verified=true,provider='password')=>environment.authenticatedContext(uid,{email_verified:verified,auth_time:authTime,firebase:{sign_in_provider:provider}}).firestore();
+  const firstDb=scopedDb('account-a'), secondDb=scopedDb('account-b');
+  const a=workspace(firstDb,userFor('account-a')), b=workspace(secondDb,userFor('account-b'));
+  for(const [ref,uid] of [[a,'account-a'],[b,'account-b']]){
+    await openSession(ref,userFor(uid));await initializeWorkspace(ref);
+    const empty=await load(ref);assert.equal(empty.sequence.next_number,1);assert.equal(empty.seller.iban,'');
+    assert.deepEqual([empty.customers.length,empty.invoices.length,empty.requests.length,empty.hours.entries.length],[0,0,0,0]);
+  }
+  await saveSeller(a,seller);await saveCustomer(a,person);await saveDesign(a,{accent:'klei',font:'serif'});
+  await saveWork(a,'entry',workEntry({customer_id:1,date:'2026-10-28',description:'Design',rate:30,hours:'2,5'}));
+  const inv=await createInvoice(a,{...input('c'),amount:75,work_id:'entry'});
+  assert.equal(inv.number,1);assert.equal(inv.design.font,'serif');assert.ok((await invoicePdf(inv)).length>1000);
+  await saveDesign(a,{accent:'bos',font:'sans'});
+  const backup=await exportBackup(a);
+  assert.deepEqual(backup.invoices[0].design,{accent:'klei',font:'serif'});
+  assert.equal((await exportBackup(b)).invoices.length,0);
+  for(const path of ['settings/seller','customers/1','invoices/1','work_entries/entry','settings/design']){
+    await assertFails(getDoc(doc(secondDb,'workspaces/account-a/'+path)));
+    await assertFails(setDoc(doc(secondDb,'workspaces/account-a/'+path),{}));
+    await assertFails(getDoc(doc(firstDb,path)));
+  }
+  for(const path of ['contact_requests','files','invoices'])await assertFails(getDocs(collection(firstDb,path)));
+  const change={name:'Bijgewerkte klant'};
+  await assertSucceeds(updateDoc(doc(a,'customers','1'),change));
+  await assertFails(updateDoc(doc(secondDb,'workspaces/account-a/customers/1'),change));
+  for(const path of ['customers','invoices','work_entries']){
+    await assertFails(getDocs(collection(secondDb,'workspaces/account-a/'+path)));
+  }
+  for(const path of ['settings/sequence','settings/customers','requests/'+input('c').request_key,'sessions/account-a-'+authTime]){
+    await assertFails(getDoc(doc(secondDb,'workspaces/account-a/'+path)));
+  }
+  await environment.withSecurityRulesDisabled(context=>setDoc(doc(context.firestore(),'workspaces/account-a/sessions/account-a-'+authTime),{auth_time:authTime,last_seen:Timestamp.fromMillis(Date.now()-1801000)}));
+  await assertFails(getDoc(doc(a,'settings','seller')));
+  await assertFails(updateDoc(doc(a,'customers','1'),change));
+  for(const [verified,provider] of [[false,'password'],[true,'anonymous']]){
+    const authDb=scopedDb('unverified',verified,provider);
+    await assertFails(openSession(workspace(authDb,userFor('unverified')),userFor('unverified')));
+  }
+});

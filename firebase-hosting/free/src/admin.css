@@ -79,3 +79,21 @@
   .ledger-row b {min-width:0;}
   .login-intro>div {margin:0;}
 }
+
+/* A work ledger: figures sit directly on the page. */
+.open-work {background:transparent;border-radius:0;border-top:3px solid #223f32;border-bottom:1px solid #a2afa2;padding:22px 0 24px;}
+.open-work::after {display:none;}
+.open-amount {font-family:Manrope,Arial,sans-serif;font-weight:600;font-size:clamp(44px,5.6vw,82px);line-height:1.14;letter-spacing:-.07em;}
+.quick-work {border-top:1px solid #a2afa2;padding-top:22px;}
+.open-work h2,.quick-work h2 {font-weight:600;color:#46584e;}
+.auth-switch {display:block;margin:16px 0 0;padding:10px 0;background:transparent;color:#dceabf;font-weight:600;text-decoration:underline;text-underline-offset:4px;}
+.login-content>.back-link {margin-top:20px;}
+#login-form .primary {background:#dceabf;color:#19382e;min-width:125px;}
+.login-intro h1 {font-family:Manrope,Arial,sans-serif;font-weight:600;letter-spacing:-.065em;}
+.settings-grid form+form {margin-top:24px;}
+.design-sample {display:flex;align-items:baseline;justify-content:space-between;gap:16px;overflow-wrap:anywhere;border-top:3px solid var(--nota-accent);padding:16px 0 24px;margin-bottom:16px;border-bottom:1px solid #ccd3c8;}
+.design-sample strong {font-size:20px;}
+.design-sample span {white-space:nowrap;}
+.paper[data-font] .paper-head {border-top:3px solid var(--nota-accent);padding-top:12px;}
+.paper[data-font] .paper-brand>span {white-space:normal;overflow-wrap:anywhere;}
+.paper[data-font=serif],.paper[data-font=serif] h3,.design-sample[data-font=serif] {font-family:Georgia,'Times New Roman',serif;}

@@ -1,10 +1,14 @@
 import {PDFDocument,StandardFonts,rgb} from 'pdf-lib';
 import {money,numberLabel,dateLabel,invoiceTotals,percentLabel} from './core.mjs';
+import {accents} from './nota-design.mjs';
 import {invoiceBrand} from './invoice-brand.mjs';
 export async function invoicePdf(invoice) {
   const totals=invoiceTotals(invoice);
   const document=await PDFDocument.create();const page=document.addPage([595.28,841.89]);
-  const font=await document.embedFont(StandardFonts.Helvetica);const bold=await document.embedFont(StandardFonts.HelveticaBold);
+  const design=invoice.design;
+  const serif=design?.font==='serif';
+  const font=await document.embedFont(serif?StandardFonts.TimesRoman:StandardFonts.Helvetica);
+  const bold=await document.embedFont(serif?StandardFonts.TimesRomanBold:StandardFonts.HelveticaBold);
   const text=(x,top,value,size=11,color=rgb(.14,.14,.14),strong=false)=>page.drawText(value,{x,y:841.89-top,size,font:strong?bold:font,color});
   const width=(value,size)=>font.widthOfTextAtSize(value,size);
   const lines=(value,max,size)=>{
@@ -16,10 +20,20 @@ export async function invoicePdf(invoice) {
   const right=(edge,top,value,size=11)=>text(edge-width(value,size),top,value,size);
   const rule=top=>page.drawLine({start:{x:50,y:841.89-top},end:{x:545.28,y:841.89-top},thickness:.5,color:rgb(.8,.8,.78)});
   const label=numberLabel(invoice.number);
-  const logo=await document.embedPng(invoiceBrand.logoDataUri);
-  const logoWidth=40,logoHeight=logoWidth*invoiceBrand.logoHeight/invoiceBrand.logoWidth;
-  page.drawImage(logo,{x:50,y:841.89-44-logoHeight,width:logoWidth,height:logoHeight});
-  text(101,68,invoiceBrand.name,18);
+  const brandName=design?(invoice.seller.company||invoice.seller.name):invoiceBrand.name;
+  if(design){
+    const hex=accents[design.accent]||accents.inkt;
+    const color=rgb(...hex.slice(1).match(/../g).map(pair=>parseInt(pair,16)/255));
+    page.drawRectangle({x:50,y:804,width:495.28,height:3,color});
+    let size=18;
+    while(size>9 && width(brandName,size)>355)size-=0.5;
+    wrapped(50,68,brandName,355,size,size+1);
+  }else{
+    const logo=await document.embedPng(invoiceBrand.logoDataUri);
+    const logoWidth=40,logoHeight=logoWidth*invoiceBrand.logoHeight/invoiceBrand.logoWidth;
+    page.drawImage(logo,{x:50,y:841.89-44-logoHeight,width:logoWidth,height:logoHeight});
+    text(101,68,brandName,18);
+  }
   right(545.28,61,'NOTA',18);right(545.28,82,label,10);
   let subtitle=invoice.description;
   if(width(subtitle,12)>465){while(width(subtitle+'…',12)>465)subtitle=subtitle.slice(0,-1);subtitle+='…';}
@@ -44,5 +58,5 @@ export async function invoicePdf(invoice) {
   const paymentTop=Math.max(634,totalTop+68);text(50,paymentTop,'Betaling',12);text(50,paymentTop+28,totals.amount_cents===0?'Er hoeft geen bedrag te worden overgemaakt.':'Maak '+money(totals.amount_cents)+' over naar:');
   text(50,paymentTop+54,invoice.seller.iban.match(/.{1,4}/g).join(' '),12);wrapped(50,paymentTop+76,'Ten name van '+invoice.seller.name,480);
   text(50,paymentTop+116,'Vermeld bij de betaling: nota '+label+'.');
-  document.setTitle('JimDesigns - Nota '+label);document.setCreator('JimDesigns Notas');return document.save();
+  document.setTitle(brandName+' - Nota '+label);document.setCreator('JimDesigns Notas');return document.save();
 }
