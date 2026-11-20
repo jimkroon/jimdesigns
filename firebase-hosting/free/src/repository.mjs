@@ -5,13 +5,27 @@ export async function openSession(db,user) {
   await setDoc(doc(db,'sessions',OWNER+'-'+token.claims.auth_time),{auth_time:Number(token.claims.auth_time),last_seen:serverTimestamp()});
   return Number(token.claims.auth_time)*1000;
 }
+export async function loadHours(db) {
+  const [entries, rate] = await Promise.all([
+    getDocs(query(collection(db,'work_entries'),orderBy('date','desc'))), getDoc(doc(db,'settings','hourly_rate'))
+  ]);
+  return {entries:entries.docs.map(d=>({...d.data(),id:d.id})),rate:rate.data()?.rate_cents ?? 3000};
+}
+export async function saveWork(db,id,entry) {
+  await runTransaction(db,async tx=>{
+    const ref=doc(db,'work_entries',id);
+    if ((await tx.get(ref)).exists()) return;
+    tx.set(ref,entry);
+    tx.set(doc(db,'settings','hourly_rate'),{rate_cents:entry.rate_cents});
+  });
+}
 export async function load(db) {
-  const [customers,invoices,seller,sequence,requests]=await Promise.all([
+  const [customers,invoices,seller,sequence,requests,hours]=await Promise.all([
     getDocs(query(collection(db,'customers'),orderBy('id'))),getDocs(query(collection(db,'invoices'),orderBy('number','desc'),limit(200))),
-    getDoc(doc(db,'settings','seller')),getDoc(doc(db,'settings','sequence')),getDocs(query(collection(db,'contact_requests'),orderBy('created_at','desc'),limit(100)))
+    getDoc(doc(db,'settings','seller')),getDoc(doc(db,'settings','sequence')),getDocs(query(collection(db,'contact_requests'),orderBy('created_at','desc'),limit(100))),loadHours(db)
   ]);
   if(!seller.exists()||!sequence.exists())throw new Error('Je administratie wordt nog overgezet. Probeer het later opnieuw.');
-  return {customers:customers.docs.map(d=>d.data()),invoices:invoices.docs.map(d=>d.data()),seller:seller.data(),sequence:sequence.data(),requests:requests.docs.map(d=>({id:d.id,...d.data()}))};
+  return {hours,customers:customers.docs.map(d=>d.data()),invoices:invoices.docs.map(d=>d.data()),seller:seller.data(),sequence:sequence.data(),requests:requests.docs.map(d=>({id:d.id,...d.data()}))};
 }
 export async function createInvoice(db,raw) {
   const input=invoiceInput(raw);
@@ -27,6 +41,13 @@ export async function createInvoice(db,raw) {
     if(!customer.exists())throw new Error('Selecteer een opgeslagen klant.');
     if(!sequence.exists()||!seller.exists())throw new Error('Je administratie is nog niet beschikbaar.');
     const number=sequence.data().next_number;
+    if (raw.work_id) {
+      const ref=doc(db,'work_entries',raw.work_id);
+      const entry=(await tx.get(ref)).data();
+      if (!entry || entry.invoice_number !== null) throw new Error('Deze uren zijn al gefactureerd of niet meer beschikbaar.');
+      if (entry.customer_id !== input.customer_id || entry.amount_cents !== input.subtotal_cents) throw new Error('Controleer de klant en het bedrag van deze uren.');
+      tx.update(ref,{invoice_number:number});
+    }
     if(input.date<sequence.data().latest_date)throw new Error('De datum mag niet vóór de vorige nota liggen.');
     const invoice={...input,number,customer:customer.data(),seller:seller.data(),created_at:serverTimestamp(),original_file:null};
     tx.set(doc(db,'invoices',String(number)),invoice);tx.set(keyRef,{number});
@@ -52,10 +73,10 @@ export async function saveCustomer(db,raw,id) {
 export const saveSeller=(db,raw)=>setDoc(doc(db,'settings','seller'),party(raw,true));
 export const markRequest=(db,id,status)=>updateDoc(doc(db,'contact_requests',id),{status});
 export async function exportBackup(db) {
-  const [customers,invoices,seller,sequence,requests,files]=await Promise.all([
-    getDocs(collection(db,'customers')),getDocs(collection(db,'invoices')),getDoc(doc(db,'settings','seller')),getDoc(doc(db,'settings','sequence')),getDocs(collection(db,'contact_requests')),getDocs(collection(db,'files'))
+  const [customers,invoices,seller,sequence,requests,files,hours]=await Promise.all([
+    getDocs(collection(db,'customers')),getDocs(collection(db,'invoices')),getDoc(doc(db,'settings','seller')),getDoc(doc(db,'settings','sequence')),getDocs(collection(db,'contact_requests')),getDocs(collection(db,'files')),loadHours(db)
   ]);
-  return {format:'jimdesigns-firebase-v1',exported_at:new Date().toISOString(),next_number:sequence.data().next_number,seller:seller.data(),customers:customers.docs.map(d=>d.data()),invoices:invoices.docs.map(d=>d.data()),contact_requests:requests.docs.map(d=>({id:d.id,...d.data()})),files:files.docs.map(d=>({id:d.id,...d.data()}))};
+  return {hours,format:'jimdesigns-firebase-v1',exported_at:new Date().toISOString(),next_number:sequence.data().next_number,seller:seller.data(),customers:customers.docs.map(d=>d.data()),invoices:invoices.docs.map(d=>d.data()),contact_requests:requests.docs.map(d=>({id:d.id,...d.data()})),files:files.docs.map(d=>({id:d.id,...d.data()}))};
 }
 export async function historicalPdf(db,name) {
   const result=await getDoc(doc(db,'files',name));

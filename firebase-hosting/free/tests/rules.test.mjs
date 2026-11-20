@@ -84,3 +84,21 @@ test('Public contact writes require auth, validation and an atomic per-user time
 test('Full backup excludes authentication secrets',async()=>{
   await createInvoice(db,input('a'));const backup=await exportBackup(db);assert.equal(backup.next_number,6);assert.equal(backup.invoices.length,1);assert.equal(JSON.stringify(backup).includes('password'),false);
 });
+test('Werkblokken houden hun tarief en kunnen één keer op een nota',async()=>{
+  const {saveWork,loadHours}=await import('../src/repository.mjs');
+  const {workEntry}=await import('../src/hours.mjs');
+  const row={customer_id:'1',date:'2026-10-28',description:'Homepage',hours:'2,5',rate:'30'};
+  assert.equal((await loadHours(db)).rate,3000);
+  const work=workEntry(row);
+  assert.equal(work.amount_cents,7500);
+  await saveWork(db,'blok',work);
+  await saveWork(db,'nieuw',workEntry({...row,rate:'37,50'}));
+  assert.equal((await loadHours(db)).rate,3750);
+  const raw={...input('a'),work_id:'blok',amount:'75'};
+  await assert.rejects(createInvoice(db,{...raw,amount:'80'}));
+  assert.equal((await createInvoice(db,raw)).number,5);
+  assert.equal((await createInvoice(db,raw)).number,5);
+  await assert.rejects(createInvoice(db,{...raw,request_key:'b'.repeat(32)}));
+  assert.equal((await getDoc(doc(db,'work_entries','blok'))).data().rate_cents,3000);
+  assert.equal((await getDoc(doc(db,'work_entries','blok'))).data().invoice_number,5);
+});
