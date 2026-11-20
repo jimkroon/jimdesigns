@@ -128,18 +128,36 @@ const switchMode=document.querySelector('#auth-switch');
 let signup=false;
 let sessionVersion=0;
 const currentSession=version=>sessionVersion===version && user && auth.currentUser===user;
+function setAuthLocation(register,replace=false){
+  const url=new URL(location.href);
+  if(register)url.searchParams.set('account','aanmaken');
+  else url.searchParams.delete('account');
+  if(url.href!==location.href)history[replace?'replaceState':'pushState'](null,'',url);
+  authMode(register);
+}
 function authMode(register){
   signup=register;
+  login.dataset.mode=signup?'register':'login';
+  document.title=(signup?'Account aanmaken':'Inloggen')+' · JimDesigns';
+  document.querySelector('.login-intro>div').hidden=signup;
+  document.querySelector('#signup-password-help').hidden=!signup;
+  if(signup)loginForm.elements.password.setAttribute('aria-describedby','signup-password-help');
+  else loginForm.elements.password.removeAttribute('aria-describedby');
   document.querySelector('#auth-title').textContent=signup?'Account aanmaken':'Inloggen';
-  document.querySelector('#auth-help').textContent=signup?'Maak een eigen werkruimte voor je uren en nota’s. Kies een wachtwoord van minstens 12 tekens en bevestig je e-mailadres.':'Open je uren en nota’s.';
+  document.querySelector('#auth-help').textContent=signup?'Na het aanmelden krijg je een e-mail om je account te bevestigen.':'Open je uren en nota’s.';
   loginForm.elements.password.autocomplete=signup?'new-password':'current-password';
   loginForm.elements.password.minLength=signup?12:1;
   loginForm.elements.password.value='';
   loginForm.querySelector('button').textContent=signup?'Account aanmaken':'Inloggen';
-  switchMode.textContent=signup?'Ik heb al een account':'Maak een account aan';
+  switchMode.textContent=signup?'Terug naar inloggen':'Maak een account aan';
   document.querySelector('#login-status').hidden=true;
 }
-switchMode.addEventListener('click',()=>{authMode(!signup);loginForm.elements.email.focus();});
+const registrationRequested=()=>new URLSearchParams(location.search).get('account')==='aanmaken';
+authMode(registrationRequested());
+switchMode.addEventListener('click',()=>{
+  setAuthLocation(!signup);
+  document.querySelector('#auth-title').focus();
+});
 loginForm.addEventListener('submit',async event=>{
   event.preventDefault();if(busy)return;
   const values=formData(loginForm),email=values.email.trim().toLowerCase();
@@ -151,7 +169,7 @@ loginForm.addEventListener('submit',async event=>{
       const credential=await createUserWithEmailAndPassword(auth,email,values.password);
       created=true;
       await sendEmailVerification(credential.user);
-      await signOut(auth);authMode(false);loginNotice('Controleer je inbox. Bevestig je e-mailadres en log daarna in.');
+      await signOut(auth);setAuthLocation(false,true);loginNotice('Controleer je inbox. Bevestig je e-mailadres en log daarna in.');
     }else{
       const credential=await signInWithEmailAndPassword(auth,email,values.password);
       if(credential.user.uid!==OWNER && !credential.user.emailVerified){
@@ -162,7 +180,7 @@ loginForm.addEventListener('submit',async event=>{
     loginForm.elements.password.value='';
   }catch(error){
     if(auth.currentUser && auth.currentUser.uid!==OWNER && !auth.currentUser.emailVerified)await signOut(auth);
-    if(created)authMode(false);
+    if(created)setAuthLocation(false,true);
     loginNotice(created?'Je account is aangemaakt. Log opnieuw in om de bevestigingsmail te versturen.':error.code==='auth/email-already-in-use'?'Probeer in te loggen met je bestaande account.':errorMessage(error));
   }finally{busy=false;button.disabled=false;switchMode.disabled=false;}
 });
@@ -227,7 +245,7 @@ app.addEventListener('click',async event=>{
     if(button.dataset.request){await markRequest(db,button.dataset.request,button.dataset.status);await refresh();if(!currentSession(version))return;notice('De aanvraag is bijgewerkt.');}
   }catch(error){if(currentSession(version))notice(errorMessage(error),true);}finally{busy=false;if(button.isConnected)button.disabled=false;}
 });
-window.addEventListener('popstate',()=>render());
+window.addEventListener('popstate',()=>{if(user)render();else authMode(registrationRequested());});
 for(const type of ['pointerdown','keydown','scroll'])window.addEventListener(type,()=>{
   if(!user)return;const now=Date.now();
   if(now-lastActivity>1800000||now-authenticatedAt>28800000){signOut(auth);loginNotice('Je sessie is verlopen. Log opnieuw in.');return;}
