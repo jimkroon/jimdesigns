@@ -10,8 +10,9 @@ await fs.mkdir(path.join(out,'notas'),{recursive:true});await fs.mkdir(path.join
 await build({entryPoints:[path.join(root,'src/admin.mjs')],outfile:path.join(out,'notas/firebase.js'),bundle:true,format:'esm',minify:!development,sourcemap:false,define:{__DEV__:String(development)},target:'es2022',jsx:'automatic'});
 await build({entryPoints:[path.join(root,'src/contact.mjs')],outfile:path.join(out,'firebase/contact.js'),bundle:true,format:'esm',minify:!development,sourcemap:false,define:{__DEV__:String(development)},target:'es2022',jsx:'automatic'});
 const scriptHash=createHash('sha256').update(await fs.readFile(path.join(out,'notas/firebase.js'))).digest('hex').slice(0,12);
-await fs.writeFile(path.join(out,'notas/index.html'),(await fs.readFile(path.join(root,'src/admin.html'),'utf8')).replace('/notas/firebase.js','/notas/firebase.js?v='+scriptHash));
 await fs.writeFile(path.join(out,'notas/firebase.css'),(await fs.readFile(path.join(root,'src/admin.css'),'utf8'))+'\n'+await fs.readFile(path.join(out,'notas/firebase.css'),'utf8'));
+const styleHash=createHash('sha256').update(await fs.readFile(path.join(out,'notas/firebase.css'))).digest('hex').slice(0,12);
+await fs.writeFile(path.join(out,'notas/index.html'),(await fs.readFile(path.join(root,'src/admin.html'),'utf8')).replace('/notas/firebase.js','/notas/firebase.js?v='+scriptHash).replace('/notas/firebase.css','/notas/firebase.css?v='+styleHash));
 await fs.copyFile(path.join(root,'src/contact-loader.js'),path.join(out,'contact.js'));
 if(development){
   const base=path.resolve(root,'../public');
