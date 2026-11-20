@@ -2,7 +2,7 @@ import {test,before,after,beforeEach} from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import {initializeTestEnvironment,assertFails,assertSucceeds} from '@firebase/rules-unit-testing';
-import {doc,setDoc,getDoc,getDocs,collection,updateDoc,deleteDoc,writeBatch,serverTimestamp,Timestamp,setLogLevel} from 'firebase/firestore';
+import {doc,setDoc,getDoc,getDocFromServer,getDocs,collection,updateDoc,deleteDoc,writeBatch,serverTimestamp,Timestamp,setLogLevel} from 'firebase/firestore';
 setLogLevel('silent');
 import {createInvoice,saveCustomer,exportBackup} from '../src/repository.mjs';
 import {OWNER,invoiceInput} from '../src/core.mjs';
@@ -22,7 +22,7 @@ beforeEach(async()=>{
 const input=key=>({request_key:key.repeat(32),customer_id:'1',amount:'300,50',date:'2026-10-28',description:'E-mailmarketing'});
 test('Anonymous and unrelated accounts cannot read private administration',async()=>{
   for(const context of [environment.unauthenticatedContext(),environment.authenticatedContext('unrelated',{auth_time:authTime})]){
-    for(const path of ['customers/1','settings/seller','invoices/5','files/nota-004.pdf'])await assertFails(getDoc(doc(context.firestore(),path)));
+    for(const path of ['customers/1','settings/seller','invoices/5','files/nota-004.pdf'])await assertFails(getDocFromServer(doc(context.firestore(),path)));
     await assertFails(getDocs(collection(context.firestore(),'customers')));
   }
   await assertSucceeds(getDoc(doc(db,'customers','1')));
@@ -63,10 +63,10 @@ test('Customer edits leave invoice snapshots intact and new IDs are atomic',asyn
 });
 test('Expired sessions cannot read data or revive the same login',async()=>{
   await environment.withSecurityRulesDisabled(context=>setDoc(doc(context.firestore(),'sessions',OWNER+'-'+authTime),{auth_time:authTime,last_seen:Timestamp.fromMillis(Date.now()-1801000)}));
-  await assertFails(getDoc(doc(db,'customers','1')));await assertFails(setDoc(doc(db,'sessions',OWNER+'-'+authTime),{auth_time:authTime,last_seen:serverTimestamp()}));
+  await assertFails(getDocFromServer(doc(db,'customers','1')));await assertFails(setDoc(doc(db,'sessions',OWNER+'-'+authTime),{auth_time:authTime,last_seen:serverTimestamp()}));
   const fresh=environment.authenticatedContext(OWNER,{auth_time:authTime+1,firebase:{sign_in_provider:'password'}}).firestore();
   await assertSucceeds(setDoc(doc(fresh,'sessions',OWNER+'-'+(authTime+1)),{auth_time:authTime+1,last_seen:serverTimestamp()}));
-  const ancient=environment.authenticatedContext(OWNER,{auth_time:authTime-28801,firebase:{sign_in_provider:'password'}}).firestore();await assertFails(getDoc(doc(ancient,'customers','1')));
+  const ancient=environment.authenticatedContext(OWNER,{auth_time:authTime-28801,firebase:{sign_in_provider:'password'}}).firestore();await assertFails(getDocFromServer(doc(ancient,'customers','1')));
 });
 test('Public contact writes require auth, validation and an atomic per-user time limit',async()=>{
   const visitor=environment.authenticatedContext('synthetic-visitor',{firebase:{sign_in_provider:'anonymous'}}).firestore();
@@ -76,7 +76,7 @@ test('Public contact writes require auth, validation and an atomic per-user time
   await assertFails(submit('a'.repeat(32),{...contact,email:'ongeldig'}));
   await assertSucceeds(submit('a'.repeat(32)));
   await assertFails(submit('b'.repeat(32)));
-  await assertFails(getDoc(doc(visitor,'contact_requests','a'.repeat(32))));
+  await assertFails(getDocFromServer(doc(visitor,'contact_requests','a'.repeat(32))));
   await assertSucceeds(getDoc(doc(db,'contact_requests','a'.repeat(32))));
   await assertSucceeds(updateDoc(doc(db,'contact_requests','a'.repeat(32)),{status:'read'}));
   await assertFails(updateDoc(doc(db,'contact_requests','a'.repeat(32)),{email:'ander@example.invalid'}));
@@ -125,9 +125,9 @@ test('Verified accounts have separate workspaces, invoice designs and backups',a
   assert.deepEqual(backup.invoices[0].design,{accent:'klei',font:'serif'});
   assert.equal((await exportBackup(b)).invoices.length,0);
   for(const path of ['settings/seller','customers/1','invoices/1','work_entries/entry','settings/design']){
-    await assertFails(getDoc(doc(secondDb,'workspaces/account-a/'+path)));
+    await assertFails(getDocFromServer(doc(secondDb,'workspaces/account-a/'+path)));
     await assertFails(setDoc(doc(secondDb,'workspaces/account-a/'+path),{}));
-    await assertFails(getDoc(doc(firstDb,path)));
+    await assertFails(getDocFromServer(doc(firstDb,path)));
   }
   for(const path of ['contact_requests','files','invoices'])await assertFails(getDocs(collection(firstDb,path)));
   const change={name:'Bijgewerkte klant'};
@@ -137,10 +137,10 @@ test('Verified accounts have separate workspaces, invoice designs and backups',a
     await assertFails(getDocs(collection(secondDb,'workspaces/account-a/'+path)));
   }
   for(const path of ['settings/sequence','settings/customers','requests/'+input('c').request_key,'sessions/account-a-'+authTime]){
-    await assertFails(getDoc(doc(secondDb,'workspaces/account-a/'+path)));
+    await assertFails(getDocFromServer(doc(secondDb,'workspaces/account-a/'+path)));
   }
   await environment.withSecurityRulesDisabled(context=>setDoc(doc(context.firestore(),'workspaces/account-a/sessions/account-a-'+authTime),{auth_time:authTime,last_seen:Timestamp.fromMillis(Date.now()-1801000)}));
-  await assertFails(getDoc(doc(a,'settings','seller')));
+  await assertFails(getDocFromServer(doc(a,'settings','seller')));
   await assertFails(updateDoc(doc(a,'customers','1'),change));
   for(const [verified,provider] of [[false,'password'],[true,'anonymous']]){
     const authDb=scopedDb('unverified',verified,provider);

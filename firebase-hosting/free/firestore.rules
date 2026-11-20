@@ -54,7 +54,8 @@ service cloud.firestore {
     }
     match /work_entries/{id} {
       allow read: if admin();
-      allow create: if admin() && validWork(request.resource.data);
+      allow create: if admin() && validWork(request.resource.data)
+        && exists(/databases/$(database)/documents/customers/$(string(request.resource.data.customer_id)));
       allow update: if admin() && resource.data.invoice_number == null
         && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['invoice_number'])
         && request.resource.data.invoice_number is int
@@ -66,7 +67,7 @@ service cloud.firestore {
     function validWork(d) {
       return d.keys().hasOnly(['description','customer_id','date','hour_units','rate_cents','amount_cents','invoice_number'])
         && d.invoice_number == null && text(d.description,1,110)
-        && d.customer_id is int && exists(/databases/$(database)/documents/customers/$(string(d.customer_id)))
+        && d.customer_id is int
         && d.date.matches('^[0-9]{4}-[0-9]{2}-[0-9]{2}$') && calendarDate(d.date)
         && d.hour_units is int && d.hour_units > 0 && d.hour_units <= 999999
         && d.rate_cents is int && d.rate_cents > 0 && d.rate_cents <= 99999999
@@ -189,7 +190,8 @@ service cloud.firestore {
       }
       match /work_entries/{id} {
         allow read: if active();
-        allow create: if active() && validWork(request.resource.data);
+        allow create: if active() && validWork(request.resource.data)
+          && exists(/databases/$(database)/documents/workspaces/$(uid)/customers/$(string(request.resource.data.customer_id)));
         allow update: if active() && resource.data.invoice_number == null
           && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['invoice_number'])
           && request.resource.data.invoice_number is int
@@ -197,16 +199,6 @@ service cloud.firestore {
           && getAfter(/databases/$(database)/documents/workspaces/$(uid)/invoices/$(string(request.resource.data.invoice_number))).data.customer_id == resource.data.customer_id
           && getAfter(/databases/$(database)/documents/workspaces/$(uid)/invoices/$(string(request.resource.data.invoice_number))).data.work_id == id
           && getAfter(/databases/$(database)/documents/workspaces/$(uid)/invoices/$(string(request.resource.data.invoice_number))).data.subtotal_cents == resource.data.amount_cents;
-      }
-      function validWork(d) {
-        return d.keys().hasOnly(['description','customer_id','date','hour_units','rate_cents','amount_cents','invoice_number'])
-          && d.invoice_number == null && text(d.description,1,110)
-          && d.customer_id is int && exists(/databases/$(database)/documents/workspaces/$(uid)/customers/$(string(d.customer_id)))
-          && d.date.matches('^[0-9]{4}-[0-9]{2}-[0-9]{2}$') && calendarDate(d.date)
-          && d.hour_units is int && d.hour_units > 0 && d.hour_units <= 999999
-          && d.rate_cents is int && d.rate_cents > 0 && d.rate_cents <= 99999999
-          && d.amount_cents is int && d.amount_cents > 0 && d.amount_cents <= 99999999
-          && d.amount_cents == int((d.hour_units * d.rate_cents + 50) / 100);
       }
       match /settings/seller {
         allow read: if active();
