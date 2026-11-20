@@ -2,6 +2,7 @@ import {mountRevenue} from './revenue/mount.tsx';
 import {onAuthStateChanged,createUserWithEmailAndPassword,sendEmailVerification,signInWithEmailAndPassword,signOut,EmailAuthProvider,reauthenticateWithCredential,updatePassword} from 'firebase/auth';
 import {connect,foreground} from './firebase.mjs';
 import {OWNER,money,numberLabel,dateLabel,today,requestKey,discountedAmount,invoiceTotals,percentLabel,errorMessage} from './core.mjs';
+import {prepareLogo} from './nota-logo.mjs';
 import {accents,fonts,defaultDesign} from './nota-design.mjs';
 import {findInvoice,initializeWorkspace,workspace,saveDesign,openSession,load,createInvoice,saveCustomer,saveSeller,markRequest,exportBackup,historicalPdf} from './repository.mjs';
 import {workEntry,workDescription,hoursLabel} from './hours.mjs';
@@ -33,7 +34,7 @@ function paper(invoice,preview=false){
   const design=preview?state.design:invoice.design;
   const brandName=invoice.seller.company || invoice.seller.name || 'Je bedrijfsnaam';
   const styling=design?` data-font="${Object.hasOwn(fonts,design.font)?design.font:'sans'}" style="--nota-accent:${accents[design.accent]||accents.inkt}"`:'';
-  const logo=design?'':`<img src="${invoiceBrand.logoDataUri}" width="40" height="37" alt="">`;
+  const logo=design?(design.logo?`<img class="nota-logo" src="${escape(design.logo)}" alt="">`:''):`<img src="${invoiceBrand.logoDataUri}" width="40" height="37" alt="">`;
   const adjustments=valid&&totals.discount_basis_points>0?`<div class="paper-adjustments"><div><span>Subtotaal</span><span>${escape(subtotal)}</span></div><div><span>Korting (${escape(percentLabel(totals.discount_basis_points))})</span><span>− ${escape(money(totals.discount_cents))}</span></div></div>`:'';
   return `<article class="paper"${styling} aria-label="${preview?'Voorbeeld van nieuwe nota':'Nota '+numberLabel(invoice.number)}"><div class="paper-head"><div class="paper-brand">${logo}<span>${escape(design?brandName:invoiceBrand.name)}</span></div><div class="paper-document"><span>NOTA</span><span>${numberLabel(invoice.number)}</span></div></div><p class="paper-subject">${escape(invoice.description)}</p><div class="paper-parties"><div><h3>Van</h3><div class="party">${partyLines(invoice.seller)}</div></div><div><h3>Aan</h3><div class="party">${partyLines(invoice.customer)}</div></div></div><div class="paper-date"><span>Datum</span><span>${escape(dateLabel(invoice.date))}</span></div><div class="paper-table"><div class="paper-table-head"><span>Omschrijving</span><span>Bedrag</span></div><div class="paper-row"><span>${escape(invoice.description)}</span><span>${escape(subtotal)}</span></div>${adjustments}<div class="paper-total"><span>Te betalen</span><strong>${escape(amount)}</strong></div></div><div class="paper-payment"><h3>Betaling</h3><p>${valid&&totals.amount_cents===0?'Er hoeft geen bedrag te worden overgemaakt.':'Maak '+escape(amount)+' over naar:'}</p><p class="iban">${escape(invoice.seller.iban.match(/.{1,4}/g)?.join(' ')||'')}</p><p>Ten name van ${escape(invoice.seller.name)}</p><p>Vermeld bij de betaling: nota ${numberLabel(invoice.number)}.</p></div></article>`;
 }
@@ -91,7 +92,7 @@ function customerPage(edit){const person=state.customers.find(c=>c.id===edit);re
 function designForm(){
   const design=state.design??defaultDesign;
   const colorNames={inkt:'Inkt',bos:'Bosgroen',klei:'Baksteen',marine:'Marineblauw'};
-  return `<form data-form="design"><h2>Nota-ontwerp</h2><div class="design-sample" data-font="${escape(design.font)}" style="--nota-accent:${accents[design.accent]}"><strong>${escape(state.seller.company||state.seller.name||'Je bedrijfsnaam')}</strong><span>Nota ${numberLabel(state.sequence.next_number)}</span></div><div class="field"><label for="accent">Accentkleur</label><select name="accent" id="accent">${Object.entries(colorNames).map(([key,name])=>`<option value="${key}" ${key===design.accent?'selected':''}>${name}</option>`).join('')}</select></div><div class="field"><label for="nota-font">Lettertype</label><select id="nota-font" name="font">${Object.entries(fonts).map(([key,name])=>`<option value="${key}" ${key===design.font?'selected':''}>${name}</option>`).join('')}</select></div><button class="primary" type="submit">Ontwerp opslaan</button></form>`;
+  return `<form data-form="design"><h2>Nota-ontwerp</h2><div class="design-sample" data-font="${escape(design.font)}" style="--nota-accent:${accents[design.accent]}"><div class="sample-brand"><img class="nota-logo" alt="" ${design.logo?`src="${escape(design.logo)}"`:'hidden'}><strong>${escape(state.seller.company||state.seller.name||'Je bedrijfsnaam')}</strong></div><span>Nota ${numberLabel(state.sequence.next_number)}</span></div><div class="field"><label for="nota-logo">Bedrijfslogo</label><input id="nota-logo" type="file" accept="image/png,image/jpeg" aria-describedby="logo-hint"><small id="logo-hint">PNG of JPG, maximaal 5 MB. Je logo komt op nieuwe nota’s en in de PDF.</small><input type="hidden" name="logo" value="${escape(design.logo||'')}"><button type="button" class="remove-logo" data-remove-logo ${design.logo?'':'hidden'}>Logo verwijderen</button></div><div class="field"><label for="accent">Accentkleur</label><select name="accent" id="accent">${Object.entries(colorNames).map(([key,name])=>`<option value="${key}" ${key===design.accent?'selected':''}>${name}</option>`).join('')}</select></div><div class="field"><label for="nota-font">Lettertype</label><select id="nota-font" name="font">${Object.entries(fonts).map(([key,name])=>`<option value="${key}" ${key===design.font?'selected':''}>${name}</option>`).join('')}</select></div><button class="primary" type="submit">Ontwerp opslaan</button></form>`;
 }
 function settingsPage(){return `<div class="manage-layout settings-grid"><form data-form="seller"><h2>Jouw gegevens</h2><p class="form-note">Deze gegevens komen op nieuwe nota’s.</p>${partyFields(state.seller,true)}<button class="primary" type="submit">Gegevens opslaan</button></form><div>${designForm()}<form data-form="password"><h2>Wachtwoord wijzigen</h2>${[['current_password','Huidig wachtwoord','current-password'],['password','Nieuw wachtwoord','new-password'],['confirmation','Herhaal nieuw wachtwoord','new-password']].map(([name,label,complete])=>`<div class="field"><label for="${name}">${label}</label><input id="${name}" name="${name}" type="password" autocomplete="${complete}" ${name==='current_password'?'':'minlength="12"'} maxlength="72" required></div>`).join('')}<button class="secondary" type="submit">Wachtwoord wijzigen</button><p class="form-note">Kies een lange zin van 12 tot 72 tekens.</p></form><section class="backup-section"><h2>Back-up van je administratie</h2><p>Download een kopie van je eigen administratie.</p><button class="secondary" type="button" data-backup>${icon('download')} Back-up downloaden</button></section></div></div>`;}
 function requestsPage(){return `<div class="list-toolbar"><button class="secondary" type="button" data-refresh>Vernieuwen</button></div><p>Aanvragen via je website verschijnen hier. Je antwoordt zelf per e-mail.</p>${state.requests.length?state.requests.map(item=>`<article class="request-item"><div class="request-header"><div><h2>${escape(item.name)}</h2><a class="inline-link" href="mailto:${escape(encodeURIComponent(item.email))}">${escape(item.email)}</a><small class="request-meta">${escape(item.created_at?.toDate?new Intl.DateTimeFormat('nl-NL',{dateStyle:'long',timeStyle:'short'}).format(item.created_at.toDate()):'Zojuist')}</small></div><span class="request-state">${{new:'Nieuw',read:'Gelezen',replied:'Beantwoord'}[item.status]||'Nieuw'}</span></div>${item.website?`<a class="inline-link" href="${escape(item.website)}" target="_blank" rel="noopener noreferrer">${escape(item.website)}</a>`:''}<p class="request-message">${escape(item.message)}</p><div class="actions"><a class="primary" href="mailto:${escape(encodeURIComponent(item.email))}?subject=${encodeURIComponent('Je aanvraag bij JimDesigns')}">Antwoorden per e-mail ${icon('mail')}</a><button class="secondary" type="button" data-request="${escape(item.id)}" data-status="${item.status==='new'?'read':'replied'}">${item.status==='new'?'Markeer als gelezen':'Markeer als beantwoord'}</button></div></article>`).join(''):'<div class="empty-state"><h2>Nog geen aanvragen.</h2><p>Nieuwe berichten uit het contactformulier komen hier binnen.</p></div>'}`;}
@@ -201,6 +202,33 @@ app.addEventListener('submit',async event=>{
     }
   }catch(error){if(currentSession(version))notice(errorMessage(error),true);}finally{busy=false;if(button.isConnected){button.disabled=false;button.innerHTML=previous;}}
 });
+function showLogo(form,logo){
+  form.elements.logo.value=logo;
+  const image=form.querySelector('.nota-logo');
+  if(logo)image.src=logo;else image.removeAttribute('src');
+  image.hidden=!logo;
+  form.querySelector('[data-remove-logo]').hidden=!logo;
+}
+app.addEventListener('change',async event=>{
+  const input=event.target;
+  if(input.id!=='nota-logo')return;
+  const form=input.form,file=input.files[0];
+  input.setCustomValidity('');
+  const submit=form.querySelector('[type=submit]');
+  if(!file){submit.disabled=false;return;}
+  submit.disabled=true;
+  try{
+    const logo=await prepareLogo(file);
+    if(input.files[0]===file)showLogo(form,logo);
+  }catch(error){
+    if(input.files[0]===file){
+      input.value='';
+      notice(error.message,true);
+    }
+  }finally{
+    if(!input.files.length||input.files[0]===file)submit.disabled=false;
+  }
+});
 app.addEventListener('input',event=>{
   const designForm=event.target.closest('[data-form="design"]');
   if(designForm){
@@ -233,6 +261,13 @@ app.addEventListener('click',async event=>{
     return;
   }
   if(!button)return;
+  if(button.hasAttribute('data-remove-logo')){
+    const form=button.form;
+    form.querySelector('#nota-logo').value='';
+    showLogo(form,'');
+    form.querySelector('[type=submit]').disabled=false;
+    return;
+  }
   if(button.hasAttribute('data-logout')){await signOut(auth);return;}
   if(busy)return;
   const version=sessionVersion;

@@ -75,7 +75,8 @@ service cloud.firestore {
         && d.amount_cents == int((d.hour_units * d.rate_cents + 50) / 100);
     }
     function validDesign(d) {
-      return d.keys().hasOnly(['accent','font']) && d.accent in ['inkt','bos','klei','marine'] && d.font in ['sans','serif'];
+      return d.keys().hasOnly(['accent','font','logo'])
+        && (!('logo' in d) || (d.logo is string && d.logo.size() <= 48000 && d.logo.matches('^data:image/png;base64,iVBORw0KGgo[A-Za-z0-9+/]+=*$'))) && d.accent in ['inkt','bos','klei','marine'] && d.font in ['sans','serif'];
     }
     match /settings/design {
       allow get: if admin();

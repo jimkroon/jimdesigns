@@ -25,9 +25,17 @@ export async function invoicePdf(invoice) {
     const hex=accents[design.accent]||accents.inkt;
     const color=rgb(...hex.slice(1).match(/../g).map(pair=>parseInt(pair,16)/255));
     page.drawRectangle({x:50,y:804,width:495.28,height:3,color});
+    let nameX=50;
+    if(design.logo){
+      const image=await document.embedPng(design.logo);
+      const {width,height}=image.scaleToFit(85,36);
+      page.drawImage(image,{x:50,y:841.89-65-height/2,width,height});
+      nameX+=width+10;
+    }
+    const nameWidth=405-nameX;
     let size=18;
-    while(size>9 && width(brandName,size)>355)size-=0.5;
-    wrapped(50,68,brandName,355,size,size+1);
+    while(size>9 && width(brandName,size)>nameWidth)size-=0.5;
+    wrapped(nameX,68,brandName,nameWidth,size,size+1);
   }else{
     const logo=await document.embedPng(invoiceBrand.logoDataUri);
     const logoWidth=40,logoHeight=logoWidth*invoiceBrand.logoHeight/invoiceBrand.logoWidth;

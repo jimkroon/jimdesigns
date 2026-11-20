@@ -118,3 +118,6 @@
 [data-mode=register] #login-form .primary:hover {background:#19382e;}
 [data-mode=register] .auth-switch {color:#285940;margin:16px auto 0;}
 [data-mode=register] .login-content>.back-link {display:none;}
+.sample-brand {display:flex;align-items:center;gap:10px;min-width:0;}
+.sample-brand .nota-logo,.paper-brand img.nota-logo {max-width:85px;max-height:36px;width:auto;height:auto;object-fit:contain;}
+.remove-logo {padding:8px 0;color:var(--accent);background:none;text-decoration:underline;text-underline-offset:3px;}
