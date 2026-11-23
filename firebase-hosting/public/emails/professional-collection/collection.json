@@ -1,0 +1,122 @@
+[
+  {
+    "id": "professional-rue",
+    "name": "The city edit.",
+    "brandName": "RUE STUDIO",
+    "brand": "rue",
+    "category": "Mode",
+    "flow": "Rustig & professioneel",
+    "group": "professional",
+    "goal": "Behouden professionele merkstudie: rustige typografie, echte fotografie en een eigen compositie.",
+    "subject": "The city edit.",
+    "number": "",
+    "preview": "/emails/professional-collection/previews/professional-rue.jpg",
+    "url": "/emails/professional-collection/professional-rue.html",
+    "bg": "#f7f6f2",
+    "reference": {
+      "name": "Alo",
+      "url": "https://reallygoodemails.com/emails/alo-pink-marshmallow-launch",
+      "lesson": "Mode wordt op mensen getoond; de fotografie draagt de collectie."
+    }
+  },
+  {
+    "id": "professional-aurel",
+    "name": "De oorbellen-edit.",
+    "brandName": "AUREL",
+    "brand": "aurel",
+    "category": "Sieraden",
+    "flow": "Rustig & professioneel",
+    "group": "professional",
+    "goal": "Behouden professionele merkstudie: rustige typografie, echte fotografie en een eigen compositie.",
+    "subject": "De oorbellen-edit.",
+    "number": "",
+    "preview": "/emails/professional-collection/previews/professional-aurel.jpg",
+    "url": "/emails/professional-collection/professional-aurel.html",
+    "bg": "#28211c",
+    "reference": {
+      "name": "Liha Beauty",
+      "url": "https://reallygoodemails.com/emails/liha-beauty-winter-ritual-glow-bundle",
+      "lesson": "Een tastbaar detail en een persoonlijk verhaal in plaats van losse decoratie."
+    }
+  },
+  {
+    "id": "professional-folio",
+    "name": "Een boek voor onaffe ideeën.",
+    "brandName": "FOLIO",
+    "brand": "folio",
+    "category": "Papierwaren",
+    "flow": "Rustig & professioneel",
+    "group": "professional",
+    "goal": "Behouden professionele merkstudie: rustige typografie, echte fotografie en een eigen compositie.",
+    "subject": "Een boek voor onaffe ideeën.",
+    "number": "",
+    "preview": "/emails/professional-collection/previews/professional-folio.jpg",
+    "url": "/emails/professional-collection/professional-folio.html",
+    "bg": "#ffffff",
+    "reference": {
+      "name": "Hasselblad",
+      "url": "https://reallygoodemails.com/emails/hasselblad-welcome-email",
+      "lesson": "Een rustige introductie, beeld met ruimte en spaarzame typografie."
+    }
+  },
+  {
+    "id": "professional-forma",
+    "name": "De stoel aan het raam.",
+    "brandName": "FORMA",
+    "brand": "forma",
+    "category": "Interieur",
+    "flow": "Rustig & professioneel",
+    "group": "professional",
+    "goal": "Behouden professionele merkstudie: rustige typografie, echte fotografie en een eigen compositie.",
+    "subject": "De stoel aan het raam.",
+    "number": "",
+    "preview": "/emails/professional-collection/previews/professional-forma.jpg",
+    "url": "/emails/professional-collection/professional-forma.html",
+    "bg": "#dce3e6",
+    "reference": {
+      "name": "Away",
+      "url": "https://reallygoodemails.com/emails/away-topside-luggage-cherry-red",
+      "lesson": "Een hoofdproduct dat het verhaal bepaalt, gevolgd door relevante details."
+    }
+  },
+  {
+    "id": "professional-verdant",
+    "name": "De kunst van minder.",
+    "brandName": "verdant",
+    "brand": "verdant",
+    "category": "Skincare",
+    "flow": "Rustig & professioneel",
+    "group": "professional",
+    "goal": "Behouden professionele merkstudie: rustige typografie, echte fotografie en een eigen compositie.",
+    "subject": "De kunst van minder.",
+    "number": "",
+    "preview": "/emails/professional-collection/previews/professional-verdant.jpg",
+    "url": "/emails/professional-collection/professional-verdant.html",
+    "bg": "#ffffff",
+    "reference": {
+      "name": "Aesop",
+      "url": "https://reallygoodemails.com/emails/an-aesop-welcome/info",
+      "lesson": "Een rustige brief, redactionele copy en ruimte om het product te bekijken."
+    }
+  },
+  {
+    "id": "professional-luce",
+    "name": "De avond-edit.",
+    "brandName": "LUCE",
+    "brand": "luce",
+    "category": "Verlichting",
+    "flow": "Rustig & professioneel",
+    "group": "professional",
+    "goal": "Behouden professionele merkstudie: rustige typografie, echte fotografie en een eigen compositie.",
+    "subject": "De avond-edit.",
+    "number": "",
+    "preview": "/emails/professional-collection/previews/professional-luce.jpg",
+    "url": "/emails/professional-collection/professional-luce.html",
+    "bg": "#181a18",
+    "reference": {
+      "name": "Gantri",
+      "url": "https://reallygoodemails.com/emails/gantri-wireless-lamp-launch",
+      "lesson": "De verlichting in haar gebruiksomgeving als vertrekpunt van het verhaal."
+    }
+  }
+]

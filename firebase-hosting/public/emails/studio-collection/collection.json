@@ -1,0 +1,2763 @@
+[
+  {
+    "brand": "soda",
+    "brandName": "SODA CLUB",
+    "category": "Drinks",
+    "accent": "#ff8c54",
+    "bg": "#fff19a",
+    "ink": "#154a35",
+    "font": "Lilita One",
+    "id": "soda-1",
+    "name": "Schenk de zon maar in.",
+    "subject": "Schenk de zon maar in.",
+    "preheader": "Citrus op tafel. Iedereen erbij.",
+    "flow": "Campagne",
+    "group": "studio",
+    "goal": "Zelfstandig fictief merkconcept; fotografie ter illustratie.",
+    "blocks": [
+      {
+        "kind": "cover",
+        "image": 0,
+        "height": 670,
+        "text": "Schenk de\nzon maar in.",
+        "size": 76
+      },
+      {
+        "kind": "band",
+        "text": "DE CITRUS-EDIT"
+      },
+      {
+        "kind": "body",
+        "text": "Eén smaakrichting, drie momenten: een glas bij de lunch, een kan voor de hele tafel of een frisse afsluiting van je middag."
+      },
+      {
+        "kind": "cta",
+        "text": "Ontdek de citrus-edit"
+      },
+      {
+        "kind": "photo",
+        "image": 1,
+        "height": 420,
+        "inset": true
+      },
+      {
+        "kind": "title",
+        "text": "Een kan. Een tafel. Iedereen erbij.",
+        "size": 56
+      },
+      {
+        "kind": "body",
+        "text": "Maak je tafelmoment af met citruspartjes, ijs en je favoriete glazen. Alles mag op tafel blijven staan: pak er gerust nog eentje bij."
+      }
+    ],
+    "sign": "Schenk de middag maar in.",
+    "bandink": "#073d37",
+    "catalog": {
+      "id": "soda-1",
+      "name": "Schenk de zon maar in.",
+      "brandName": "SODA CLUB",
+      "brand": "soda",
+      "category": "Drinks",
+      "flow": "Campagne",
+      "group": "studio",
+      "goal": "Kleurrijk eigen merkconcept: echte mensenfoto’s, producttheater en doorlopende kleurovergangen.",
+      "subject": "Schenk de zon maar in.",
+      "number": "",
+      "preview": "/emails/studio-collection/previews/soda-1.jpg",
+      "url": "/emails/studio-collection/soda-1.html",
+      "bg": "#fff19a",
+      "reference": {
+        "name": "Grüns · Tart Raspberry",
+        "url": "https://reallygoodemails.com/emails/gruns-limited-edition-tart-raspberry",
+        "lesson": "Model/productcollage, grote typografie en doorlopende kleurvelden. Eigen fotografie en productmockups; geen officiële Grüns-campagne."
+      }
+    },
+    "reference": {
+      "name": "Grüns · Tart Raspberry",
+      "url": "https://reallygoodemails.com/emails/gruns-limited-edition-tart-raspberry",
+      "lesson": "Model/productcollage, grote typografie en doorlopende kleurvelden. Eigen fotografie en productmockups; geen officiële Grüns-campagne."
+    },
+    "colour": {
+      "bg": "#fff19a",
+      "ink": "#154a35",
+      "accent": "#ff8c54",
+      "second": "#c9efde",
+      "deep": "#174b37",
+      "font": "Lilita One",
+      "product": "soda-cutout.png",
+      "human": "people-6529716.jpg",
+      "detail": "soda-1.jpg",
+      "title": [
+        "Schenk de\nzon maar in.",
+        "Goed koud.\nGoed gezelschap."
+      ],
+      "lead": [
+        "Citrus op tafel. Iedereen erbij.",
+        "De beste middagen hebben geen haast."
+      ],
+      "cta": "Ontdek de citrus-edit",
+      "story": [
+        "Een glas vol zomer.",
+        "Alles mag op tafel."
+      ],
+      "body": "Een schaal citrus, een kan vol ijs en plek voor iedereen. De citrus-edit draait om die simpele middag die je graag nog wat langer laat duren.",
+      "notes": [
+        [
+          "Citrus voorop",
+          "Een frisse smaakrichting voor je volgende tafelmoment."
+        ],
+        [
+          "Goed gekoeld",
+          "Pak een glas, vul het met ijs en schenk rustig in."
+        ]
+      ],
+      "close": "Nog plek aan tafel?",
+      "hero": "collage",
+      "edition": 0
+    }
+  },
+  {
+    "brand": "verdant",
+    "brandName": "verdant",
+    "category": "Skincare",
+    "accent": "#ffb7ca",
+    "bg": "#d7f0ce",
+    "ink": "#194f38",
+    "font": "Archivo",
+    "id": "verdant-1",
+    "name": "Je huid. Jouw moment.",
+    "subject": "Je huid. Jouw moment.",
+    "preheader": "Een druppel aandacht voor je dag.",
+    "flow": "Campagne",
+    "group": "studio",
+    "goal": "Zelfstandig fictief merkconcept; fotografie ter illustratie.",
+    "blocks": [
+      {
+        "kind": "letter",
+        "text": "Verzorging begint bij aandacht."
+      },
+      {
+        "kind": "body",
+        "text": "Een druppel in je hand, een paar minuten voor de spiegel. In deze serum-edit kijken we naar het kleine ritueel rond je dagelijkse verzorging."
+      },
+      {
+        "kind": "cta",
+        "text": "Bekijk de serum-edit"
+      },
+      {
+        "kind": "photo",
+        "image": 1,
+        "height": 540
+      },
+      {
+        "kind": "title",
+        "text": "De druppel maakt het ritueel.",
+        "size": 52
+      },
+      {
+        "kind": "body",
+        "text": "Neem de tijd om een product aan te brengen. Kijk hoe het aanvoelt en maak je routine niet ingewikkelder dan je zelf prettig vindt."
+      },
+      {
+        "kind": "photo",
+        "image": 2,
+        "height": 350,
+        "inset": true
+      }
+    ],
+    "sign": "Een rustige start, iedere dag opnieuw.",
+    "bandink": "#ffffff",
+    "catalog": {
+      "id": "verdant-1",
+      "name": "Je huid. Jouw moment.",
+      "brandName": "verdant",
+      "brand": "verdant",
+      "category": "Skincare",
+      "flow": "Campagne",
+      "group": "studio",
+      "goal": "Kleurrijk eigen merkconcept: echte mensenfoto’s, producttheater en doorlopende kleurovergangen.",
+      "subject": "Je huid. Jouw moment.",
+      "number": "",
+      "preview": "/emails/studio-collection/previews/verdant-1.jpg",
+      "url": "/emails/studio-collection/verdant-1.html",
+      "bg": "#d7f0ce",
+      "reference": {
+        "name": "Grüns · Tart Raspberry",
+        "url": "https://reallygoodemails.com/emails/gruns-limited-edition-tart-raspberry",
+        "lesson": "Model/productcollage, grote typografie en doorlopende kleurvelden. Eigen fotografie en productmockups; geen officiële Grüns-campagne."
+      }
+    },
+    "reference": {
+      "name": "Grüns · Tart Raspberry",
+      "url": "https://reallygoodemails.com/emails/gruns-limited-edition-tart-raspberry",
+      "lesson": "Model/productcollage, grote typografie en doorlopende kleurvelden. Eigen fotografie en productmockups; geen officiële Grüns-campagne."
+    },
+    "colour": {
+      "bg": "#d7f0ce",
+      "ink": "#194f38",
+      "accent": "#ffb7ca",
+      "second": "#fff3cc",
+      "deep": "#194f38",
+      "font": "Archivo",
+      "product": "verdant-cutout.png",
+      "human": "people-5069440.jpg",
+      "detail": "verdant-1.jpg",
+      "title": [
+        "Je huid.\nJouw moment.",
+        "Een klein ritueel.\nHelemaal van jou."
+      ],
+      "lead": [
+        "Een druppel aandacht voor je dag.",
+        "Laat de rest maar even wachten."
+      ],
+      "cta": "Bekijk Daily Ritual",
+      "story": [
+        "Niet meer. Wel met aandacht.",
+        "Van haast naar hier."
+      ],
+      "body": "Je hoeft geen badkamer vol producten te hebben om een verzorgingsmoment voor jezelf te maken. Daily Ritual begint bij een paar rustige minuten voor de spiegel.",
+      "notes": [
+        [
+          "Even stilstaan",
+          "Pak een moment dat past bij jouw ochtend of avond."
+        ],
+        [
+          "Met aandacht",
+          "Kijk wat fijn aanvoelt en houd je verzorging overzichtelijk."
+        ]
+      ],
+      "close": "Maak ruimte voor jezelf.",
+      "hero": "collage",
+      "edition": 0
+    }
+  },
+  {
+    "brand": "slowday",
+    "brandName": "slowday.",
+    "category": "Koffie",
+    "accent": "#b7d9f6",
+    "bg": "#fcebab",
+    "ink": "#183ba5",
+    "font": "Archivo",
+    "id": "slowday-1",
+    "name": "Even helemaal geen haast.",
+    "subject": "Even helemaal geen haast.",
+    "preheader": "Deze kop is voor jou.",
+    "flow": "Campagne",
+    "group": "studio",
+    "goal": "Zelfstandig fictief merkconcept; fotografie ter illustratie.",
+    "blocks": [
+      {
+        "kind": "title",
+        "text": "Even helemaal hier.",
+        "size": 78
+      },
+      {
+        "kind": "cta",
+        "text": "Ontdek onze koffiewereld"
+      },
+      {
+        "kind": "photo",
+        "image": 0,
+        "height": 470
+      },
+      {
+        "kind": "band",
+        "text": "MINDER HAAST. MEER KOFFIE."
+      },
+      {
+        "kind": "split",
+        "image": 1,
+        "title": "Koffie eerst. De rest komt wel.",
+        "text": "Het geluid van verse bonen. Die eerste warme slok. Een klein ritueel dat de hele ochtend een ander tempo geeft.",
+        "reverse": false
+      },
+      {
+        "kind": "body",
+        "text": "Schenk iets in. Ga even zitten. Zo eenvoudig mag een goed moment zijn."
+      }
+    ],
+    "sign": "Maak ruimte voor je favoriete kop.",
+    "bandink": "#ffffff",
+    "catalog": {
+      "id": "slowday-1",
+      "name": "Even helemaal geen haast.",
+      "brandName": "slowday.",
+      "brand": "slowday",
+      "category": "Koffie",
+      "flow": "Campagne",
+      "group": "studio",
+      "goal": "Kleurrijk eigen merkconcept: echte mensenfoto’s, producttheater en doorlopende kleurovergangen.",
+      "subject": "Even helemaal geen haast.",
+      "number": "",
+      "preview": "/emails/studio-collection/previews/slowday-1.jpg",
+      "url": "/emails/studio-collection/slowday-1.html",
+      "bg": "#fcebab",
+      "reference": {
+        "name": "Grüns · Tart Raspberry",
+        "url": "https://reallygoodemails.com/emails/gruns-limited-edition-tart-raspberry",
+        "lesson": "Model/productcollage, grote typografie en doorlopende kleurvelden. Eigen fotografie en productmockups; geen officiële Grüns-campagne."
+      }
+    },
+    "reference": {
+      "name": "Grüns · Tart Raspberry",
+      "url": "https://reallygoodemails.com/emails/gruns-limited-edition-tart-raspberry",
+      "lesson": "Model/productcollage, grote typografie en doorlopende kleurvelden. Eigen fotografie en productmockups; geen officiële Grüns-campagne."
+    },
+    "colour": {
+      "bg": "#fcebab",
+      "ink": "#183ba5",
+      "accent": "#b7d9f6",
+      "second": "#ffc19c",
+      "deep": "#183ba5",
+      "font": "Archivo",
+      "product": "slowday-cutout.png",
+      "human": "people-6278520.jpg",
+      "detail": "slowday-1.jpg",
+      "title": [
+        "Even helemaal\ngeen haast.",
+        "Koffie eerst.\nDe rest komt wel."
+      ],
+      "lead": [
+        "Deze kop is voor jou.",
+        "Voor een ochtend op jouw tempo."
+      ],
+      "cta": "Ontdek de koffie-edit",
+      "story": [
+        "Kleine pauze. Grote glimlach.",
+        "Een goed begin mag langzaam."
+      ],
+      "body": "De geur van koffie, het geluid van inschenken en de eerste warme slok. Soms is dat alles wat een ochtend nodig heeft.",
+      "notes": [
+        [
+          "Jouw favoriete kop",
+          "Die mag vandaag gewoon weer uit de kast."
+        ],
+        [
+          "Rustig schenken",
+          "Neem ook even de tijd om van het zetten te genieten."
+        ]
+      ],
+      "close": "Zullen we nog even blijven?",
+      "hero": "theatre",
+      "edition": 0
+    }
+  },
+  {
+    "brand": "tailwag",
+    "brandName": "tailwag",
+    "category": "Huisdieren",
+    "accent": "#c7e9ed",
+    "bg": "#ffe580",
+    "ink": "#174b38",
+    "font": "Lilita One",
+    "id": "tailwag-1",
+    "name": "Goed hondje. Fijne dag.",
+    "subject": "Goed hondje. Fijne dag.",
+    "preheader": "Voor zijn favoriete moment met jou.",
+    "flow": "Campagne",
+    "group": "studio",
+    "goal": "Zelfstandig fictief merkconcept; fotografie ter illustratie.",
+    "blocks": [
+      {
+        "kind": "title",
+        "text": "Zijn favoriete\nmelding?",
+        "size": 68
+      },
+      {
+        "kind": "portrait",
+        "image": 0,
+        "height": 470
+      },
+      {
+        "kind": "title",
+        "text": "Jij die de\nriem pakt.",
+        "size": 56
+      },
+      {
+        "kind": "body",
+        "text": "De Wandel-edit begint bij de deur. Je hond is al klaar; jij pakt nog even water, een riem en iets om onderweg mee op te ruimen."
+      },
+      {
+        "kind": "cta",
+        "text": "Bekijk de Wandel-edit"
+      },
+      {
+        "kind": "list",
+        "text": "Een vertrouwde riem en halsband.|Water voor jullie allebei.|Tijd om even nergens heen te hoeven."
+      },
+      {
+        "kind": "photo",
+        "image": 2,
+        "height": 300
+      },
+      {
+        "kind": "band",
+        "text": "De beste tijd is samen-tijd."
+      }
+    ],
+    "sign": "Samen even naar buiten.",
+    "bandink": "#ffffff",
+    "catalog": {
+      "id": "tailwag-1",
+      "name": "Goed hondje. Fijne dag.",
+      "brandName": "tailwag",
+      "brand": "tailwag",
+      "category": "Huisdieren",
+      "flow": "Campagne",
+      "group": "studio",
+      "goal": "Kleurrijk eigen merkconcept: echte mensenfoto’s, producttheater en doorlopende kleurovergangen.",
+      "subject": "Goed hondje. Fijne dag.",
+      "number": "",
+      "preview": "/emails/studio-collection/previews/tailwag-1.jpg",
+      "url": "/emails/studio-collection/tailwag-1.html",
+      "bg": "#ffe580",
+      "reference": {
+        "name": "Grüns · Tart Raspberry",
+        "url": "https://reallygoodemails.com/emails/gruns-limited-edition-tart-raspberry",
+        "lesson": "Model/productcollage, grote typografie en doorlopende kleurvelden. Eigen fotografie en productmockups; geen officiële Grüns-campagne."
+      }
+    },
+    "reference": {
+      "name": "Grüns · Tart Raspberry",
+      "url": "https://reallygoodemails.com/emails/gruns-limited-edition-tart-raspberry",
+      "lesson": "Model/productcollage, grote typografie en doorlopende kleurvelden. Eigen fotografie en productmockups; geen officiële Grüns-campagne."
+    },
+    "colour": {
+      "bg": "#ffe580",
+      "ink": "#174b38",
+      "accent": "#c7e9ed",
+      "second": "#ffbd99",
+      "deep": "#174b38",
+      "font": "Lilita One",
+      "product": "tailwag-cutout.png",
+      "human": "tailwag-0.jpg",
+      "detail": "tailwag-2.jpg",
+      "title": [
+        "Goed hondje.\nFijne dag.",
+        "Nog één\nrondje dan."
+      ],
+      "lead": [
+        "Voor zijn favoriete moment met jou.",
+        "De riem gaat aan. De wereld gaat open."
+      ],
+      "cta": "Bekijk de Wandel-edit",
+      "story": [
+        "Zo ziet samen eruit.",
+        "Geen haast. Wel kwispels."
+      ],
+      "body": "Een klein moment voor de deur, een nieuw paadje en tijd om overal even te snuffelen. Het hoeft niet groots te zijn om zijn dag te maken.",
+      "notes": [
+        [
+          "Samen op pad",
+          "Geef je hond de tijd om de omgeving te ontdekken."
+        ],
+        [
+          "Een fijn moment",
+          "Een traktatie hoort bij jullie moment, niet bij haast."
+        ]
+      ],
+      "close": "Tot de volgende kwispel.",
+      "hero": "collage",
+      "edition": 0
+    }
+  },
+  {
+    "brand": "fleur",
+    "brandName": "FLEUR.",
+    "category": "Bloemen",
+    "accent": "#fff09c",
+    "bg": "#ffd4e3",
+    "ink": "#76243c",
+    "font": "Archivo",
+    "id": "fleur-1",
+    "name": "Meer kleur, alsjeblieft.",
+    "subject": "Meer kleur, alsjeblieft.",
+    "preheader": "Een gewone dag verdient bloemen.",
+    "flow": "Campagne",
+    "group": "studio",
+    "goal": "Zelfstandig fictief merkconcept; fotografie ter illustratie.",
+    "blocks": [
+      {
+        "kind": "title",
+        "text": "Meer kleur, alsjeblieft.",
+        "size": 78
+      },
+      {
+        "kind": "photo",
+        "image": 2,
+        "height": 530
+      },
+      {
+        "kind": "band",
+        "text": "EEN GEWONE DAG VERDIENT BLOEMEN."
+      },
+      {
+        "kind": "body",
+        "text": "Op de keukentafel, naast je bed of midden in een gewone dinsdag. Bloemen hebben geen grote gelegenheid nodig."
+      },
+      {
+        "kind": "cta",
+        "text": "Ontdek de bloemen-edit"
+      },
+      {
+        "kind": "split",
+        "image": 0,
+        "title": "Kleur bekennen.",
+        "text": "Van zachtgeel tot uitbundig roze. Laat de bloemen het kleuraccent kiezen.",
+        "reverse": false
+      }
+    ],
+    "sign": "Zet iets moois op tafel.",
+    "bandink": "#ffffff",
+    "catalog": {
+      "id": "fleur-1",
+      "name": "Meer kleur, alsjeblieft.",
+      "brandName": "FLEUR.",
+      "brand": "fleur",
+      "category": "Bloemen",
+      "flow": "Campagne",
+      "group": "studio",
+      "goal": "Kleurrijk eigen merkconcept: echte mensenfoto’s, producttheater en doorlopende kleurovergangen.",
+      "subject": "Meer kleur, alsjeblieft.",
+      "number": "",
+      "preview": "/emails/studio-collection/previews/fleur-1.jpg",
+      "url": "/emails/studio-collection/fleur-1.html",
+      "bg": "#ffd4e3",
+      "reference": {
+        "name": "Grüns · Tart Raspberry",
+        "url": "https://reallygoodemails.com/emails/gruns-limited-edition-tart-raspberry",
+        "lesson": "Model/productcollage, grote typografie en doorlopende kleurvelden. Eigen fotografie en productmockups; geen officiële Grüns-campagne."
+      }
+    },
+    "reference": {
+      "name": "Grüns · Tart Raspberry",
+      "url": "https://reallygoodemails.com/emails/gruns-limited-edition-tart-raspberry",
+      "lesson": "Model/productcollage, grote typografie en doorlopende kleurvelden. Eigen fotografie en productmockups; geen officiële Grüns-campagne."
+    },
+    "colour": {
+      "bg": "#ffd4e3",
+      "ink": "#76243c",
+      "accent": "#fff09c",
+      "second": "#bddfc1",
+      "deep": "#76243c",
+      "font": "Archivo",
+      "product": "fleur-cutout.png",
+      "human": "fleur-1.jpg",
+      "detail": "fleur-0.jpg",
+      "title": [
+        "Meer kleur,\nalsjeblieft.",
+        "Een bos\nblijmakers."
+      ],
+      "lead": [
+        "Een gewone dag verdient bloemen.",
+        "Met liefde geschikt, voor jouw tafel."
+      ],
+      "cta": "Ontdek de kleur-edit",
+      "story": [
+        "Een bos met een eigen karakter.",
+        "Van onze handen naar jouw tafel."
+      ],
+      "body": "Peach, roze, wit en alles wat ertussenin gebeurt. Een bloem mag haar eigen kant op groeien; dat maakt een boeket juist levendig.",
+      "notes": [
+        [
+          "Kleur naast kleur",
+          "Een zachte tint laat een felle bloem extra spreken."
+        ],
+        [
+          "Gewoon, omdat het kan",
+          "Ook een dinsdag zonder gelegenheid verdient een mooie bos."
+        ]
+      ],
+      "close": "Zet iets vrolijks op tafel.",
+      "hero": "theatre",
+      "edition": 0
+    }
+  },
+  {
+    "brand": "luce",
+    "brandName": "LUCE",
+    "category": "Verlichting",
+    "accent": "#ffc2a0",
+    "bg": "#ffe8a0",
+    "ink": "#803d2b",
+    "font": "Archivo",
+    "id": "luce-1",
+    "name": "Laat de avond gloeien.",
+    "subject": "Laat de avond gloeien.",
+    "preheader": "Een kleine lamp. Een heel ander thuis.",
+    "flow": "Campagne",
+    "group": "studio",
+    "goal": "Zelfstandig fictief merkconcept; fotografie ter illustratie.",
+    "blocks": [
+      {
+        "kind": "cover",
+        "image": 2,
+        "height": 720,
+        "text": "Het mooiste\nuur thuis.",
+        "size": 70
+      },
+      {
+        "kind": "body",
+        "text": "In de Avond-edit krijgt iedere hoek haar eigen licht. Een lamp naast je stoel, een kleine gloed op tafel en de rest van de kamer mag wat stiller worden."
+      },
+      {
+        "kind": "cta",
+        "text": "Bekijk de Avond-edit"
+      },
+      {
+        "kind": "photo",
+        "image": 0,
+        "height": 460,
+        "inset": true
+      },
+      {
+        "kind": "title",
+        "text": "Kijk naar het licht. Niet alleen naar de lamp.",
+        "size": 50
+      },
+      {
+        "kind": "body",
+        "text": "Een kap tekent mee aan de sfeer. Kijk hoe het licht valt op een muur, een tafel of het boek dat naast je ligt."
+      },
+      {
+        "kind": "photo",
+        "image": 1,
+        "height": 300
+      }
+    ],
+    "sign": "Voor het mooiste uur thuis.",
+    "bandink": "#202c27",
+    "catalog": {
+      "id": "luce-1",
+      "name": "Laat de avond gloeien.",
+      "brandName": "LUCE",
+      "brand": "luce",
+      "category": "Verlichting",
+      "flow": "Campagne",
+      "group": "studio",
+      "goal": "Kleurrijk eigen merkconcept: echte mensenfoto’s, producttheater en doorlopende kleurovergangen.",
+      "subject": "Laat de avond gloeien.",
+      "number": "",
+      "preview": "/emails/studio-collection/previews/luce-1.jpg",
+      "url": "/emails/studio-collection/luce-1.html",
+      "bg": "#ffe8a0",
+      "reference": {
+        "name": "Grüns · Tart Raspberry",
+        "url": "https://reallygoodemails.com/emails/gruns-limited-edition-tart-raspberry",
+        "lesson": "Model/productcollage, grote typografie en doorlopende kleurvelden. Eigen fotografie en productmockups; geen officiële Grüns-campagne."
+      }
+    },
+    "reference": {
+      "name": "Grüns · Tart Raspberry",
+      "url": "https://reallygoodemails.com/emails/gruns-limited-edition-tart-raspberry",
+      "lesson": "Model/productcollage, grote typografie en doorlopende kleurvelden. Eigen fotografie en productmockups; geen officiële Grüns-campagne."
+    },
+    "colour": {
+      "bg": "#ffe8a0",
+      "ink": "#803d2b",
+      "accent": "#ffc2a0",
+      "second": "#c7e7ed",
+      "deep": "#803d2b",
+      "font": "Archivo",
+      "product": "luce-cutout.png",
+      "human": "luce-2.jpg",
+      "detail": "luce-1.jpg",
+      "title": [
+        "Laat de\navond gloeien.",
+        "Doe de dag\nmaar uit."
+      ],
+      "lead": [
+        "Een kleine lamp. Een heel ander thuis.",
+        "Het mooiste uur begint met een zacht licht."
+      ],
+      "cta": "Ontdek de Avond-edit",
+      "story": [
+        "Licht maakt de plek.",
+        "Blijf nog even zitten."
+      ],
+      "body": "Naast de stoel waar je graag leest. Op die tafel die nog wat aandacht kan gebruiken. De Avond-edit kijkt naar wat een lamp met een kamer doet.",
+      "notes": [
+        [
+          "Een warme gloed",
+          "Licht dat je favoriete hoek een eigen sfeer geeft."
+        ],
+        [
+          "Het zit in de kap",
+          "Kijk niet alleen naar de vorm, maar ook naar waar het licht valt."
+        ]
+      ],
+      "close": "Thuis, op zijn mooist.",
+      "hero": "theatre",
+      "edition": 0
+    }
+  },
+  {
+    "brand": "rue",
+    "brandName": "RUE STUDIO",
+    "category": "Mode",
+    "accent": "#e8ef9a",
+    "bg": "#f6d3de",
+    "ink": "#5c2137",
+    "font": "Bodoni Moda",
+    "id": "rue-1",
+    "name": "Out of office. Into the city.",
+    "subject": "Out of office. Into the city.",
+    "preheader": "Een garderobe voor alles ertussenin.",
+    "flow": "Campagne",
+    "group": "studio",
+    "goal": "Zelfstandig fictief merkconcept; fotografie ter illustratie.",
+    "blocks": [
+      {
+        "kind": "title",
+        "text": "The city edit.",
+        "size": 76
+      },
+      {
+        "kind": "photo",
+        "image": 0,
+        "height": 650
+      },
+      {
+        "kind": "body",
+        "text": "Nieuwe verhoudingen. Eigen ritme."
+      },
+      {
+        "kind": "cta",
+        "text": "Bekijk de edit"
+      },
+      {
+        "kind": "split",
+        "image": 2,
+        "title": "In beweging.",
+        "text": "Een jas die de hele look draagt. Een silhouet dat meebeweegt. De stad als decor, jouw stijl als vertrekpunt.",
+        "reverse": true
+      },
+      {
+        "kind": "band",
+        "text": "RUE STUDIO / THE CITY EDIT"
+      }
+    ],
+    "sign": "Draag het op jouw manier.",
+    "bandink": "#ffffff",
+    "catalog": {
+      "id": "rue-1",
+      "name": "Out of office. Into the city.",
+      "brandName": "RUE STUDIO",
+      "brand": "rue",
+      "category": "Mode",
+      "flow": "Campagne",
+      "group": "studio",
+      "goal": "Kleurrijk eigen merkconcept: echte mensenfoto’s, producttheater en doorlopende kleurovergangen.",
+      "subject": "Out of office. Into the city.",
+      "number": "",
+      "preview": "/emails/studio-collection/previews/rue-1.jpg",
+      "url": "/emails/studio-collection/rue-1.html",
+      "bg": "#f6d3de",
+      "reference": {
+        "name": "Grüns · Tart Raspberry",
+        "url": "https://reallygoodemails.com/emails/gruns-limited-edition-tart-raspberry",
+        "lesson": "Model/productcollage, grote typografie en doorlopende kleurvelden. Eigen fotografie en productmockups; geen officiële Grüns-campagne."
+      }
+    },
+    "reference": {
+      "name": "Grüns · Tart Raspberry",
+      "url": "https://reallygoodemails.com/emails/gruns-limited-edition-tart-raspberry",
+      "lesson": "Model/productcollage, grote typografie en doorlopende kleurvelden. Eigen fotografie en productmockups; geen officiële Grüns-campagne."
+    },
+    "colour": {
+      "bg": "#f6d3de",
+      "ink": "#5c2137",
+      "accent": "#e8ef9a",
+      "second": "#d6e6f7",
+      "deep": "#5c2137",
+      "font": "Bodoni Moda",
+      "product": null,
+      "human": "rue-0.jpg",
+      "detail": "rue-2.jpg",
+      "title": [
+        "Out of office.\nInto the city.",
+        "Jouw stad.\nJouw silhouet."
+      ],
+      "lead": [
+        "Een garderobe voor alles ertussenin.",
+        "Nieuwe verhoudingen. Eigen ritme."
+      ],
+      "cta": "Bekijk de City Edit",
+      "story": [
+        "Een jas die de look draagt.",
+        "Van vroeg tot veel later."
+      ],
+      "body": "Laag over laag, een andere schoen, een jas over je arm. The City Edit laat ruimte voor de rest van je dag.",
+      "notes": [
+        [
+          "In beweging",
+          "Stijl die meebeweegt met waar je heen wilt."
+        ],
+        [
+          "Draag het op jouw manier",
+          "Je hoeft geen hele nieuwe garderobe om iets anders te proberen."
+        ]
+      ],
+      "close": "See you around.",
+      "hero": "photo-poster",
+      "edition": 0
+    }
+  },
+  {
+    "brand": "pace",
+    "brandName": "PACE",
+    "category": "Sport",
+    "accent": "#ff875d",
+    "bg": "#f1f38b",
+    "ink": "#1d2d29",
+    "font": "Oswald",
+    "id": "pace-1",
+    "name": "Naar buiten. Op jouw tempo.",
+    "subject": "Naar buiten. Op jouw tempo.",
+    "preheader": "Jouw ronde begint bij de eerste stap.",
+    "flow": "Campagne",
+    "group": "studio",
+    "goal": "Zelfstandig fictief merkconcept; fotografie ter illustratie.",
+    "blocks": [
+      {
+        "kind": "title",
+        "text": "Buiten\nbegint het.",
+        "size": 82
+      },
+      {
+        "kind": "photo",
+        "image": 0,
+        "height": 500
+      },
+      {
+        "kind": "band",
+        "text": "ELKE STRAAT. JOUW TEMPO."
+      },
+      {
+        "kind": "body",
+        "text": "De City Run Edit draait om je dagelijkse ronde: een vrije pas, een lichte laag en kleding die je ook na het lopen graag draagt."
+      },
+      {
+        "kind": "cta",
+        "text": "Loop je eigen ronde"
+      },
+      {
+        "kind": "split",
+        "image": 2,
+        "title": "Je hoeft niet ver. Alleen naar buiten.",
+        "text": "Van de eerste stap tot je vertrouwde ronde. Buiten ligt er altijd iets nieuws op je te wachten.",
+        "reverse": false
+      }
+    ],
+    "sign": "Voor de dagen dat je gewoon gaat.",
+    "bandink": "#ffffff",
+    "catalog": {
+      "id": "pace-1",
+      "name": "Naar buiten. Op jouw tempo.",
+      "brandName": "PACE",
+      "brand": "pace",
+      "category": "Sport",
+      "flow": "Campagne",
+      "group": "studio",
+      "goal": "Kleurrijk eigen merkconcept: echte mensenfoto’s, producttheater en doorlopende kleurovergangen.",
+      "subject": "Naar buiten. Op jouw tempo.",
+      "number": "",
+      "preview": "/emails/studio-collection/previews/pace-1.jpg",
+      "url": "/emails/studio-collection/pace-1.html",
+      "bg": "#f1f38b",
+      "reference": {
+        "name": "Grüns · Tart Raspberry",
+        "url": "https://reallygoodemails.com/emails/gruns-limited-edition-tart-raspberry",
+        "lesson": "Model/productcollage, grote typografie en doorlopende kleurvelden. Eigen fotografie en productmockups; geen officiële Grüns-campagne."
+      }
+    },
+    "reference": {
+      "name": "Grüns · Tart Raspberry",
+      "url": "https://reallygoodemails.com/emails/gruns-limited-edition-tart-raspberry",
+      "lesson": "Model/productcollage, grote typografie en doorlopende kleurvelden. Eigen fotografie en productmockups; geen officiële Grüns-campagne."
+    },
+    "colour": {
+      "bg": "#f1f38b",
+      "ink": "#1d2d29",
+      "accent": "#ff875d",
+      "second": "#b7d8f3",
+      "deep": "#1d2d29",
+      "font": "Oswald",
+      "product": null,
+      "human": "pace-2.jpg",
+      "detail": "pace-0.jpg",
+      "title": [
+        "Naar buiten.\nOp jouw tempo.",
+        "Maak de stad\nvan jou."
+      ],
+      "lead": [
+        "Jouw ronde begint bij de eerste stap.",
+        "Een andere afslag kan al genoeg zijn."
+      ],
+      "cta": "Bekijk de City Run Edit",
+      "story": [
+        "Eén stad. Zoveel rondes.",
+        "Kleding die met je dag meegaat."
+      ],
+      "body": "Een lichte laag, een vrije pas en een route waar je zin in hebt. De City Run Edit begint bij bewegen zoals jij dat prettig vindt.",
+      "notes": [
+        [
+          "Geen vaste finish",
+          "Kies een rondje dat past bij hoe je dag voelt."
+        ],
+        [
+          "Ruimte voor een omweg",
+          "Neem eens de straat die je normaal voorbijloopt."
+        ]
+      ],
+      "close": "Tot buiten.",
+      "hero": "photo-poster",
+      "edition": 0
+    }
+  },
+  {
+    "brand": "forma",
+    "brandName": "FORMA",
+    "category": "Interieur",
+    "accent": "#ffb18c",
+    "bg": "#c8e0f0",
+    "ink": "#203b94",
+    "font": "Archivo",
+    "id": "forma-1",
+    "name": "Ga maar even zitten.",
+    "subject": "Ga maar even zitten.",
+    "preheader": "Een fijne plek verandert de hele kamer.",
+    "flow": "Campagne",
+    "group": "studio",
+    "goal": "Zelfstandig fictief merkconcept; fotografie ter illustratie.",
+    "blocks": [
+      {
+        "kind": "photo",
+        "image": 2,
+        "height": 640
+      },
+      {
+        "kind": "title",
+        "text": "De stoel aan het raam.",
+        "size": 68
+      },
+      {
+        "kind": "body",
+        "text": "De Zonlicht-edit verzamelt rustige zitplekken. Een open silhouet laat licht door; een zachte hoek geeft de kamer een plek om even te blijven."
+      },
+      {
+        "kind": "cta",
+        "text": "Bekijk de Zonlicht-edit"
+      },
+      {
+        "kind": "photo",
+        "image": 1,
+        "height": 300,
+        "inset": true
+      },
+      {
+        "kind": "title",
+        "text": "Een zitplek verandert je kamer.",
+        "size": 42
+      },
+      {
+        "kind": "body",
+        "text": "Kies eerst waar je wilt zitten. Wat zie je vanuit die hoek? Welke spullen wil je binnen handbereik? Laat de ruimte daaromheen ontstaan."
+      }
+    ],
+    "sign": "Voor plekken waar het leven even landt.",
+    "bandink": "#ffffff",
+    "catalog": {
+      "id": "forma-1",
+      "name": "Ga maar even zitten.",
+      "brandName": "FORMA",
+      "brand": "forma",
+      "category": "Interieur",
+      "flow": "Campagne",
+      "group": "studio",
+      "goal": "Kleurrijk eigen merkconcept: echte mensenfoto’s, producttheater en doorlopende kleurovergangen.",
+      "subject": "Ga maar even zitten.",
+      "number": "",
+      "preview": "/emails/studio-collection/previews/forma-1.jpg",
+      "url": "/emails/studio-collection/forma-1.html",
+      "bg": "#c8e0f0",
+      "reference": {
+        "name": "Grüns · Tart Raspberry",
+        "url": "https://reallygoodemails.com/emails/gruns-limited-edition-tart-raspberry",
+        "lesson": "Model/productcollage, grote typografie en doorlopende kleurvelden. Eigen fotografie en productmockups; geen officiële Grüns-campagne."
+      }
+    },
+    "reference": {
+      "name": "Grüns · Tart Raspberry",
+      "url": "https://reallygoodemails.com/emails/gruns-limited-edition-tart-raspberry",
+      "lesson": "Model/productcollage, grote typografie en doorlopende kleurvelden. Eigen fotografie en productmockups; geen officiële Grüns-campagne."
+    },
+    "colour": {
+      "bg": "#c8e0f0",
+      "ink": "#203b94",
+      "accent": "#ffb18c",
+      "second": "#fff0bd",
+      "deep": "#203b94",
+      "font": "Archivo",
+      "product": null,
+      "human": "forma-2.jpg",
+      "detail": "forma-1.jpg",
+      "title": [
+        "Ga maar\neven zitten.",
+        "Een andere hoek.\nEen ander gevoel."
+      ],
+      "lead": [
+        "Een fijne plek verandert de hele kamer.",
+        "Wonen mag ook een beetje spelen zijn."
+      ],
+      "cta": "Bekijk de Zonlicht-edit",
+      "story": [
+        "Volg het licht door je huis.",
+        "Wonen begint met proberen."
+      ],
+      "body": "Verplaats een stoel, leg een boek klaar en kijk hoe de middag door het raam valt. Soms zit een andere kamer gewoon al in je eigen huis.",
+      "notes": [
+        [
+          "Een plek om te blijven",
+          "Begin bij de stoel waar je echt graag zit."
+        ],
+        [
+          "Klein verschoven",
+          "Een ander perspectief kan verrassend veel doen."
+        ]
+      ],
+      "close": "Hier wil je nog even blijven.",
+      "hero": "photo-poster",
+      "edition": 0
+    }
+  },
+  {
+    "brand": "aurel",
+    "brandName": "AUREL",
+    "category": "Sieraden",
+    "accent": "#e4e99e",
+    "bg": "#f8c2ad",
+    "ink": "#6f2737",
+    "font": "Bodoni Moda",
+    "id": "aurel-1",
+    "name": "Klein detail. Groot gevoel.",
+    "subject": "Klein detail. Groot gevoel.",
+    "preheader": "Geef je favoriete detail de ruimte.",
+    "flow": "Campagne",
+    "group": "studio",
+    "goal": "Zelfstandig fictief merkconcept; fotografie ter illustratie.",
+    "blocks": [
+      {
+        "kind": "title",
+        "text": "De oorbellen-edit.",
+        "size": 70
+      },
+      {
+        "kind": "photo",
+        "image": 2,
+        "height": 600
+      },
+      {
+        "kind": "body",
+        "text": "Twee manieren om het licht te vangen: een kleine glans voor overdag, een uitgesproken vorm voor later. De oorbellen-edit begint bij het detail dat jij wilt laten spreken."
+      },
+      {
+        "kind": "cta",
+        "text": "Bekijk de oorbellen-edit"
+      },
+      {
+        "kind": "photo",
+        "image": 1,
+        "height": 430,
+        "inset": true
+      },
+      {
+        "kind": "letter",
+        "text": "Van klein detail naar hele look."
+      },
+      {
+        "kind": "body",
+        "text": "Draag je haar uit je gezicht en geef je favoriete paar ruimte. Of combineer je oorbellen met een ketting die dezelfde sfeer heeft."
+      }
+    ],
+    "sign": "Dicht bij jou.",
+    "bandink": "#28211c",
+    "catalog": {
+      "id": "aurel-1",
+      "name": "Klein detail. Groot gevoel.",
+      "brandName": "AUREL",
+      "brand": "aurel",
+      "category": "Sieraden",
+      "flow": "Campagne",
+      "group": "studio",
+      "goal": "Kleurrijk eigen merkconcept: echte mensenfoto’s, producttheater en doorlopende kleurovergangen.",
+      "subject": "Klein detail. Groot gevoel.",
+      "number": "",
+      "preview": "/emails/studio-collection/previews/aurel-1.jpg",
+      "url": "/emails/studio-collection/aurel-1.html",
+      "bg": "#f8c2ad",
+      "reference": {
+        "name": "Grüns · Tart Raspberry",
+        "url": "https://reallygoodemails.com/emails/gruns-limited-edition-tart-raspberry",
+        "lesson": "Model/productcollage, grote typografie en doorlopende kleurvelden. Eigen fotografie en productmockups; geen officiële Grüns-campagne."
+      }
+    },
+    "reference": {
+      "name": "Grüns · Tart Raspberry",
+      "url": "https://reallygoodemails.com/emails/gruns-limited-edition-tart-raspberry",
+      "lesson": "Model/productcollage, grote typografie en doorlopende kleurvelden. Eigen fotografie en productmockups; geen officiële Grüns-campagne."
+    },
+    "colour": {
+      "bg": "#f8c2ad",
+      "ink": "#6f2737",
+      "accent": "#e4e99e",
+      "second": "#f4dce4",
+      "deep": "#6f2737",
+      "font": "Bodoni Moda",
+      "product": null,
+      "human": "aurel-1.jpg",
+      "detail": "aurel-2.jpg",
+      "title": [
+        "Klein detail.\nGroot gevoel.",
+        "Wat je\nbij je draagt."
+      ],
+      "lead": [
+        "Geef je favoriete detail de ruimte.",
+        "Om een gewone dag iets bijzonders te geven."
+      ],
+      "cta": "Bekijk de sieraden-edit",
+      "story": [
+        "Licht vangen mag eenvoudig.",
+        "Van een detail naar een hele look."
+      ],
+      "body": "Een oorbel die net onder je haar vandaan komt. Een ketting op een eenvoudig shirt. Soms heeft een look maar één detail nodig.",
+      "notes": [
+        [
+          "Dicht bij jou",
+          "Kies het detail waarin je jezelf herkent."
+        ],
+        [
+          "Minder kan genoeg zijn",
+          "Geef je favoriete paar de aandacht."
+        ]
+      ],
+      "close": "Voor iemand die bij je blijft.",
+      "hero": "photo-poster",
+      "edition": 0
+    }
+  },
+  {
+    "brand": "ridge",
+    "brandName": "RIDGE",
+    "category": "Outdoor",
+    "accent": "#ffae75",
+    "bg": "#d9edb3",
+    "ink": "#214f3a",
+    "font": "Archivo",
+    "id": "ridge-1",
+    "name": "Neem de omweg.",
+    "subject": "Neem de omweg.",
+    "preheader": "De mooiste route is zelden een rechte lijn.",
+    "flow": "Campagne",
+    "group": "studio",
+    "goal": "Zelfstandig fictief merkconcept; fotografie ter illustratie.",
+    "blocks": [
+      {
+        "kind": "photo",
+        "image": 0,
+        "height": 500
+      },
+      {
+        "kind": "title",
+        "text": "Neem de omweg.",
+        "size": 78
+      },
+      {
+        "kind": "body",
+        "text": "Voorbij de laatste huizen wordt het stiller. Een pad omhoog, uitzicht tussen de bomen en alle tijd om verder te kijken."
+      },
+      {
+        "kind": "cta",
+        "text": "Ontdek het buitenleven"
+      },
+      {
+        "kind": "band",
+        "text": "VERDER KIJKEN. LANGZAMER GAAN."
+      },
+      {
+        "kind": "split",
+        "image": 2,
+        "title": "Blijf nog even.",
+        "text": "De mooiste route is niet altijd de kortste.",
+        "reverse": false
+      }
+    ],
+    "sign": "Laat de drukte even achter je.",
+    "bandink": "#202c27",
+    "catalog": {
+      "id": "ridge-1",
+      "name": "Neem de omweg.",
+      "brandName": "RIDGE",
+      "brand": "ridge",
+      "category": "Outdoor",
+      "flow": "Campagne",
+      "group": "studio",
+      "goal": "Kleurrijk eigen merkconcept: echte mensenfoto’s, producttheater en doorlopende kleurovergangen.",
+      "subject": "Neem de omweg.",
+      "number": "",
+      "preview": "/emails/studio-collection/previews/ridge-1.jpg",
+      "url": "/emails/studio-collection/ridge-1.html",
+      "bg": "#d9edb3",
+      "reference": {
+        "name": "Grüns · Tart Raspberry",
+        "url": "https://reallygoodemails.com/emails/gruns-limited-edition-tart-raspberry",
+        "lesson": "Model/productcollage, grote typografie en doorlopende kleurvelden. Eigen fotografie en productmockups; geen officiële Grüns-campagne."
+      }
+    },
+    "reference": {
+      "name": "Grüns · Tart Raspberry",
+      "url": "https://reallygoodemails.com/emails/gruns-limited-edition-tart-raspberry",
+      "lesson": "Model/productcollage, grote typografie en doorlopende kleurvelden. Eigen fotografie en productmockups; geen officiële Grüns-campagne."
+    },
+    "colour": {
+      "bg": "#d9edb3",
+      "ink": "#214f3a",
+      "accent": "#ffae75",
+      "second": "#b9d9e7",
+      "deep": "#214f3a",
+      "font": "Archivo",
+      "product": null,
+      "human": "ridge-0.jpg",
+      "detail": "ridge-1.jpg",
+      "title": [
+        "Neem de\nomweg.",
+        "Pak licht.\nKijk verder."
+      ],
+      "lead": [
+        "De mooiste route is zelden een rechte lijn.",
+        "Er ligt nog een hele dag buiten."
+      ],
+      "cta": "Ontdek de Buiten-edit",
+      "story": [
+        "Verder kijken. Langzamer gaan.",
+        "Neem mee wat je dag nodig heeft."
+      ],
+      "body": "Voorbij de laatste huizen wordt het stiller. Een pad tussen de bomen, een stukje omhoog en tijd om even om je heen te kijken.",
+      "notes": [
+        [
+          "Kijk vooruit",
+          "Kies een route die past bij het weer en je ervaring."
+        ],
+        [
+          "Denk aan de basis",
+          "Water, iets te eten en een opgeladen telefoon."
+        ]
+      ],
+      "close": "We zien je buiten.",
+      "hero": "photo-poster",
+      "edition": 0
+    }
+  },
+  {
+    "brand": "folio",
+    "brandName": "FOLIO",
+    "category": "Papierwaren",
+    "accent": "#bfdcf5",
+    "bg": "#f9e98f",
+    "ink": "#2344a2",
+    "font": "Archivo",
+    "id": "folio-1",
+    "name": "Grote ideeën. Kleine krabbels.",
+    "subject": "Grote ideeën. Kleine krabbels.",
+    "preheader": "Voor alles wat nog geen titel heeft.",
+    "flow": "Campagne",
+    "group": "studio",
+    "goal": "Zelfstandig fictief merkconcept; fotografie ter illustratie.",
+    "blocks": [
+      {
+        "kind": "letter",
+        "text": "Beste ideeënmaker,"
+      },
+      {
+        "kind": "body",
+        "text": "Dit boek hoeft niet netjes te worden. Het mag vol losse woorden, half afgemaakte plannen en gedachten die nog geen titel hebben."
+      },
+      {
+        "kind": "title",
+        "text": "Wat wil jij bewaren?",
+        "size": 60
+      },
+      {
+        "kind": "list",
+        "text": "Een zin die je vandaag ergens hoorde.|Een idee waar je morgen mee verder wilt.|Een plek waar je nog eens naartoe wilt."
+      },
+      {
+        "kind": "photo",
+        "image": 0,
+        "height": 430,
+        "inset": true
+      },
+      {
+        "kind": "body",
+        "text": "De Open Pages-edit draait om ruimte op papier. Geen voorgedrukte antwoorden, wel een bladzijde waar je zelf mag beginnen."
+      },
+      {
+        "kind": "cta",
+        "text": "Ontdek de Open Pages-edit"
+      },
+      {
+        "kind": "letter",
+        "text": "De rest mag later."
+      }
+    ],
+    "sign": "Geef je gedachten de ruimte.",
+    "bandink": "#ffffff",
+    "catalog": {
+      "id": "folio-1",
+      "name": "Grote ideeën. Kleine krabbels.",
+      "brandName": "FOLIO",
+      "brand": "folio",
+      "category": "Papierwaren",
+      "flow": "Campagne",
+      "group": "studio",
+      "goal": "Kleurrijk eigen merkconcept: echte mensenfoto’s, producttheater en doorlopende kleurovergangen.",
+      "subject": "Grote ideeën. Kleine krabbels.",
+      "number": "",
+      "preview": "/emails/studio-collection/previews/folio-1.jpg",
+      "url": "/emails/studio-collection/folio-1.html",
+      "bg": "#f9e98f",
+      "reference": {
+        "name": "Grüns · Tart Raspberry",
+        "url": "https://reallygoodemails.com/emails/gruns-limited-edition-tart-raspberry",
+        "lesson": "Model/productcollage, grote typografie en doorlopende kleurvelden. Eigen fotografie en productmockups; geen officiële Grüns-campagne."
+      }
+    },
+    "reference": {
+      "name": "Grüns · Tart Raspberry",
+      "url": "https://reallygoodemails.com/emails/gruns-limited-edition-tart-raspberry",
+      "lesson": "Model/productcollage, grote typografie en doorlopende kleurvelden. Eigen fotografie en productmockups; geen officiële Grüns-campagne."
+    },
+    "colour": {
+      "bg": "#f9e98f",
+      "ink": "#2344a2",
+      "accent": "#bfdcf5",
+      "second": "#ffbd9e",
+      "deep": "#2344a2",
+      "font": "Archivo",
+      "product": null,
+      "human": "folio-0.jpg",
+      "detail": "folio-1.jpg",
+      "title": [
+        "Grote ideeën.\nKleine krabbels.",
+        "Begin maar.\nDe rest komt wel."
+      ],
+      "lead": [
+        "Voor alles wat nog geen titel heeft.",
+        "Een lege pagina is een uitnodiging."
+      ],
+      "cta": "Ontdek Open Pages",
+      "story": [
+        "Niets hoeft meteen af.",
+        "Eén zin is al een begin."
+      ],
+      "body": "Een losse gedachte, een lijstje met plannen of iets wat je vandaag opviel. Open Pages geeft ruimte aan wat nog nergens op lijkt.",
+      "notes": [
+        [
+          "Maak het niet te netjes",
+          "Een idee mag onderweg veranderen."
+        ],
+        [
+          "Bewaar wat je aandacht trekt",
+          "Schrijf iets op dat je morgen nog wilt weten."
+        ]
+      ],
+      "close": "De volgende pagina is van jou.",
+      "hero": "photo-poster",
+      "edition": 0
+    }
+  },
+  {
+    "brand": "soda",
+    "brandName": "SODA CLUB",
+    "category": "Drinks",
+    "accent": "#ff8c54",
+    "bg": "#fff19a",
+    "ink": "#154a35",
+    "font": "Lilita One",
+    "id": "soda-2",
+    "name": "Goed koud. Goed gezelschap.",
+    "subject": "Goed koud. Goed gezelschap.",
+    "preheader": "De beste middagen hebben geen haast.",
+    "flow": "Editorial",
+    "group": "studio",
+    "goal": "Zelfstandig fictief merkconcept; fotografie ter illustratie.",
+    "blocks": [
+      {
+        "kind": "photo",
+        "image": 2,
+        "height": 460
+      },
+      {
+        "kind": "title",
+        "text": "Maak er iets fris van.",
+        "size": 70
+      },
+      {
+        "kind": "body",
+        "text": "Snijd een sinaasappel in partjes, vul je glas met ijs en geef je drankje een frisse finishing touch. Proost op de kleine momenten."
+      },
+      {
+        "kind": "cta",
+        "text": "Bekijk de serveerideeën"
+      },
+      {
+        "kind": "list",
+        "text": "Vul je favoriete glas met ijs.|Voeg een schijfje citrus toe.|Schenk in en schuif aan."
+      },
+      {
+        "kind": "photo",
+        "image": 1,
+        "height": 390,
+        "inset": true
+      },
+      {
+        "kind": "band",
+        "text": "Nog plek aan tafel? Altijd."
+      }
+    ],
+    "sign": "Schenk de middag maar in.",
+    "bandink": "#073d37",
+    "catalog": {
+      "id": "soda-2",
+      "name": "Goed koud. Goed gezelschap.",
+      "brandName": "SODA CLUB",
+      "brand": "soda",
+      "category": "Drinks",
+      "flow": "Editorial",
+      "group": "studio",
+      "goal": "Kleurrijk eigen merkconcept: echte mensenfoto’s, producttheater en doorlopende kleurovergangen.",
+      "subject": "Goed koud. Goed gezelschap.",
+      "number": "",
+      "preview": "/emails/studio-collection/previews/soda-2.jpg",
+      "url": "/emails/studio-collection/soda-2.html",
+      "bg": "#fff19a",
+      "reference": {
+        "name": "Grüns · Tart Raspberry",
+        "url": "https://reallygoodemails.com/emails/gruns-limited-edition-tart-raspberry",
+        "lesson": "Model/productcollage, grote typografie en doorlopende kleurvelden. Eigen fotografie en productmockups; geen officiële Grüns-campagne."
+      }
+    },
+    "reference": {
+      "name": "Grüns · Tart Raspberry",
+      "url": "https://reallygoodemails.com/emails/gruns-limited-edition-tart-raspberry",
+      "lesson": "Model/productcollage, grote typografie en doorlopende kleurvelden. Eigen fotografie en productmockups; geen officiële Grüns-campagne."
+    },
+    "colour": {
+      "bg": "#fff19a",
+      "ink": "#154a35",
+      "accent": "#ff8c54",
+      "second": "#c9efde",
+      "deep": "#174b37",
+      "font": "Lilita One",
+      "product": "soda-cutout.png",
+      "human": "people-6529716.jpg",
+      "detail": "soda-1.jpg",
+      "title": [
+        "Schenk de\nzon maar in.",
+        "Goed koud.\nGoed gezelschap."
+      ],
+      "lead": [
+        "Citrus op tafel. Iedereen erbij.",
+        "De beste middagen hebben geen haast."
+      ],
+      "cta": "Ontdek de citrus-edit",
+      "story": [
+        "Een glas vol zomer.",
+        "Alles mag op tafel."
+      ],
+      "body": "Een schaal citrus, een kan vol ijs en plek voor iedereen. De citrus-edit draait om die simpele middag die je graag nog wat langer laat duren.",
+      "notes": [
+        [
+          "Citrus voorop",
+          "Een frisse smaakrichting voor je volgende tafelmoment."
+        ],
+        [
+          "Goed gekoeld",
+          "Pak een glas, vul het met ijs en schenk rustig in."
+        ]
+      ],
+      "close": "Nog plek aan tafel?",
+      "hero": "theatre",
+      "edition": 1
+    }
+  },
+  {
+    "brand": "verdant",
+    "brandName": "verdant",
+    "category": "Skincare",
+    "accent": "#ffb7ca",
+    "bg": "#d7f0ce",
+    "ink": "#194f38",
+    "font": "Archivo",
+    "id": "verdant-2",
+    "name": "Een klein ritueel. Helemaal van jou.",
+    "subject": "Een klein ritueel. Helemaal van jou.",
+    "preheader": "Laat de rest maar even wachten.",
+    "flow": "Editorial",
+    "group": "studio",
+    "goal": "Zelfstandig fictief merkconcept; fotografie ter illustratie.",
+    "blocks": [
+      {
+        "kind": "letter",
+        "text": "De kunst van minder."
+      },
+      {
+        "kind": "body",
+        "text": "Je routine mag ook eenvoudig zijn."
+      },
+      {
+        "kind": "body",
+        "text": "Een vertrouwd ritueel begint met aandacht. Kijk wat prettig voelt voor jouw huid en geef je routine de tijd."
+      },
+      {
+        "kind": "photo",
+        "image": 1,
+        "height": 360,
+        "inset": true
+      },
+      {
+        "kind": "title",
+        "text": "Laat de haast even buiten.",
+        "size": 44
+      },
+      {
+        "kind": "body",
+        "text": "Een paar minuten bij de wastafel. Een rustig begin, of juist een zachte afsluiting van je dag."
+      },
+      {
+        "kind": "cta",
+        "text": "Bekijk de routine"
+      }
+    ],
+    "sign": "Een rustige start, iedere dag opnieuw.",
+    "bandink": "#ffffff",
+    "catalog": {
+      "id": "verdant-2",
+      "name": "Een klein ritueel. Helemaal van jou.",
+      "brandName": "verdant",
+      "brand": "verdant",
+      "category": "Skincare",
+      "flow": "Editorial",
+      "group": "studio",
+      "goal": "Kleurrijk eigen merkconcept: echte mensenfoto’s, producttheater en doorlopende kleurovergangen.",
+      "subject": "Een klein ritueel. Helemaal van jou.",
+      "number": "",
+      "preview": "/emails/studio-collection/previews/verdant-2.jpg",
+      "url": "/emails/studio-collection/verdant-2.html",
+      "bg": "#d7f0ce",
+      "reference": {
+        "name": "Grüns · Tart Raspberry",
+        "url": "https://reallygoodemails.com/emails/gruns-limited-edition-tart-raspberry",
+        "lesson": "Model/productcollage, grote typografie en doorlopende kleurvelden. Eigen fotografie en productmockups; geen officiële Grüns-campagne."
+      }
+    },
+    "reference": {
+      "name": "Grüns · Tart Raspberry",
+      "url": "https://reallygoodemails.com/emails/gruns-limited-edition-tart-raspberry",
+      "lesson": "Model/productcollage, grote typografie en doorlopende kleurvelden. Eigen fotografie en productmockups; geen officiële Grüns-campagne."
+    },
+    "colour": {
+      "bg": "#d7f0ce",
+      "ink": "#194f38",
+      "accent": "#ffb7ca",
+      "second": "#fff3cc",
+      "deep": "#194f38",
+      "font": "Archivo",
+      "product": "verdant-cutout.png",
+      "human": "people-5069440.jpg",
+      "detail": "verdant-1.jpg",
+      "title": [
+        "Je huid.\nJouw moment.",
+        "Een klein ritueel.\nHelemaal van jou."
+      ],
+      "lead": [
+        "Een druppel aandacht voor je dag.",
+        "Laat de rest maar even wachten."
+      ],
+      "cta": "Bekijk Daily Ritual",
+      "story": [
+        "Niet meer. Wel met aandacht.",
+        "Van haast naar hier."
+      ],
+      "body": "Je hoeft geen badkamer vol producten te hebben om een verzorgingsmoment voor jezelf te maken. Daily Ritual begint bij een paar rustige minuten voor de spiegel.",
+      "notes": [
+        [
+          "Even stilstaan",
+          "Pak een moment dat past bij jouw ochtend of avond."
+        ],
+        [
+          "Met aandacht",
+          "Kijk wat fijn aanvoelt en houd je verzorging overzichtelijk."
+        ]
+      ],
+      "close": "Maak ruimte voor jezelf.",
+      "hero": "theatre",
+      "edition": 1
+    }
+  },
+  {
+    "brand": "slowday",
+    "brandName": "slowday.",
+    "category": "Koffie",
+    "accent": "#b7d9f6",
+    "bg": "#fcebab",
+    "ink": "#183ba5",
+    "font": "Archivo",
+    "id": "slowday-2",
+    "name": "Koffie eerst. De rest komt wel.",
+    "subject": "Koffie eerst. De rest komt wel.",
+    "preheader": "Voor een ochtend op jouw tempo.",
+    "flow": "Editorial",
+    "group": "studio",
+    "goal": "Zelfstandig fictief merkconcept; fotografie ter illustratie.",
+    "blocks": [
+      {
+        "kind": "letter",
+        "text": "Een goede dag begint langzaam."
+      },
+      {
+        "kind": "body",
+        "text": "Dit moment is van jou."
+      },
+      {
+        "kind": "photo",
+        "image": 1,
+        "height": 420,
+        "inset": true
+      },
+      {
+        "kind": "body",
+        "text": "Pak je favoriete kop en schenk met aandacht. Je hoeft van je ochtend niets groots te maken om ervan te genieten."
+      },
+      {
+        "kind": "title",
+        "text": "Het hoeft even nergens heen.",
+        "size": 44
+      },
+      {
+        "kind": "body",
+        "text": "Laat je telefoon nog even liggen. Kijk naar buiten. Neem een slok voordat de dag je aandacht vraagt."
+      },
+      {
+        "kind": "cta",
+        "text": "Lees het koffieritueel"
+      },
+      {
+        "kind": "photo",
+        "image": 2,
+        "height": 230
+      }
+    ],
+    "sign": "Maak ruimte voor je favoriete kop.",
+    "bandink": "#ffffff",
+    "catalog": {
+      "id": "slowday-2",
+      "name": "Koffie eerst. De rest komt wel.",
+      "brandName": "slowday.",
+      "brand": "slowday",
+      "category": "Koffie",
+      "flow": "Editorial",
+      "group": "studio",
+      "goal": "Kleurrijk eigen merkconcept: echte mensenfoto’s, producttheater en doorlopende kleurovergangen.",
+      "subject": "Koffie eerst. De rest komt wel.",
+      "number": "",
+      "preview": "/emails/studio-collection/previews/slowday-2.jpg",
+      "url": "/emails/studio-collection/slowday-2.html",
+      "bg": "#fcebab",
+      "reference": {
+        "name": "Grüns · Tart Raspberry",
+        "url": "https://reallygoodemails.com/emails/gruns-limited-edition-tart-raspberry",
+        "lesson": "Model/productcollage, grote typografie en doorlopende kleurvelden. Eigen fotografie en productmockups; geen officiële Grüns-campagne."
+      }
+    },
+    "reference": {
+      "name": "Grüns · Tart Raspberry",
+      "url": "https://reallygoodemails.com/emails/gruns-limited-edition-tart-raspberry",
+      "lesson": "Model/productcollage, grote typografie en doorlopende kleurvelden. Eigen fotografie en productmockups; geen officiële Grüns-campagne."
+    },
+    "colour": {
+      "bg": "#fcebab",
+      "ink": "#183ba5",
+      "accent": "#b7d9f6",
+      "second": "#ffc19c",
+      "deep": "#183ba5",
+      "font": "Archivo",
+      "product": "slowday-cutout.png",
+      "human": "people-6278520.jpg",
+      "detail": "slowday-1.jpg",
+      "title": [
+        "Even helemaal\ngeen haast.",
+        "Koffie eerst.\nDe rest komt wel."
+      ],
+      "lead": [
+        "Deze kop is voor jou.",
+        "Voor een ochtend op jouw tempo."
+      ],
+      "cta": "Ontdek de koffie-edit",
+      "story": [
+        "Kleine pauze. Grote glimlach.",
+        "Een goed begin mag langzaam."
+      ],
+      "body": "De geur van koffie, het geluid van inschenken en de eerste warme slok. Soms is dat alles wat een ochtend nodig heeft.",
+      "notes": [
+        [
+          "Jouw favoriete kop",
+          "Die mag vandaag gewoon weer uit de kast."
+        ],
+        [
+          "Rustig schenken",
+          "Neem ook even de tijd om van het zetten te genieten."
+        ]
+      ],
+      "close": "Zullen we nog even blijven?",
+      "hero": "theatre",
+      "edition": 1
+    }
+  },
+  {
+    "brand": "tailwag",
+    "brandName": "tailwag",
+    "category": "Huisdieren",
+    "accent": "#c7e9ed",
+    "bg": "#ffe580",
+    "ink": "#174b38",
+    "font": "Lilita One",
+    "id": "tailwag-2",
+    "name": "Nog één rondje dan.",
+    "subject": "Nog één rondje dan.",
+    "preheader": "De riem gaat aan. De wereld gaat open.",
+    "flow": "Editorial",
+    "group": "studio",
+    "goal": "Zelfstandig fictief merkconcept; fotografie ter illustratie.",
+    "blocks": [
+      {
+        "kind": "photo",
+        "image": 1,
+        "height": 490
+      },
+      {
+        "kind": "title",
+        "text": "Nog één rondje dan.",
+        "size": 68
+      },
+      {
+        "kind": "body",
+        "text": "Neem de tijd om te snuffelen. Wissel eens van route en kijk goed naar wat jouw hond prettig vindt. Zo wordt een gewoon rondje jullie moment."
+      },
+      {
+        "kind": "cta",
+        "text": "Bekijk de wandelideeën"
+      },
+      {
+        "kind": "list",
+        "text": "Laat de telefoon in je zak.|Geef ruimte om te snuffelen.|Neem water mee voor onderweg."
+      },
+      {
+        "kind": "split",
+        "image": 2,
+        "title": "Gewoon samen.",
+        "text": "Voor alle kwispels onderweg.",
+        "reverse": false
+      },
+      {
+        "kind": "band",
+        "text": "Tot het volgende rondje!"
+      }
+    ],
+    "sign": "Samen even naar buiten.",
+    "bandink": "#ffffff",
+    "catalog": {
+      "id": "tailwag-2",
+      "name": "Nog één rondje dan.",
+      "brandName": "tailwag",
+      "brand": "tailwag",
+      "category": "Huisdieren",
+      "flow": "Editorial",
+      "group": "studio",
+      "goal": "Kleurrijk eigen merkconcept: echte mensenfoto’s, producttheater en doorlopende kleurovergangen.",
+      "subject": "Nog één rondje dan.",
+      "number": "",
+      "preview": "/emails/studio-collection/previews/tailwag-2.jpg",
+      "url": "/emails/studio-collection/tailwag-2.html",
+      "bg": "#ffe580",
+      "reference": {
+        "name": "Grüns · Tart Raspberry",
+        "url": "https://reallygoodemails.com/emails/gruns-limited-edition-tart-raspberry",
+        "lesson": "Model/productcollage, grote typografie en doorlopende kleurvelden. Eigen fotografie en productmockups; geen officiële Grüns-campagne."
+      }
+    },
+    "reference": {
+      "name": "Grüns · Tart Raspberry",
+      "url": "https://reallygoodemails.com/emails/gruns-limited-edition-tart-raspberry",
+      "lesson": "Model/productcollage, grote typografie en doorlopende kleurvelden. Eigen fotografie en productmockups; geen officiële Grüns-campagne."
+    },
+    "colour": {
+      "bg": "#ffe580",
+      "ink": "#174b38",
+      "accent": "#c7e9ed",
+      "second": "#ffbd99",
+      "deep": "#174b38",
+      "font": "Lilita One",
+      "product": "tailwag-cutout.png",
+      "human": "tailwag-0.jpg",
+      "detail": "tailwag-2.jpg",
+      "title": [
+        "Goed hondje.\nFijne dag.",
+        "Nog één\nrondje dan."
+      ],
+      "lead": [
+        "Voor zijn favoriete moment met jou.",
+        "De riem gaat aan. De wereld gaat open."
+      ],
+      "cta": "Bekijk de Wandel-edit",
+      "story": [
+        "Zo ziet samen eruit.",
+        "Geen haast. Wel kwispels."
+      ],
+      "body": "Een klein moment voor de deur, een nieuw paadje en tijd om overal even te snuffelen. Het hoeft niet groots te zijn om zijn dag te maken.",
+      "notes": [
+        [
+          "Samen op pad",
+          "Geef je hond de tijd om de omgeving te ontdekken."
+        ],
+        [
+          "Een fijn moment",
+          "Een traktatie hoort bij jullie moment, niet bij haast."
+        ]
+      ],
+      "close": "Tot de volgende kwispel.",
+      "hero": "theatre",
+      "edition": 1
+    }
+  },
+  {
+    "brand": "fleur",
+    "brandName": "FLEUR.",
+    "category": "Bloemen",
+    "accent": "#fff09c",
+    "bg": "#ffd4e3",
+    "ink": "#76243c",
+    "font": "Archivo",
+    "id": "fleur-2",
+    "name": "Een bos blijmakers.",
+    "subject": "Een bos blijmakers.",
+    "preheader": "Met liefde geschikt, voor jouw tafel.",
+    "flow": "Editorial",
+    "group": "studio",
+    "goal": "Zelfstandig fictief merkconcept; fotografie ter illustratie.",
+    "blocks": [
+      {
+        "kind": "split",
+        "image": 1,
+        "title": "Met liefde geschikt.",
+        "text": "Het begint bij één bloem.",
+        "reverse": true
+      },
+      {
+        "kind": "title",
+        "text": "Een beetje wild. Heel veel aandacht.",
+        "size": 64
+      },
+      {
+        "kind": "body",
+        "text": "Kleur naast kleur. Een losse tak ertussen. Het mooiste boeket voelt alsof iedere bloem precies op haar plek valt."
+      },
+      {
+        "kind": "cta",
+        "text": "Kijk mee in het atelier"
+      },
+      {
+        "kind": "photo",
+        "image": 0,
+        "height": 440
+      },
+      {
+        "kind": "letter",
+        "text": "Van onze handen naar jouw tafel."
+      }
+    ],
+    "sign": "Zet iets moois op tafel.",
+    "bandink": "#ffffff",
+    "catalog": {
+      "id": "fleur-2",
+      "name": "Een bos blijmakers.",
+      "brandName": "FLEUR.",
+      "brand": "fleur",
+      "category": "Bloemen",
+      "flow": "Editorial",
+      "group": "studio",
+      "goal": "Kleurrijk eigen merkconcept: echte mensenfoto’s, producttheater en doorlopende kleurovergangen.",
+      "subject": "Een bos blijmakers.",
+      "number": "",
+      "preview": "/emails/studio-collection/previews/fleur-2.jpg",
+      "url": "/emails/studio-collection/fleur-2.html",
+      "bg": "#ffd4e3",
+      "reference": {
+        "name": "Grüns · Tart Raspberry",
+        "url": "https://reallygoodemails.com/emails/gruns-limited-edition-tart-raspberry",
+        "lesson": "Model/productcollage, grote typografie en doorlopende kleurvelden. Eigen fotografie en productmockups; geen officiële Grüns-campagne."
+      }
+    },
+    "reference": {
+      "name": "Grüns · Tart Raspberry",
+      "url": "https://reallygoodemails.com/emails/gruns-limited-edition-tart-raspberry",
+      "lesson": "Model/productcollage, grote typografie en doorlopende kleurvelden. Eigen fotografie en productmockups; geen officiële Grüns-campagne."
+    },
+    "colour": {
+      "bg": "#ffd4e3",
+      "ink": "#76243c",
+      "accent": "#fff09c",
+      "second": "#bddfc1",
+      "deep": "#76243c",
+      "font": "Archivo",
+      "product": "fleur-cutout.png",
+      "human": "fleur-1.jpg",
+      "detail": "fleur-0.jpg",
+      "title": [
+        "Meer kleur,\nalsjeblieft.",
+        "Een bos\nblijmakers."
+      ],
+      "lead": [
+        "Een gewone dag verdient bloemen.",
+        "Met liefde geschikt, voor jouw tafel."
+      ],
+      "cta": "Ontdek de kleur-edit",
+      "story": [
+        "Een bos met een eigen karakter.",
+        "Van onze handen naar jouw tafel."
+      ],
+      "body": "Peach, roze, wit en alles wat ertussenin gebeurt. Een bloem mag haar eigen kant op groeien; dat maakt een boeket juist levendig.",
+      "notes": [
+        [
+          "Kleur naast kleur",
+          "Een zachte tint laat een felle bloem extra spreken."
+        ],
+        [
+          "Gewoon, omdat het kan",
+          "Ook een dinsdag zonder gelegenheid verdient een mooie bos."
+        ]
+      ],
+      "close": "Zet iets vrolijks op tafel.",
+      "hero": "collage",
+      "edition": 1
+    }
+  },
+  {
+    "brand": "luce",
+    "brandName": "LUCE",
+    "category": "Verlichting",
+    "accent": "#ffc2a0",
+    "bg": "#ffe8a0",
+    "ink": "#803d2b",
+    "font": "Archivo",
+    "id": "luce-2",
+    "name": "Doe de dag maar uit.",
+    "subject": "Doe de dag maar uit.",
+    "preheader": "Het mooiste uur begint met een zacht licht.",
+    "flow": "Editorial",
+    "group": "studio",
+    "goal": "Zelfstandig fictief merkconcept; fotografie ter illustratie.",
+    "blocks": [
+      {
+        "kind": "title",
+        "text": "Een hoek om te blijven.",
+        "size": 68
+      },
+      {
+        "kind": "body",
+        "text": "Geef de avond een eigen plek."
+      },
+      {
+        "kind": "photo",
+        "image": 0,
+        "height": 510
+      },
+      {
+        "kind": "split",
+        "image": 1,
+        "title": "Kijk naar de gloed.",
+        "text": "Licht hoeft niet de hele kamer te vullen. Een zachte gloed bij je favoriete stoel kan al genoeg zijn om anders thuis te komen.",
+        "reverse": true
+      },
+      {
+        "kind": "cta",
+        "text": "Bekijk de lichtinspiratie"
+      },
+      {
+        "kind": "letter",
+        "text": "Doe de dag maar uit."
+      }
+    ],
+    "sign": "Voor het mooiste uur thuis.",
+    "bandink": "#202c27",
+    "catalog": {
+      "id": "luce-2",
+      "name": "Doe de dag maar uit.",
+      "brandName": "LUCE",
+      "brand": "luce",
+      "category": "Verlichting",
+      "flow": "Editorial",
+      "group": "studio",
+      "goal": "Kleurrijk eigen merkconcept: echte mensenfoto’s, producttheater en doorlopende kleurovergangen.",
+      "subject": "Doe de dag maar uit.",
+      "number": "",
+      "preview": "/emails/studio-collection/previews/luce-2.jpg",
+      "url": "/emails/studio-collection/luce-2.html",
+      "bg": "#ffe8a0",
+      "reference": {
+        "name": "Grüns · Tart Raspberry",
+        "url": "https://reallygoodemails.com/emails/gruns-limited-edition-tart-raspberry",
+        "lesson": "Model/productcollage, grote typografie en doorlopende kleurvelden. Eigen fotografie en productmockups; geen officiële Grüns-campagne."
+      }
+    },
+    "reference": {
+      "name": "Grüns · Tart Raspberry",
+      "url": "https://reallygoodemails.com/emails/gruns-limited-edition-tart-raspberry",
+      "lesson": "Model/productcollage, grote typografie en doorlopende kleurvelden. Eigen fotografie en productmockups; geen officiële Grüns-campagne."
+    },
+    "colour": {
+      "bg": "#ffe8a0",
+      "ink": "#803d2b",
+      "accent": "#ffc2a0",
+      "second": "#c7e7ed",
+      "deep": "#803d2b",
+      "font": "Archivo",
+      "product": "luce-cutout.png",
+      "human": "luce-2.jpg",
+      "detail": "luce-1.jpg",
+      "title": [
+        "Laat de\navond gloeien.",
+        "Doe de dag\nmaar uit."
+      ],
+      "lead": [
+        "Een kleine lamp. Een heel ander thuis.",
+        "Het mooiste uur begint met een zacht licht."
+      ],
+      "cta": "Ontdek de Avond-edit",
+      "story": [
+        "Licht maakt de plek.",
+        "Blijf nog even zitten."
+      ],
+      "body": "Naast de stoel waar je graag leest. Op die tafel die nog wat aandacht kan gebruiken. De Avond-edit kijkt naar wat een lamp met een kamer doet.",
+      "notes": [
+        [
+          "Een warme gloed",
+          "Licht dat je favoriete hoek een eigen sfeer geeft."
+        ],
+        [
+          "Het zit in de kap",
+          "Kijk niet alleen naar de vorm, maar ook naar waar het licht valt."
+        ]
+      ],
+      "close": "Thuis, op zijn mooist.",
+      "hero": "collage",
+      "edition": 1
+    }
+  },
+  {
+    "brand": "rue",
+    "brandName": "RUE STUDIO",
+    "category": "Mode",
+    "accent": "#e8ef9a",
+    "bg": "#f6d3de",
+    "ink": "#5c2137",
+    "font": "Bodoni Moda",
+    "id": "rue-2",
+    "name": "Jouw stad. Jouw silhouet.",
+    "subject": "Jouw stad. Jouw silhouet.",
+    "preheader": "Nieuwe verhoudingen. Eigen ritme.",
+    "flow": "Editorial",
+    "group": "studio",
+    "goal": "Zelfstandig fictief merkconcept; fotografie ter illustratie.",
+    "blocks": [
+      {
+        "kind": "photo",
+        "image": 1,
+        "height": 610
+      },
+      {
+        "kind": "title",
+        "text": "Tussen twee afspraken.",
+        "size": 64
+      },
+      {
+        "kind": "body",
+        "text": "Onderweg verandert het licht, de route en de dag. Wat blijft: kleding waarin je jezelf herkent."
+      },
+      {
+        "kind": "split",
+        "image": 0,
+        "title": "Van vroeg tot later.",
+        "text": "Laag over laag. Een andere schoen. Een jas over je arm. Stijl die ruimte laat voor de rest van je dag.",
+        "reverse": false
+      },
+      {
+        "kind": "cta",
+        "text": "Ontdek het lookbook"
+      },
+      {
+        "kind": "photo",
+        "image": 2,
+        "height": 420,
+        "inset": true
+      }
+    ],
+    "sign": "Draag het op jouw manier.",
+    "bandink": "#ffffff",
+    "catalog": {
+      "id": "rue-2",
+      "name": "Jouw stad. Jouw silhouet.",
+      "brandName": "RUE STUDIO",
+      "brand": "rue",
+      "category": "Mode",
+      "flow": "Editorial",
+      "group": "studio",
+      "goal": "Kleurrijk eigen merkconcept: echte mensenfoto’s, producttheater en doorlopende kleurovergangen.",
+      "subject": "Jouw stad. Jouw silhouet.",
+      "number": "",
+      "preview": "/emails/studio-collection/previews/rue-2.jpg",
+      "url": "/emails/studio-collection/rue-2.html",
+      "bg": "#f6d3de",
+      "reference": {
+        "name": "Grüns · Tart Raspberry",
+        "url": "https://reallygoodemails.com/emails/gruns-limited-edition-tart-raspberry",
+        "lesson": "Model/productcollage, grote typografie en doorlopende kleurvelden. Eigen fotografie en productmockups; geen officiële Grüns-campagne."
+      }
+    },
+    "reference": {
+      "name": "Grüns · Tart Raspberry",
+      "url": "https://reallygoodemails.com/emails/gruns-limited-edition-tart-raspberry",
+      "lesson": "Model/productcollage, grote typografie en doorlopende kleurvelden. Eigen fotografie en productmockups; geen officiële Grüns-campagne."
+    },
+    "colour": {
+      "bg": "#f6d3de",
+      "ink": "#5c2137",
+      "accent": "#e8ef9a",
+      "second": "#d6e6f7",
+      "deep": "#5c2137",
+      "font": "Bodoni Moda",
+      "product": null,
+      "human": "rue-0.jpg",
+      "detail": "rue-2.jpg",
+      "title": [
+        "Out of office.\nInto the city.",
+        "Jouw stad.\nJouw silhouet."
+      ],
+      "lead": [
+        "Een garderobe voor alles ertussenin.",
+        "Nieuwe verhoudingen. Eigen ritme."
+      ],
+      "cta": "Bekijk de City Edit",
+      "story": [
+        "Een jas die de look draagt.",
+        "Van vroeg tot veel later."
+      ],
+      "body": "Laag over laag, een andere schoen, een jas over je arm. The City Edit laat ruimte voor de rest van je dag.",
+      "notes": [
+        [
+          "In beweging",
+          "Stijl die meebeweegt met waar je heen wilt."
+        ],
+        [
+          "Draag het op jouw manier",
+          "Je hoeft geen hele nieuwe garderobe om iets anders te proberen."
+        ]
+      ],
+      "close": "See you around.",
+      "hero": "editorial",
+      "edition": 1
+    }
+  },
+  {
+    "brand": "pace",
+    "brandName": "PACE",
+    "category": "Sport",
+    "accent": "#ff875d",
+    "bg": "#f1f38b",
+    "ink": "#1d2d29",
+    "font": "Oswald",
+    "id": "pace-2",
+    "name": "Maak de stad van jou.",
+    "subject": "Maak de stad van jou.",
+    "preheader": "Een andere afslag kan al genoeg zijn.",
+    "flow": "Editorial",
+    "group": "studio",
+    "goal": "Zelfstandig fictief merkconcept; fotografie ter illustratie.",
+    "blocks": [
+      {
+        "kind": "photo",
+        "image": 2,
+        "height": 470
+      },
+      {
+        "kind": "title",
+        "text": "De eerste kilometer.",
+        "size": 72
+      },
+      {
+        "kind": "body",
+        "text": "Begin rustig, kies een bekende route en geef jezelf de ruimte om te ontdekken wat fijn loopt."
+      },
+      {
+        "kind": "cta",
+        "text": "Vind je ritme"
+      },
+      {
+        "kind": "rule",
+        "text": ""
+      },
+      {
+        "kind": "title",
+        "text": "Een klein plan. Een fijne ronde.",
+        "size": 38
+      },
+      {
+        "kind": "list",
+        "text": "Kies een route waar je je prettig voelt.|Begin op je eigen tempo.|Laat ruimte voor een omweg."
+      },
+      {
+        "kind": "photo",
+        "image": 0,
+        "height": 280
+      }
+    ],
+    "sign": "Voor de dagen dat je gewoon gaat.",
+    "bandink": "#ffffff",
+    "catalog": {
+      "id": "pace-2",
+      "name": "Maak de stad van jou.",
+      "brandName": "PACE",
+      "brand": "pace",
+      "category": "Sport",
+      "flow": "Editorial",
+      "group": "studio",
+      "goal": "Kleurrijk eigen merkconcept: echte mensenfoto’s, producttheater en doorlopende kleurovergangen.",
+      "subject": "Maak de stad van jou.",
+      "number": "",
+      "preview": "/emails/studio-collection/previews/pace-2.jpg",
+      "url": "/emails/studio-collection/pace-2.html",
+      "bg": "#f1f38b",
+      "reference": {
+        "name": "Grüns · Tart Raspberry",
+        "url": "https://reallygoodemails.com/emails/gruns-limited-edition-tart-raspberry",
+        "lesson": "Model/productcollage, grote typografie en doorlopende kleurvelden. Eigen fotografie en productmockups; geen officiële Grüns-campagne."
+      }
+    },
+    "reference": {
+      "name": "Grüns · Tart Raspberry",
+      "url": "https://reallygoodemails.com/emails/gruns-limited-edition-tart-raspberry",
+      "lesson": "Model/productcollage, grote typografie en doorlopende kleurvelden. Eigen fotografie en productmockups; geen officiële Grüns-campagne."
+    },
+    "colour": {
+      "bg": "#f1f38b",
+      "ink": "#1d2d29",
+      "accent": "#ff875d",
+      "second": "#b7d8f3",
+      "deep": "#1d2d29",
+      "font": "Oswald",
+      "product": null,
+      "human": "pace-2.jpg",
+      "detail": "pace-0.jpg",
+      "title": [
+        "Naar buiten.\nOp jouw tempo.",
+        "Maak de stad\nvan jou."
+      ],
+      "lead": [
+        "Jouw ronde begint bij de eerste stap.",
+        "Een andere afslag kan al genoeg zijn."
+      ],
+      "cta": "Bekijk de City Run Edit",
+      "story": [
+        "Eén stad. Zoveel rondes.",
+        "Kleding die met je dag meegaat."
+      ],
+      "body": "Een lichte laag, een vrije pas en een route waar je zin in hebt. De City Run Edit begint bij bewegen zoals jij dat prettig vindt.",
+      "notes": [
+        [
+          "Geen vaste finish",
+          "Kies een rondje dat past bij hoe je dag voelt."
+        ],
+        [
+          "Ruimte voor een omweg",
+          "Neem eens de straat die je normaal voorbijloopt."
+        ]
+      ],
+      "close": "Tot buiten.",
+      "hero": "editorial",
+      "edition": 1
+    }
+  },
+  {
+    "brand": "forma",
+    "brandName": "FORMA",
+    "category": "Interieur",
+    "accent": "#ffb18c",
+    "bg": "#c8e0f0",
+    "ink": "#203b94",
+    "font": "Archivo",
+    "id": "forma-2",
+    "name": "Een andere hoek. Een ander gevoel.",
+    "subject": "Een andere hoek. Een ander gevoel.",
+    "preheader": "Wonen mag ook een beetje spelen zijn.",
+    "flow": "Editorial",
+    "group": "studio",
+    "goal": "Zelfstandig fictief merkconcept; fotografie ter illustratie.",
+    "blocks": [
+      {
+        "kind": "title",
+        "text": "Een kamer is nooit af.",
+        "size": 68
+      },
+      {
+        "kind": "body",
+        "text": "Verplaats een stoel naar het licht. Leg een boek binnen handbereik. Begin bij de plek waar je graag wilt zijn."
+      },
+      {
+        "kind": "cta",
+        "text": "Ontdek de ruimtes"
+      },
+      {
+        "kind": "photo",
+        "image": 1,
+        "height": 510
+      },
+      {
+        "kind": "split",
+        "image": 2,
+        "title": "Volg het licht.",
+        "text": "Kijk eens hoe het daglicht door de kamer beweegt. Misschien staat je lievelingsplek dichterbij dan je denkt.",
+        "reverse": true
+      },
+      {
+        "kind": "band",
+        "text": "Kleine verschuiving. Nieuw perspectief."
+      }
+    ],
+    "sign": "Voor plekken waar het leven even landt.",
+    "bandink": "#ffffff",
+    "catalog": {
+      "id": "forma-2",
+      "name": "Een andere hoek. Een ander gevoel.",
+      "brandName": "FORMA",
+      "brand": "forma",
+      "category": "Interieur",
+      "flow": "Editorial",
+      "group": "studio",
+      "goal": "Kleurrijk eigen merkconcept: echte mensenfoto’s, producttheater en doorlopende kleurovergangen.",
+      "subject": "Een andere hoek. Een ander gevoel.",
+      "number": "",
+      "preview": "/emails/studio-collection/previews/forma-2.jpg",
+      "url": "/emails/studio-collection/forma-2.html",
+      "bg": "#c8e0f0",
+      "reference": {
+        "name": "Grüns · Tart Raspberry",
+        "url": "https://reallygoodemails.com/emails/gruns-limited-edition-tart-raspberry",
+        "lesson": "Model/productcollage, grote typografie en doorlopende kleurvelden. Eigen fotografie en productmockups; geen officiële Grüns-campagne."
+      }
+    },
+    "reference": {
+      "name": "Grüns · Tart Raspberry",
+      "url": "https://reallygoodemails.com/emails/gruns-limited-edition-tart-raspberry",
+      "lesson": "Model/productcollage, grote typografie en doorlopende kleurvelden. Eigen fotografie en productmockups; geen officiële Grüns-campagne."
+    },
+    "colour": {
+      "bg": "#c8e0f0",
+      "ink": "#203b94",
+      "accent": "#ffb18c",
+      "second": "#fff0bd",
+      "deep": "#203b94",
+      "font": "Archivo",
+      "product": null,
+      "human": "forma-2.jpg",
+      "detail": "forma-1.jpg",
+      "title": [
+        "Ga maar\neven zitten.",
+        "Een andere hoek.\nEen ander gevoel."
+      ],
+      "lead": [
+        "Een fijne plek verandert de hele kamer.",
+        "Wonen mag ook een beetje spelen zijn."
+      ],
+      "cta": "Bekijk de Zonlicht-edit",
+      "story": [
+        "Volg het licht door je huis.",
+        "Wonen begint met proberen."
+      ],
+      "body": "Verplaats een stoel, leg een boek klaar en kijk hoe de middag door het raam valt. Soms zit een andere kamer gewoon al in je eigen huis.",
+      "notes": [
+        [
+          "Een plek om te blijven",
+          "Begin bij de stoel waar je echt graag zit."
+        ],
+        [
+          "Klein verschoven",
+          "Een ander perspectief kan verrassend veel doen."
+        ]
+      ],
+      "close": "Hier wil je nog even blijven.",
+      "hero": "editorial",
+      "edition": 1
+    }
+  },
+  {
+    "brand": "aurel",
+    "brandName": "AUREL",
+    "category": "Sieraden",
+    "accent": "#e4e99e",
+    "bg": "#f8c2ad",
+    "ink": "#6f2737",
+    "font": "Bodoni Moda",
+    "id": "aurel-2",
+    "name": "Wat je bij je draagt.",
+    "subject": "Wat je bij je draagt.",
+    "preheader": "Om een gewone dag iets bijzonders te geven.",
+    "flow": "Editorial",
+    "group": "studio",
+    "goal": "Zelfstandig fictief merkconcept; fotografie ter illustratie.",
+    "blocks": [
+      {
+        "kind": "photo",
+        "image": 1,
+        "height": 560
+      },
+      {
+        "kind": "title",
+        "text": "Wat je bij je draagt.",
+        "size": 66
+      },
+      {
+        "kind": "body",
+        "text": "Een klein gebaar kan veel zeggen."
+      },
+      {
+        "kind": "body",
+        "text": "Voor iemand die je kent. Of juist voor jezelf. Kies iets dat een herinnering krijgt, iedere keer dat het gedragen wordt."
+      },
+      {
+        "kind": "cta",
+        "text": "Bekijk de cadeau-edit"
+      },
+      {
+        "kind": "photo",
+        "image": 0,
+        "height": 350,
+        "inset": true
+      },
+      {
+        "kind": "letter",
+        "text": "Voor iemand die bij je blijft."
+      }
+    ],
+    "sign": "Dicht bij jou.",
+    "bandink": "#28211c",
+    "catalog": {
+      "id": "aurel-2",
+      "name": "Wat je bij je draagt.",
+      "brandName": "AUREL",
+      "brand": "aurel",
+      "category": "Sieraden",
+      "flow": "Editorial",
+      "group": "studio",
+      "goal": "Kleurrijk eigen merkconcept: echte mensenfoto’s, producttheater en doorlopende kleurovergangen.",
+      "subject": "Wat je bij je draagt.",
+      "number": "",
+      "preview": "/emails/studio-collection/previews/aurel-2.jpg",
+      "url": "/emails/studio-collection/aurel-2.html",
+      "bg": "#f8c2ad",
+      "reference": {
+        "name": "Grüns · Tart Raspberry",
+        "url": "https://reallygoodemails.com/emails/gruns-limited-edition-tart-raspberry",
+        "lesson": "Model/productcollage, grote typografie en doorlopende kleurvelden. Eigen fotografie en productmockups; geen officiële Grüns-campagne."
+      }
+    },
+    "reference": {
+      "name": "Grüns · Tart Raspberry",
+      "url": "https://reallygoodemails.com/emails/gruns-limited-edition-tart-raspberry",
+      "lesson": "Model/productcollage, grote typografie en doorlopende kleurvelden. Eigen fotografie en productmockups; geen officiële Grüns-campagne."
+    },
+    "colour": {
+      "bg": "#f8c2ad",
+      "ink": "#6f2737",
+      "accent": "#e4e99e",
+      "second": "#f4dce4",
+      "deep": "#6f2737",
+      "font": "Bodoni Moda",
+      "product": null,
+      "human": "aurel-1.jpg",
+      "detail": "aurel-2.jpg",
+      "title": [
+        "Klein detail.\nGroot gevoel.",
+        "Wat je\nbij je draagt."
+      ],
+      "lead": [
+        "Geef je favoriete detail de ruimte.",
+        "Om een gewone dag iets bijzonders te geven."
+      ],
+      "cta": "Bekijk de sieraden-edit",
+      "story": [
+        "Licht vangen mag eenvoudig.",
+        "Van een detail naar een hele look."
+      ],
+      "body": "Een oorbel die net onder je haar vandaan komt. Een ketting op een eenvoudig shirt. Soms heeft een look maar één detail nodig.",
+      "notes": [
+        [
+          "Dicht bij jou",
+          "Kies het detail waarin je jezelf herkent."
+        ],
+        [
+          "Minder kan genoeg zijn",
+          "Geef je favoriete paar de aandacht."
+        ]
+      ],
+      "close": "Voor iemand die bij je blijft.",
+      "hero": "editorial",
+      "edition": 1
+    }
+  },
+  {
+    "brand": "ridge",
+    "brandName": "RIDGE",
+    "category": "Outdoor",
+    "accent": "#ffae75",
+    "bg": "#d9edb3",
+    "ink": "#214f3a",
+    "font": "Archivo",
+    "id": "ridge-2",
+    "name": "Pak licht. Kijk verder.",
+    "subject": "Pak licht. Kijk verder.",
+    "preheader": "Er ligt nog een hele dag buiten.",
+    "flow": "Editorial",
+    "group": "studio",
+    "goal": "Zelfstandig fictief merkconcept; fotografie ter illustratie.",
+    "blocks": [
+      {
+        "kind": "title",
+        "text": "Pak licht. Kijk verder.",
+        "size": 74
+      },
+      {
+        "kind": "split",
+        "image": 1,
+        "title": "Ruimte voor de omweg.",
+        "text": "Een vertrouwde rugzak, genoeg water en een route die bij je past. Denk vooruit, zodat je onderweg met je aandacht buiten bent.",
+        "reverse": true
+      },
+      {
+        "kind": "cta",
+        "text": "Lees de buiten-edit"
+      },
+      {
+        "kind": "title",
+        "text": "Voor je vertrekt",
+        "size": 40
+      },
+      {
+        "kind": "list",
+        "text": "Kijk naar het weer en je route.|Neem water en iets te eten mee.|Laat iemand weten waar je heen gaat."
+      },
+      {
+        "kind": "photo",
+        "image": 0,
+        "height": 320
+      },
+      {
+        "kind": "band",
+        "text": "Tot buiten."
+      }
+    ],
+    "sign": "Laat de drukte even achter je.",
+    "bandink": "#202c27",
+    "catalog": {
+      "id": "ridge-2",
+      "name": "Pak licht. Kijk verder.",
+      "brandName": "RIDGE",
+      "brand": "ridge",
+      "category": "Outdoor",
+      "flow": "Editorial",
+      "group": "studio",
+      "goal": "Kleurrijk eigen merkconcept: echte mensenfoto’s, producttheater en doorlopende kleurovergangen.",
+      "subject": "Pak licht. Kijk verder.",
+      "number": "",
+      "preview": "/emails/studio-collection/previews/ridge-2.jpg",
+      "url": "/emails/studio-collection/ridge-2.html",
+      "bg": "#d9edb3",
+      "reference": {
+        "name": "Grüns · Tart Raspberry",
+        "url": "https://reallygoodemails.com/emails/gruns-limited-edition-tart-raspberry",
+        "lesson": "Model/productcollage, grote typografie en doorlopende kleurvelden. Eigen fotografie en productmockups; geen officiële Grüns-campagne."
+      }
+    },
+    "reference": {
+      "name": "Grüns · Tart Raspberry",
+      "url": "https://reallygoodemails.com/emails/gruns-limited-edition-tart-raspberry",
+      "lesson": "Model/productcollage, grote typografie en doorlopende kleurvelden. Eigen fotografie en productmockups; geen officiële Grüns-campagne."
+    },
+    "colour": {
+      "bg": "#d9edb3",
+      "ink": "#214f3a",
+      "accent": "#ffae75",
+      "second": "#b9d9e7",
+      "deep": "#214f3a",
+      "font": "Archivo",
+      "product": null,
+      "human": "ridge-0.jpg",
+      "detail": "ridge-1.jpg",
+      "title": [
+        "Neem de\nomweg.",
+        "Pak licht.\nKijk verder."
+      ],
+      "lead": [
+        "De mooiste route is zelden een rechte lijn.",
+        "Er ligt nog een hele dag buiten."
+      ],
+      "cta": "Ontdek de Buiten-edit",
+      "story": [
+        "Verder kijken. Langzamer gaan.",
+        "Neem mee wat je dag nodig heeft."
+      ],
+      "body": "Voorbij de laatste huizen wordt het stiller. Een pad tussen de bomen, een stukje omhoog en tijd om even om je heen te kijken.",
+      "notes": [
+        [
+          "Kijk vooruit",
+          "Kies een route die past bij het weer en je ervaring."
+        ],
+        [
+          "Denk aan de basis",
+          "Water, iets te eten en een opgeladen telefoon."
+        ]
+      ],
+      "close": "We zien je buiten.",
+      "hero": "editorial",
+      "edition": 1
+    }
+  },
+  {
+    "brand": "folio",
+    "brandName": "FOLIO",
+    "category": "Papierwaren",
+    "accent": "#bfdcf5",
+    "bg": "#f9e98f",
+    "ink": "#2344a2",
+    "font": "Archivo",
+    "id": "folio-2",
+    "name": "Begin maar. De rest komt wel.",
+    "subject": "Begin maar. De rest komt wel.",
+    "preheader": "Een lege pagina is een uitnodiging.",
+    "flow": "Editorial",
+    "group": "studio",
+    "goal": "Zelfstandig fictief merkconcept; fotografie ter illustratie.",
+    "blocks": [
+      {
+        "kind": "letter",
+        "text": "Beste toekomstige jij,"
+      },
+      {
+        "kind": "title",
+        "text": "Begin gewoon.",
+        "size": 88
+      },
+      {
+        "kind": "body",
+        "text": "Schrijf op wat vandaag je aandacht trok. Niet wat belangrijk moest zijn, maar wat je nog even wilt onthouden. Eén zin is genoeg."
+      },
+      {
+        "kind": "cta",
+        "text": "Lees de schrijfprompt"
+      },
+      {
+        "kind": "photo",
+        "image": 0,
+        "height": 420
+      },
+      {
+        "kind": "title",
+        "text": "Vandaag viel me op…",
+        "size": 42
+      },
+      {
+        "kind": "body",
+        "text": "Vul de zin aan. Dat is alles. Morgen wacht er weer een lege pagina."
+      },
+      {
+        "kind": "band",
+        "text": "FOLIO / ruimte voor gedachten"
+      }
+    ],
+    "sign": "Geef je gedachten de ruimte.",
+    "bandink": "#ffffff",
+    "catalog": {
+      "id": "folio-2",
+      "name": "Begin maar. De rest komt wel.",
+      "brandName": "FOLIO",
+      "brand": "folio",
+      "category": "Papierwaren",
+      "flow": "Editorial",
+      "group": "studio",
+      "goal": "Kleurrijk eigen merkconcept: echte mensenfoto’s, producttheater en doorlopende kleurovergangen.",
+      "subject": "Begin maar. De rest komt wel.",
+      "number": "",
+      "preview": "/emails/studio-collection/previews/folio-2.jpg",
+      "url": "/emails/studio-collection/folio-2.html",
+      "bg": "#f9e98f",
+      "reference": {
+        "name": "Grüns · Tart Raspberry",
+        "url": "https://reallygoodemails.com/emails/gruns-limited-edition-tart-raspberry",
+        "lesson": "Model/productcollage, grote typografie en doorlopende kleurvelden. Eigen fotografie en productmockups; geen officiële Grüns-campagne."
+      }
+    },
+    "reference": {
+      "name": "Grüns · Tart Raspberry",
+      "url": "https://reallygoodemails.com/emails/gruns-limited-edition-tart-raspberry",
+      "lesson": "Model/productcollage, grote typografie en doorlopende kleurvelden. Eigen fotografie en productmockups; geen officiële Grüns-campagne."
+    },
+    "colour": {
+      "bg": "#f9e98f",
+      "ink": "#2344a2",
+      "accent": "#bfdcf5",
+      "second": "#ffbd9e",
+      "deep": "#2344a2",
+      "font": "Archivo",
+      "product": null,
+      "human": "folio-0.jpg",
+      "detail": "folio-1.jpg",
+      "title": [
+        "Grote ideeën.\nKleine krabbels.",
+        "Begin maar.\nDe rest komt wel."
+      ],
+      "lead": [
+        "Voor alles wat nog geen titel heeft.",
+        "Een lege pagina is een uitnodiging."
+      ],
+      "cta": "Ontdek Open Pages",
+      "story": [
+        "Niets hoeft meteen af.",
+        "Eén zin is al een begin."
+      ],
+      "body": "Een losse gedachte, een lijstje met plannen of iets wat je vandaag opviel. Open Pages geeft ruimte aan wat nog nergens op lijkt.",
+      "notes": [
+        [
+          "Maak het niet te netjes",
+          "Een idee mag onderweg veranderen."
+        ],
+        [
+          "Bewaar wat je aandacht trekt",
+          "Schrijf iets op dat je morgen nog wilt weten."
+        ]
+      ],
+      "close": "De volgende pagina is van jou.",
+      "hero": "editorial",
+      "edition": 1
+    }
+  }
+]

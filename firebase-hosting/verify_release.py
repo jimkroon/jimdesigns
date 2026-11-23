@@ -4,15 +4,18 @@ import re
 from urllib.parse import urlsplit,unquote
 root=Path(__file__).resolve().parent/'public'
 projects=['atelier-faye','luwte','korst','noord','mos','coupe']
-expected={'index.html':['€750','€1.250','€2.000','€3.000'],'website-laten-maken.html':['€750','€2.000','€3.000'],'webshop-laten-maken.html':['€1.250','€2.000','€3.000']}
+expected={'index.html':['€750','€1.250'],'website-laten-maken.html':['€750','€2.000','€3.000'],'webshop-laten-maken.html':['€1.250','€2.000','€3.000']}
 for page,prices in expected.items():
  text=(root/page).read_text()
  for price in prices:assert price in text,(page,price)
  assert '/firebase/contact.js' not in text or 'contact.js' in text
 for slug in projects:
  assert (root/f'website-concepten/{slug}/index.html').is_file()
- assert f'/website-concepten/{slug}/' in (root/'portfolio.html').read_text()
-assert 'fictief concept' in (root/'portfolio.html').read_text()
+ assert f'{slug}/' in (root/'website-concepten/index.html').read_text()
+assert 'Eigen ontwerpconcepten' in (root/'portfolio.html').read_text()
+home = (root/'index.html').read_text()
+for slug in ['mos', 'noord', 'korst', 'coupe']:
+ assert f'id="project-{slug}"' in home, slug
 assert '/firebase/contact.js' in (root/'contact.js').read_text()
 assert (root/'notas/index.html').is_file() and (root/'notas/firebase.js').is_file()
 assert not list(root.rglob('*.php')) and not list(root.rglob('*.sqlite*')) and not list(root.rglob('*.db'))
